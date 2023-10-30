@@ -69,7 +69,7 @@ int shell_export(char **tokens, char **envp)
     else
     {
         envp = ft_ptrjoin(tokens[1], envp);
-        //printf("end env = %s\n", envp[ft_ptrlen(envp - 1)]);
+        get_allenv(envp);
     }
     return 1;
 }

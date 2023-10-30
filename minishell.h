@@ -13,6 +13,6 @@ char **shell_split_tokens(char *line);
 int launch_builtins(int id, char **tokens, char **envp);
 char **ft_ptrjoin(char *s1, char **s2);
 void get_allenv(char **envp);
-size_t ft_ptrlen(char **str);
+int ft_ptrlen(char **str);
 
 #endif
