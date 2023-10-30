@@ -34,7 +34,7 @@ int shell_launch(char **tokens, char **envp)
     return 1;
 }
 
-int ft_strcmp(char *s1, char **s2)
+int ft_strcmpargs(char *s1, char **s2)
 {
     int i;
     int j;
@@ -63,52 +63,6 @@ int ft_strcmp(char *s1, char **s2)
     return 0;
 }
 
-int shell_cd(char **tokens)
-{
-    if (tokens[1] == NULL)
-        fprintf(stderr, "pathname error");
-    else
-        if (chdir(tokens[1]) != 0)
-          perror("lsh3"); 
-    return 1;
-}
-
-int shell_echo(char **tokens)
-{
-    int i;
-
-    i = 1;
-    while (tokens[i])
-    {
-        printf("%s ", tokens[i]);
-        i++;
-    }
-    printf("\n");
-    return 1;
-}
-
-int shell_pwd()
-{
-    char *pwd;
-
-    pwd = getenv("PWD");
-    printf("%s\n", pwd);
-    return 1;
-}
-
-int launch_builtins(int id, char **tokens)
-{
-    int ret;
-
-    if (id == 1)
-        ret = shell_cd(tokens);
-    else if (id == 2)
-        ret = shell_echo(tokens);
-    else if(id == 3)
-        ret = shell_pwd();
-    return ret;
-}
-
 int shell_execute(char **tokens, char **envp)
 {
     int i;
@@ -127,9 +81,9 @@ int shell_execute(char **tokens, char **envp)
     id = 0;
     if (tokens[0] == NULL)
         return 1;
-    if ((id = ft_strcmp(tokens[0], builtins_str)))
+    if ((id = ft_strcmpargs(tokens[0], builtins_str)))
     {
-        return (launch_builtins(id, tokens));
+        return (launch_builtins(id, tokens, envp));
     }
     return (shell_launch(tokens, envp));
 }
