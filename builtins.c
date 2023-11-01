@@ -56,28 +56,29 @@ int shell_pwd()
     return 1;
 }
 
-int shell_export(char **tokens, char **envp)
+int shell_export(char **tokens, t_data *data)
 {
-    char *env;
     int i;
 
     i = 0;
     if (!tokens[1])
     {
-        get_allenv(envp);
+        get_allenv(data->env);
     }
     else
     {
-        envp = ft_ptrjoin(tokens[1], envp);
-        get_allenv(envp);
+        printf("test2 \n");
+        data->env = ft_ptrjoin(tokens[1], data->env);
     }
+    printf("test3 \n");
     return 1;
 }
 
-int launch_builtins(int id, char **tokens, char **envp)
+int launch_builtins(int id, char **tokens, t_data *data)
 {
     int ret;
 
+    ret = 0;
     if (id == 1)
         ret = shell_cd(tokens);
     else if (id == 2)
@@ -85,6 +86,6 @@ int launch_builtins(int id, char **tokens, char **envp)
     else if(id == 3)
         ret = shell_pwd();
     else if (id == 4)
-        ret = shell_export(tokens, envp);
+        ret = shell_export(tokens, data);
     return ret;
 }

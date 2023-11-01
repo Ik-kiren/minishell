@@ -11,7 +11,7 @@ char *shell_line()
     return line;
 }
 
-int shell_launch(char **tokens, char **envp)
+int shell_launch(char **tokens, t_data *data)
 {
     pid_t pid;
     pid_t wpid;
@@ -20,7 +20,7 @@ int shell_launch(char **tokens, char **envp)
     pid = fork();
     if (pid == 0)
     {
-        if (execve(tokens[0], tokens, envp) == -1)
+        if (execve(tokens[0], tokens, data->env) == -1)
             perror("lsh1");
         exit(EXIT_FAILURE);
     }
@@ -63,7 +63,7 @@ int ft_strcmpargs(char *s1, char **s2)
     return 0;
 }
 
-int shell_execute(char **tokens, char **envp)
+int shell_execute(char **tokens, t_data *data)
 {
     int i;
     int id;
@@ -83,12 +83,12 @@ int shell_execute(char **tokens, char **envp)
         return 1;
     if ((id = ft_strcmpargs(tokens[0], builtins_str)))
     {
-        return (launch_builtins(id, tokens, envp));
+        return (launch_builtins(id, tokens, data));
     }
-    return (shell_launch(tokens, envp));
+    return (/*shell_launch(tokens, envp)*/0);
 }
 
-void shell_loop(char **envp)
+void shell_loop(t_data *data)
 {
     char    *line;
     char    **tokens;
@@ -104,11 +104,34 @@ void shell_loop(char **envp)
         line = shell_line();
         printf("line = %s\n", line);
         tokens = shell_split_tokens(line);
-        status = shell_execute(tokens, envp);
+        status = shell_execute(tokens, data);
     }
+}
+
+void init_data(t_data *data, char **envp)
+{
+    int len;
+    int i;
+
+    i = 0;
+    len = ft_ptrlen(envp);
+    data->env = malloc(sizeof(char *) * len);
+    printf("pk = %d\n", len);
+    while (i < len)
+    {
+        data->env[i] = ft_strdup(envp[i]);
+        i++;
+    }
+    data->env[i] = NULL;
 }
 
 int main(int argc, char **argv, char **envp)
 {
-    shell_loop(envp);
+    (void)argc;
+    (void)argv;
+
+    t_data data;
+
+    init_data(&data, envp);
+    shell_loop(&data);
 }
