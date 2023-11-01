@@ -47,9 +47,8 @@ int free_ptr(char **ptr)
     i = 0;
     while (ptr[i])
     {
-        free(ptr[i]);
+        free(ptr[i++]);
     }
-    free(ptr[i + 1]);
     free(ptr);
     return 1;
 }
@@ -62,10 +61,10 @@ char **ft_ptrjoin(char *s1, char **s2)
 
     i = 0;
     len = ft_ptrlen(s2);
-    tmp = malloc(sizeof(char *) * len + 1);
+    tmp = malloc(sizeof(char *) * len);
     while (s2[i])
     {
-        tmp[i] = s2[i];
+        tmp[i] = ft_strdup(s2[i]);
         i++;
     }
     tmp[len] = s1;
@@ -81,7 +80,6 @@ void get_allenv(char **envp)
     int i;
 
     i = 0;
-    printf("%s\n", envp[ft_ptrlen(envp)]);
     while (envp[i])
     {
         printf("%d\n", i);

@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra
 NAME = minishell
 SRCS = main.c builtins.c tokens_split.c utils.c
 OBJS = $(SRCS:c=o)

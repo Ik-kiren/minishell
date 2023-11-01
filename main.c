@@ -116,7 +116,6 @@ void init_data(t_data *data, char **envp)
     i = 0;
     len = ft_ptrlen(envp);
     data->env = malloc(sizeof(char *) * len);
-    printf("pk = %d\n", len);
     while (i < len)
     {
         data->env[i] = ft_strdup(envp[i]);
