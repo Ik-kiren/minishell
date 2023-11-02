@@ -14,11 +14,15 @@ typedef struct s_data
     char **env;
 }   t_data;
 
-char **shell_split_tokens(char *line);
-int launch_builtins(int id, char **tokens, t_data *envp);
-char **ft_ptrjoin(char *s1, char **s2);
-void get_allenv(char **envp);
-int ft_ptrlen(char **str);
-char *ft_strdup(char *str);
+char	**shell_split_tokens(char *line);
+int		launch_builtins(int id, char **tokens, t_data *envp);
+char	*ft_strjoin(char const *s1, char const *s2);
+void	get_allenv(char **envp);
+size_t		ft_ptrlen(char **str);
+char	*ft_strdup(char *str);
+int		ft_strncmp(char *s1, char *s2, int size);
+size_t	ft_strlen(const char *str);
+void	free_str(char *str);
+int		free_ptr(char **ptr);
 
 #endif

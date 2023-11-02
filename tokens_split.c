@@ -34,7 +34,7 @@ char **malloc_tokens(char *line, char **tokens)
         if ((line[i] == ' ' && line[i - 1] != ' ') || (line[i] != ' ' && line[i + 1] == '\0'))
         {
             printf("count_w = %d\n", count);
-            tokens[j] = malloc(sizeof(char) * count + 1);
+            tokens[j] = malloc(sizeof(char) * (count + 1));
             if (!tokens[j])
                 return NULL;
             count = 0;
@@ -85,7 +85,7 @@ char **shell_split_tokens(char *line)
     i = 0;
     nbr_tokens = count_tokens(line);
     printf("count = %d\n", nbr_tokens);
-    tokens = malloc(sizeof(char *) * nbr_tokens + 1);
+    tokens = malloc(sizeof(char *) * (nbr_tokens + 1));
     if (!tokens)
         return NULL;
     malloc_tokens(line, tokens);

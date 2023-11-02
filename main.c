@@ -41,7 +41,7 @@ int ft_strcmpargs(char *s1, char **s2)
     int found;
 
     j = 0;
-    while (j < 6)
+    while (j <= 6)
     {
         i =0 ;
         found = 1;
@@ -81,6 +81,8 @@ int shell_execute(char **tokens, t_data *data)
     id = 0;
     if (tokens[0] == NULL)
         return 1;
+    printf("id = %d\n", ft_strcmpargs(tokens[0], builtins_str));
+
     if ((id = ft_strcmpargs(tokens[0], builtins_str)))
     {
         return (launch_builtins(id, tokens, data));
@@ -115,7 +117,7 @@ void init_data(t_data *data, char **envp)
 
     i = 0;
     len = ft_ptrlen(envp);
-    data->env = malloc(sizeof(char *) * len);
+    data->env = malloc(sizeof(char *) * (len + 1));
     while (i < len)
     {
         data->env[i] = ft_strdup(envp[i]);

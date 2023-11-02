@@ -1,20 +1,18 @@
 #include "minishell.h"
 
-int ft_ptrlen(char **str)
+size_t ft_ptrlen(char **str)
 {
-    int i;
+    size_t i;
 
     i = 0;
-    while (str[i])
-    {
+    while (str[i] != NULL)
         i++;
-    }
     return i;
 }
 
-int ft_strlen(char *str)
+size_t ft_strlen(const char *str)
 {
-    int i;
+    size_t i;
 
     i = 0;
     while (str[i])
@@ -30,7 +28,9 @@ char *ft_strdup(char *str)
 
     i = 0;
     len = ft_strlen(str);
-    tmp = malloc(sizeof(char) * len);
+    tmp = malloc(sizeof(char) * (len + 1));
+    if (!tmp)
+        return NULL;
     while (str[i])
     {
         tmp[i] = str[i];
@@ -53,26 +53,29 @@ int free_ptr(char **ptr)
     return 1;
 }
 
-char **ft_ptrjoin(char *s1, char **s2)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-    char **tmp;
-    int len;
-    int i;
+	char	*s;
+	size_t	len;
+	int		i;
 
-    i = 0;
-    len = ft_ptrlen(s2);
-    tmp = malloc(sizeof(char *) * len);
-    while (s2[i])
-    {
-        tmp[i] = ft_strdup(s2[i]);
-        i++;
-    }
-    tmp[len] = s1;
-    tmp[len + 1] = NULL;
-    printf("export = %s\n", tmp[len]);
-    printf("export+1 = %s\n", tmp[len + 1]);
-    free_ptr(s2);
-    return tmp;
+	len = ft_strlen(s1) + ft_strlen(s2);
+	s = malloc(sizeof(char) * len + 1);
+	if (!s)
+		return (NULL);
+	len = 0;
+	while (s1[len])
+	{
+		s[len] = s1[len];
+		len++;
+	}
+	i = 0;
+	while (s2[i])
+	{
+		s[len + i] = s2[i];
+		i++;
+	}
+	return (s);
 }
 
 void get_allenv(char **envp)
@@ -82,8 +85,16 @@ void get_allenv(char **envp)
     i = 0;
     while (envp[i])
     {
-        printf("%d\n", i);
-        printf("%s\n", envp[i]);
+        printf("%d   %s\n", i, envp[i]);
         i++;
+    }
+}
+
+void free_str(char *str)
+{
+    if (str != NULL)
+    {
+        free(str);
+        str = NULL;
     }
 }
