@@ -3,11 +3,15 @@
 char *shell_line()
 {
     char *line;
+    char    cwd[4096];
 
+    if (!getcwd(cwd, 4096))
+            printf("error cwd\n");
     line = NULL;
-    line = readline(NULL);
+    line = readline(cwd);
         if (!line)  
             return NULL;
+    add_history(line);
     return line;
 }
 
@@ -95,14 +99,9 @@ void shell_loop(t_data *data)
     char    *line;
     char    **tokens;
     int     status;
-    char    cwd[4096];
 
     while (1)
     {
-        if (!getcwd(cwd, 4096))
-            printf("error cwd\n");
-        else
-            printf("%s : ", cwd);
         line = shell_line();
         printf("line = %s\n", line);
         tokens = shell_split_tokens(line);
@@ -130,7 +129,7 @@ int main(int argc, char **argv, char **envp)
 {
     (void)argc;
     (void)argv;
-
+    
     t_data data;
 
     init_data(&data, envp);
