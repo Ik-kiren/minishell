@@ -125,13 +125,25 @@ void init_data(t_data *data, char **envp)
     data->env[i] = NULL;
 }
 
+void sig_exit(int signal, siginfo_t *r_info, void *s)
+{
+    rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+}
+
 int main(int argc, char **argv, char **envp)
 {
     (void)argc;
     (void)argv;
-    
-    t_data data;
 
+    t_data data;
+    struct sigaction response;
+
+    response.sa_sigaction = sig_exit;
+    sigemptyset(&response.sa_mask);
+    response.sa_flags = 0;
+    sigaction(SIGINT, &response, NULL);
     init_data(&data, envp);
     shell_loop(&data);
 }

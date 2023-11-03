@@ -8,6 +8,9 @@
 # include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <signal.h>
+# include <fcntl.h>
+# include <sys/stat.h>
 
 typedef struct s_data
 {
@@ -27,5 +30,6 @@ int		free_ptr(char **ptr);
 int		shell_export(char **tokens, t_data *data);
 int		shell_unset(char **tokens, t_data *data);
 int		get_env_idx(t_data *data, char *token, int key);
+int		token_size(char *token);
 
 #endif

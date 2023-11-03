@@ -40,7 +40,7 @@ int set_env_variable(t_data *data, char *token, int key)
 
 int shell_export(char **tokens, t_data *data)
 {
-    int i;
+    int key;
     int j;
 
     j = 1;
@@ -50,10 +50,8 @@ int shell_export(char **tokens, t_data *data)
     {
         while (tokens[j])
         {
-            i = 0;
-            while (tokens[j][i] != '=')
-                i++;
-            set_env_variable(data, tokens[j], i);
+            key = token_size(tokens[j]);
+            set_env_variable(data, tokens[j], key);
             j++;
         }
     }
