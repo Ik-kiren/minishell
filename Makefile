@@ -9,6 +9,10 @@ all : $(NAME)
 $(NAME) : $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -L/Users/cdupuis/.brew/opt/readline/lib -lreadline -o $(NAME)
 
+exp:
+	export LDFLAGS="-L/Users/cdupuis/.brew/opt/readline/lib"
+	export CPPFLAGS="-I/Users/cdupuis/.brew/opt/readline/include"
+
 re : fclean all	
 
 fclean :

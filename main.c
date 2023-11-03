@@ -1,14 +1,41 @@
 #include "minishell.h"
 
+char *get_lcwd(char *str)
+{
+    char *tmp;
+    int m_len;
+    int i;
+    int j;
+
+    m_len = ft_strlen(str);
+    i = m_len;
+    j = 0;
+    while (str[i] != '/' && i != 0)
+        i--;
+    tmp = malloc(sizeof(char) * (m_len - i));
+    while (str[i])
+    {
+        tmp[j] = str[i];
+        j++;
+        i++;
+    }
+    tmp[j] = '\0';
+    return tmp;
+}
+
 char *shell_line()
 {
     char *line;
     char    cwd[4096];
+    char *prompt;
+    char *end_cwd;
 
     if (!getcwd(cwd, 4096))
             printf("error cwd\n");
+    end_cwd = get_lcwd(cwd);
     line = NULL;
-    line = readline(cwd);
+    prompt = ft_strjoin(end_cwd, " $ ");
+    line = readline(prompt);
         if (!line)  
             return NULL;
     add_history(line);

@@ -38,13 +38,26 @@ int ft_strncmp(char *s1, char *s2, int size)
     return 1;
 }
 
-int shell_cd(char **tokens)
+int shell_cd(char **tokens, t_data *data)
 {
+    int idx;
+    char *tmp;
+    char *pwd_tmp;
+
+    idx = get_env_idx(data, "PWD=", 3);
     if (tokens[1] == NULL)
         fprintf(stderr, "pathname error");
     else
         if (chdir(tokens[1]) != 0)
           perror("lsh"); 
+        else
+        {
+            tmp = ft_strjoin(data->env[idx], "/");
+            pwd_tmp = ft_strjoin(tmp, tokens[1]);
+            free(data->env[idx]);
+            free(tmp);
+            data->env[idx] = pwd_tmp;
+        }
     return 1;
 }
 
@@ -71,14 +84,14 @@ int shell_echo(char **tokens)
     return 1;
 }
 
-int shell_pwd(char **tokens)
+int shell_pwd(char **tokens,t_data *data)
 {
-    char *pwd;
+    int idx;
 
     if (tokens[1] != NULL)
         return 0;
-    pwd = getenv("PWD");
-    printf("%s\n", pwd);
+    idx = get_env_idx(data, "PWD=", 3);
+    printf("%s\n", data->env[idx] + 4);
     return 1;
 }
 
@@ -121,11 +134,11 @@ int launch_builtins(int id, char **tokens, t_data *data)
 
     ret = 0;
     if (id == 1)
-        ret = shell_cd(tokens);
+        ret = shell_cd(tokens, data);
     else if (id == 2)
         ret = shell_echo(tokens);
     else if(id == 3)
-        ret = shell_pwd(tokens);
+        ret = shell_pwd(tokens, data);
     else if (id == 4)
         ret = shell_export(tokens, data);
     else if (id == 5)
