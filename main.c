@@ -127,6 +127,7 @@ void init_data(t_data *data, char **envp)
 
 void sig_exit(int signal, siginfo_t *r_info, void *s)
 {
+    write(1, "\n", 1);
     rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();

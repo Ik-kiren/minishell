@@ -7,7 +7,7 @@ OBJS = $(SRCS:c=o)
 all : $(NAME)
 
 $(NAME) : $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -lreadline -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) -L/Users/cdupuis/.brew/opt/readline/lib -lreadline -o $(NAME)
 
 re : fclean all	
 
