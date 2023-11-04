@@ -29,7 +29,7 @@ void	free_str(char *str);
 int		free_ptr(char **ptr);
 int		shell_export(char **tokens, t_data *data);
 int		shell_unset(char **tokens, t_data *data);
-int		get_env_idx(t_data *data, char *token, int key);
+int		get_env_idx(t_data *data, char *token);
 int		token_size(char *token);
 
 #endif

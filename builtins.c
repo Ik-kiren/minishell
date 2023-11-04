@@ -44,7 +44,7 @@ int shell_cd(char **tokens, t_data *data)
     char *tmp;
     char *pwd_tmp;
 
-    idx = get_env_idx(data, "PWD=", 3);
+    idx = get_env_idx(data, "PWD");
     if (tokens[1] == NULL)
         fprintf(stderr, "pathname error");
     else
@@ -90,19 +90,25 @@ int shell_pwd(char **tokens,t_data *data)
 
     if (tokens[1] != NULL)
         return 0;
-    idx = get_env_idx(data, "PWD=", 3);
+    idx = get_env_idx(data, "PWD");
     printf("%s\n", data->env[idx] + 4);
     return 1;
 }
 
-int get_env_idx(t_data *data, char *token, int key)
+int get_env_idx(t_data *data, char *token)
 {
     int i;
+    int len;
 
     i = 0;
+    len = 0;
+    while (token[len] != '=' && token[len] != '\0')
+        len++;
     while (data->env[i])
     {
-        if (ft_strncmp(data->env[i], token, key))
+        if (token[len] == '\0')
+            len--;
+        if (ft_strncmp(data->env[i], token, len))
             return i;
         i++;
     }

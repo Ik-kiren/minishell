@@ -23,11 +23,11 @@ char **env_realloc(t_data *data, char *token)
     return tmp;
 }
 
-int set_env_variable(t_data *data, char *token, int key)
+int set_env_variable(t_data *data, char *token)
 {
     int idx;
 
-    idx = get_env_idx(data, token, key);
+    idx = get_env_idx(data, token);
     if (idx != -1)
     {
         free(data->env[idx]);
@@ -40,7 +40,6 @@ int set_env_variable(t_data *data, char *token, int key)
 
 int shell_export(char **tokens, t_data *data)
 {
-    int key;
     int j;
 
     j = 1;
@@ -50,8 +49,7 @@ int shell_export(char **tokens, t_data *data)
     {
         while (tokens[j])
         {
-            key = token_size(tokens[j]);
-            set_env_variable(data, tokens[j], key);
+            set_env_variable(data, tokens[j]);
             j++;
         }
     }
