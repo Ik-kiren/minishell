@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:51:03 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/06 14:38:36 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/06 14:58:22 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ char	*shell_line(t_data *data)
 	return (line);
 }
 
-char	*get_path(t_data *data, char *cmd)
+/*char	*get_path(t_data *data, char *cmd)
 {
 	char *path;
 	char *tmp_path;
@@ -113,7 +113,7 @@ char	*get_path(t_data *data, char *cmd)
 	path = get_key_value(tmp_path);
 	tmp = ft_strjoin(path, "/");
 	return (ft_strjoin(tmp, cmd));
-}
+}*/
 
 int	shell_launch(char **tokens, t_data *data)
 {
@@ -123,10 +123,10 @@ int	shell_launch(char **tokens, t_data *data)
 	char	*path;
 
 	//pid = fork();
-	path = get_path(data, tokens[0]);
+	path = ft_strjoin("/bin/", tokens[0]);
 	printf("path = =%s=\n", path);
-	printf("execve = %d\n", execve("/bin/ls", tokens, data->env));
-	perror("lsh1");
+	status = execve(path, tokens, data->env);
+	printf("execve = %d\n", status);
 	/*if (pid == 0)
 	{
 		if (execve(path, tokens + 1, data->env) == -1)
