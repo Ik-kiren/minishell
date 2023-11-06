@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/06 10:50:58 by cdupuis           #+#    #+#             */
+/*   Updated: 2023/11/06 13:54:45 by cdupuis          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -31,5 +43,12 @@ int		shell_export(char **tokens, t_data *data);
 int		shell_unset(char **tokens, t_data *data);
 int		get_env_idx(t_data *data, char *token);
 int		token_size(char *token);
+int		ft_strcmp(char *s1, char *s2);
+int		shell_env(t_data *data, char **tokens);
+int		shell_pwd(char **tokens, t_data *data);
+void	sig_exit(int signal, siginfo_t *r_info, void *s);
+void	signals_handler(void);
+char	*get_env_var(t_data *data, char *token);
+char	*get_key_value(char *key);
 
 #endif
