@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:51:03 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/07 14:12:19 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/07 14:50:22 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,15 +202,14 @@ void	shell_loop(t_data *data)
 	char	**tokens;
 	int		status;
 
-	printf("cmd = %s\n", data->cmd);
 	add_cmd_lst(&data->cmd, lst_new_cmd());
-	printf("cmd2 = %s\n", data->cmd->cmd);
 	while (1)
 	{
 		line = shell_line(data);
 		printf("line = =%s=\n", line);
 		tokens = shell_split_tokens(line);
-		
+		fill_cmd(tokens, &data->cmd);
+		printf("data->cmd = %s\n", data->cmd->cmd);
 		status = shell_execute(tokens, data);
 		(void)status;
 	}
