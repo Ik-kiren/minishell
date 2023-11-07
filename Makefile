@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -I/Users/cdupuis/.brew/opt/readline/include
 NAME = minishell
-SRCS = main.c builtins.c tokens_split.c utils.c export.c unset.c libft.c env.c signals.c
+SRCS = main.c builtins.c tokens_split.c utils.c export.c unset.c libft.c env.c signals.c init_cmd.c
 OBJS = $(SRCS:c=o)
 
 all : $(NAME)

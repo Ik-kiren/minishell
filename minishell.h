@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:58 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/06 13:54:45 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/07 13:56:44 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,19 @@
 # include <fcntl.h>
 # include <sys/stat.h>
 
+typedef struct s_cmd
+{
+	int				*pipe;
+	char			*cmd;
+	char			**args;
+	struct s_cmd	*prev;
+	struct s_cmd	*next;
+}	t_cmd;
+
 typedef struct s_data
 {
 	char	**env;
+	t_cmd	*cmd;
 }	t_data;
 
 char	**shell_split_tokens(char *line);
@@ -50,5 +60,7 @@ void	sig_exit(int signal, siginfo_t *r_info, void *s);
 void	signals_handler(void);
 char	*get_env_var(t_data *data, char *token);
 char	*get_key_value(char *key);
+void	add_cmd_lst(t_cmd **lst, t_cmd *new_cmd);
+t_cmd	*lst_new_cmd();
 
 #endif

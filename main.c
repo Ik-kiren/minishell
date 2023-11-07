@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:51:03 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/06 14:58:22 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/07 14:12:19 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,25 +122,22 @@ int	shell_launch(char **tokens, t_data *data)
 	int		status;
 	char	*path;
 
-	//pid = fork();
+	pid = fork();
 	path = ft_strjoin("/bin/", tokens[0]);
 	printf("path = =%s=\n", path);
-	status = execve(path, tokens, data->env);
-	printf("execve = %d\n", status);
-	/*if (pid == 0)
+	if (pid == 0)
 	{
-		if (execve(path, tokens + 1, data->env) == -1)
+		if (execve(path, tokens, data->env) == -1)
+		{
 			perror("lsh1");
-		exit(EXIT_FAILURE);
+			exit(EXIT_FAILURE);
+		}
 	}
 	else if (pid < 0)
 		perror("lsh2");
 	else
-	{
-		while (!WIFEXITED(status) && !WIFSIGNALED(status))
-			wpid = waitpid(pid, &status, WUNTRACED);
-	}
-	(void)wpid;*/
+		wpid = waitpid(pid, &status, WUNTRACED);
+	(void)wpid;
 	return (1);
 }
 
@@ -205,11 +202,15 @@ void	shell_loop(t_data *data)
 	char	**tokens;
 	int		status;
 
+	printf("cmd = %s\n", data->cmd);
+	add_cmd_lst(&data->cmd, lst_new_cmd());
+	printf("cmd2 = %s\n", data->cmd->cmd);
 	while (1)
 	{
 		line = shell_line(data);
 		printf("line = =%s=\n", line);
 		tokens = shell_split_tokens(line);
+		
 		status = shell_execute(tokens, data);
 		(void)status;
 	}
@@ -229,6 +230,7 @@ void	init_data(t_data *data, char **envp)
 		i++;
 	}
 	data->env[i] = NULL;
+	data->cmd = NULL;
 }
 
 int	main(int argc, char **argv, char **envp)
