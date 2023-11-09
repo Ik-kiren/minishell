@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:51:03 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/09 12:32:55 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/09 13:45:55 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,29 +115,17 @@ char	*shell_line(t_data *data)
 	return (ft_strjoin(tmp, cmd));
 }*/
 
-int	shell_launch(char **tokens, t_data *data)
+int	shell_launch(t_data *data, t_cmd *cmd)
 {
-	pid_t	pid;
-	pid_t	wpid;
-	int		status;
 	char	*path;
 
-	pid = fork();
-	path = ft_strjoin("/bin/", tokens[0]);
+	path = ft_strjoin("/bin/", cmd->cmd);
 	printf("path = =%s=\n", path);
-	if (pid == 0)
+	if (execve(path, cmd->args, data->env) == -1)
 	{
-		if (execve(path, tokens, data->env) == -1)
-		{
-			perror("lsh1");
-			exit(EXIT_FAILURE);
-		}
+		perror("lsh1");
+		exit(EXIT_FAILURE);
 	}
-	else if (pid < 0)
-		perror("lsh2");
-	else
-		wpid = waitpid(pid, &status, WUNTRACED);
-	(void)wpid;
 	return (1);
 }
 
@@ -170,7 +158,7 @@ int	ft_strcmpargs(char *s1, char **s2)
 	return (0);
 }
 
-int	shell_execute(char **tokens, t_data *data)
+void	launch_cmd(t_cmd *cmd, t_data *data)
 {
 	int		id;
 	char	*builtins_str[] = {
@@ -184,16 +172,38 @@ int	shell_execute(char **tokens, t_data *data)
 	};
 
 	id = 0;
+	if ((id = ft_strcmpargs(cmd->cmd, builtins_str)))
+	{
+		(launch_builtins(id, cmd->args, data));
+		exit(EXIT_FAILURE);
+	}
+	shell_launch(data, cmd);
+	exit(EXIT_FAILURE);
+}
+
+int	shell_execute(char **tokens, t_data *data)
+{
+	t_cmd *cmd;
+	int status;
+
+	cmd = data->cmd;
+	status = 0;
 	if (tokens == NULL)
 		return (1);
 	if (tokens[0] == NULL)
 		return (1);
 	//printf("id = %d\n", ft_strcmpargs(tokens[0], builtins_str));
-	if ((id = ft_strcmpargs(tokens[0], builtins_str)))
+	while (cmd)
 	{
-		return (launch_builtins(id, tokens, data));
+		data->pid = fork();
+		if (data->pid == -1)
+			return 0;
+		else if (data->pid == 0)
+			launch_cmd(cmd, data);
+		cmd = cmd->next;
 	}
-	return (shell_launch(tokens, data));
+	waitpid(data->pid, &status, WUNTRACED);
+	return (1);
 }
 
 void	shell_loop(t_data *data)

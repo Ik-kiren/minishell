@@ -82,6 +82,7 @@ void	free_cmd(t_cmd *cmd)
 	i = 0;
 	free_str(cmd->args);
 	free(cmd->cmd);
+	free(cmd->pipe);
 	free_ptr(cmd);
 }
 
@@ -107,18 +108,18 @@ void	fill_cmd(char **tokens, t_cmd **cmd)
 
 	tmp = *cmd;
 	i = 0;
-	j = 1;
+	j = 0;
 	l = 0;
 	while (tmp)
 	{
 		printf("tmp p = %p\n", tmp);
 		j = 0;
-		tmp->cmd = ft_strdup(tokens[i++]);
+		tmp->cmd = ft_strdup(tokens[i]);
 		printf("tmp->cmd = %s\n", tmp->cmd);
 		while (tokens[j] && tokens[j][0] != '|')
 			j++;
 		//printf("cmd j = %d\n", j);
-		tmp->args = malloc(sizeof(char *) * j);
+		tmp->args = malloc(sizeof(char *) * j + 1);
 		while (tokens[i] && tokens[i][0] != '|')
 		{
 			tmp->args[l] = ft_strdup(tokens[i]);
@@ -126,6 +127,7 @@ void	fill_cmd(char **tokens, t_cmd **cmd)
 			l++;
 			i++;
 		}
+		tmp->pipe = malloc(sizeof(int) * 2);
 		tmp->args[l] = NULL;
 		l = 0;
 		tmp = tmp->next;

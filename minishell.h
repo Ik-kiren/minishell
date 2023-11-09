@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:58 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/09 12:33:59 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/09 13:22:03 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_data
 {
 	char	**env;
 	t_cmd	*cmd;
+	pid_t	pid;
 }	t_data;
 
 char	**shell_split_tokens(char *line);
