@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 11:49:14 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/06 12:43:52 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/09 12:36:51 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	ignored_signal(void)
 	struct sigaction	ignore;
 
 	ignore.sa_handler = SIG_IGN;
+	sigemptyset(&ignore.sa_mask);
+	ignore.sa_flags = 0;
 	sigaction(SIGQUIT, &ignore, NULL);
 }
 

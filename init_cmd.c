@@ -14,13 +14,17 @@ t_cmd *lst_new_cmd()
 	t_cmd *tmp;
 
 	tmp = malloc(sizeof(t_cmd));
+	if (!tmp)
+		return NULL;
+	printf("cmd created = %p\n", tmp);
 	init_cmd(&tmp);
+	printf("after init\n");
 	return (tmp);
 }
 
-void add_cmd_lst(t_cmd **lst, t_cmd *new_cmd)
+void	add_cmd_lst(t_cmd **lst, t_cmd *new_cmd)
 {
-	t_cmd *tmp;
+	t_cmd	*tmp;
 
 	tmp = *lst;
 	if (tmp == NULL)
@@ -37,6 +41,63 @@ void add_cmd_lst(t_cmd **lst, t_cmd *new_cmd)
 	}
 }
 
+int	pipe_count(t_data *data, char **tokens)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	add_cmd_lst(&data->cmd, lst_new_cmd());
+	while (tokens[i])
+	{
+		if (tokens[i][0] == '|')
+		{
+			add_cmd_lst(&data->cmd, lst_new_cmd());
+			count++;
+		}
+		i++;
+	}
+	//printf("pipe_count = %d\n", count);
+	//printf("data->cmd->next = %p\n", data->cmd->next);
+	return (count);
+}
+
+t_cmd	*get_last_cmd(t_cmd *cmd)
+{
+	while (cmd->next)
+	{
+		printf("last cmd = %p\n", cmd->next);
+		cmd = cmd->next;
+	}
+	return(cmd);
+}
+
+void	free_cmd(t_cmd *cmd)
+{
+	int		i;
+	t_cmd	*tmp;
+
+	tmp = NULL;
+	i = 0;
+	free_str(cmd->args);
+	free(cmd->cmd);
+	free_ptr(cmd);
+}
+
+void	clean_cmd(t_cmd **cmd)
+{
+	t_cmd	*tmp;
+
+	tmp = NULL;
+	while (*cmd)
+	{
+		tmp = (*cmd)->next;
+		free_cmd(*cmd);
+		*cmd = tmp;
+	}
+}
+
 void	fill_cmd(char **tokens, t_cmd **cmd)
 {
 	int		i;
@@ -50,24 +111,24 @@ void	fill_cmd(char **tokens, t_cmd **cmd)
 	l = 0;
 	while (tmp)
 	{
+		printf("tmp p = %p\n", tmp);
+		j = 0;
 		tmp->cmd = ft_strdup(tokens[i++]);
 		printf("tmp->cmd = %s\n", tmp->cmd);
-		while (tokens[i][0] != '|' && tokens[i])
-		{
-			printf("tmp->cmd = %s\n", tokens[i]);
-			i++;
-		}
-		printf("tmp->cmd = %s\n", tokens[i]);
-		tmp->args = malloc(sizeof(char *) * j + 1);
-		while (tokens[i][0] != '|')
+		while (tokens[j] && tokens[j][0] != '|')
+			j++;
+		//printf("cmd j = %d\n", j);
+		tmp->args = malloc(sizeof(char *) * j);
+		while (tokens[i] && tokens[i][0] != '|')
 		{
 			tmp->args[l] = ft_strdup(tokens[i]);
-			printf("tmp->cmd = %s\n", tmp->args[l]);
+			//printf("tmp->args = %s\n", tmp->args[l]);
 			l++;
 			i++;
 		}
 		tmp->args[l] = NULL;
 		l = 0;
 		tmp = tmp->next;
+		i++;
 	}
 }

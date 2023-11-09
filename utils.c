@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:54 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/06 11:12:24 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/09 12:34:04 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,13 @@ char	*ft_strdup(char *str)
 	return (tmp);
 }
 
-int	free_ptr(char **ptr)
+void	free_ptr(void *ptr)
 {
-	int	i;
-
-	i = 0;
-	while (ptr[i])
+	if (ptr != NULL)
 	{
-		free(ptr[i++]);
+		free(ptr);
+		ptr = NULL;
 	}
-	free(ptr);
-	return (1);
 }
 
 char	*ft_strjoin(char const *s1, char const *s2)
@@ -83,11 +79,17 @@ void	get_allenv(char **envp)
 	}
 }
 
-void	free_str(char *str)
+void	free_str(char **str)
 {
-	if (str != NULL)
+	int	i;
+
+	i = 0;
+	while (str[i])
 	{
-		free(str);
-		str = NULL;
+		free(str[i]);
+		str[i] = NULL;
+		i++;
 	}
+	free(str);
+	str = NULL;
 }

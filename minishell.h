@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:58 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/07 14:47:51 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/09 12:33:59 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ size_t	ft_ptrlen(char **str);
 char	*ft_strdup(char *str);
 int		ft_strncmp(char *s1, char *s2, int size);
 size_t	ft_strlen(const char *str);
-void	free_str(char *str);
-int		free_ptr(char **ptr);
+void	free_str(char **str);
+void	free_ptr(void *ptr);
 int		shell_export(char **tokens, t_data *data);
 int		shell_unset(char **tokens, t_data *data);
 int		get_env_idx(t_data *data, char *token);
@@ -63,5 +63,7 @@ char	*get_key_value(char *key);
 void	add_cmd_lst(t_cmd **lst, t_cmd *new_cmd);
 t_cmd	*lst_new_cmd();
 void	fill_cmd(char **tokens, t_cmd **cmd);
+int		pipe_count(t_data *data, char **tokens);
+void	clean_cmd(t_cmd **cmd);
 
 #endif

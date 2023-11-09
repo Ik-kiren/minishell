@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:51:03 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/07 14:50:22 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/09 12:32:55 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,7 +188,7 @@ int	shell_execute(char **tokens, t_data *data)
 		return (1);
 	if (tokens[0] == NULL)
 		return (1);
-	printf("id = %d\n", ft_strcmpargs(tokens[0], builtins_str));
+	//printf("id = %d\n", ft_strcmpargs(tokens[0], builtins_str));
 	if ((id = ft_strcmpargs(tokens[0], builtins_str)))
 	{
 		return (launch_builtins(id, tokens, data));
@@ -202,15 +202,15 @@ void	shell_loop(t_data *data)
 	char	**tokens;
 	int		status;
 
-	add_cmd_lst(&data->cmd, lst_new_cmd());
 	while (1)
 	{
 		line = shell_line(data);
-		printf("line = =%s=\n", line);
 		tokens = shell_split_tokens(line);
+		pipe_count(data, tokens);
+		//printf("data->cmd = %s\n", data->cmd->cmd);
 		fill_cmd(tokens, &data->cmd);
-		printf("data->cmd = %s\n", data->cmd->cmd);
 		status = shell_execute(tokens, data);
+		clean_cmd(&data->cmd);
 		(void)status;
 	}
 }
