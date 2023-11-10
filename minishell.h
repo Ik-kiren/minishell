@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:58 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/10 11:52:27 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/10 14:16:19 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct s_data
 }	t_data;
 
 char	**shell_split_tokens(char *line);
-int		launch_builtins(int id, char **tokens, t_data *envp);
+int		launch_builtins(t_cmd *cmd, t_data *data, char **tokens);
 char	*ft_strjoin(char const *s1, char const *s2);
 void	get_allenv(char **envp);
 size_t	ft_ptrlen(char **str);
@@ -69,5 +69,12 @@ void	fill_cmd(char **tokens, t_cmd **cmd);
 int		pipe_count(t_data *data, char **tokens);
 void	clean_cmd(t_cmd **cmd);
 char	**ft_split(char const *s, char c);
+int		set_pipes(t_cmd *cmd, t_cmd *c);
+void	close_pipes(t_cmd *cmd, t_cmd *skip_cmd);
+void	shell_loop(t_data *data);
+char	*get_path(t_data *data, t_cmd *cmd);
+int		ft_strcmpargs(char *s1, char **s2);
+char	*shell_line(t_data *data);
+char	*get_lcwd(char *str);
 
 #endif

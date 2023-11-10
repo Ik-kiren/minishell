@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:51:06 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/06 13:49:12 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/10 14:13:15 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,24 +79,24 @@ int	shell_exit(t_data *data, char **tokens)
 	return (1);
 }
 
-int	launch_builtins(int id, char **tokens, t_data *data)
+int	launch_builtins(t_cmd *cmd, t_data *data, char **tokens)
 {
 	int	ret;
 
 	ret = 0;
-	if (id == 1)
+	if (ft_strcmp(cmd->cmd, "cd"))
 		ret = shell_cd(tokens, data);
-	else if (id == 2)
+	else if (ft_strcmp(cmd->cmd, "echo"))
 		ret = shell_echo(tokens);
-	else if (id == 3)
+	else if (ft_strcmp(cmd->cmd, "pwd"))
 		ret = shell_pwd(tokens, data);
-	else if (id == 4)
+	else if (ft_strcmp(cmd->cmd, "export"))
 		ret = shell_export(tokens, data);
-	else if (id == 5)
+	else if (ft_strcmp(cmd->cmd, "unset"))
 		ret = shell_unset(tokens, data);
-	else if (id == 6)
+	else if (ft_strcmp(cmd->cmd, "env"))
 		ret = shell_env(data, tokens);
-	else if (id == 7)
+	else if (ft_strcmp(cmd->cmd, "exit"))
 		ret = shell_exit(data, tokens);
 	return (ret);
 }
