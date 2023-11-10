@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:32:14 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/10 14:19:49 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/10 14:32:17 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	shell_execute(char **tokens, t_data *data)
     int     builtins;
 
 	cmd = data->cmd;
+    builtins = 0;
 	status = 0;
 	if (tokens == NULL)
 		return (1);
