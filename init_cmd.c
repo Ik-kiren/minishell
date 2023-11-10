@@ -7,6 +7,7 @@ void init_cmd(t_cmd **cmd)
 	(*cmd)->pipe = NULL;
 	(*cmd)->prev = NULL;
 	(*cmd)->next = NULL;
+	(*cmd)->path = NULL;
 }
 
 t_cmd *lst_new_cmd()
@@ -115,11 +116,11 @@ void	fill_cmd(char **tokens, t_cmd **cmd)
 		printf("tmp p = %p\n", tmp);
 		j = 0;
 		tmp->cmd = ft_strdup(tokens[i]);
-		printf("tmp->cmd = %s\n", tmp->cmd);
+		//printf("tmp->cmd = %s\n", tmp->cmd);
 		while (tokens[j] && tokens[j][0] != '|')
 			j++;
 		//printf("cmd j = %d\n", j);
-		tmp->args = malloc(sizeof(char *) * j + 1);
+		tmp->args = malloc(sizeof(char *) * (j + 1));
 		while (tokens[i] && tokens[i][0] != '|')
 		{
 			tmp->args[l] = ft_strdup(tokens[i]);
@@ -128,6 +129,7 @@ void	fill_cmd(char **tokens, t_cmd **cmd)
 			i++;
 		}
 		tmp->pipe = malloc(sizeof(int) * 2);
+		pipe(tmp->pipe);
 		tmp->args[l] = NULL;
 		l = 0;
 		tmp = tmp->next;

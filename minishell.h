@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:58 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/09 13:22:03 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/10 11:52:27 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_cmd
 	int				*pipe;
 	char			*cmd;
 	char			**args;
+	char			*path;
 	struct s_cmd	*prev;
 	struct s_cmd	*next;
 }	t_cmd;
@@ -38,6 +39,7 @@ typedef struct s_data
 	char	**env;
 	t_cmd	*cmd;
 	pid_t	pid;
+	int		stdin_fd;
 }	t_data;
 
 char	**shell_split_tokens(char *line);
@@ -66,5 +68,6 @@ t_cmd	*lst_new_cmd();
 void	fill_cmd(char **tokens, t_cmd **cmd);
 int		pipe_count(t_data *data, char **tokens);
 void	clean_cmd(t_cmd **cmd);
+char	**ft_split(char const *s, char c);
 
 #endif

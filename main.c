@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:51:03 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/09 13:45:55 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/10 12:57:56 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,17 +115,82 @@ char	*shell_line(t_data *data)
 	return (ft_strjoin(tmp, cmd));
 }*/
 
+void	close_pipes(t_cmd *cmd, t_cmd *skip_cmd)
+{
+	while (cmd)
+	{
+		if (cmd != skip_cmd && cmd->pipe)
+		{
+			close(cmd->pipe[0]);
+			close(cmd->pipe[1]);
+		}
+		cmd = cmd->next;
+	}		
+}
+
+int	set_pipes(t_cmd *cmd, t_cmd *c)
+{
+	if (c->prev)
+	{
+		dup2(c->prev->pipe[0], STDIN_FILENO);
+	}
+	if (c->next)
+	{
+		dup2(c->pipe[1], STDOUT_FILENO);
+	}
+	close_pipes(cmd, c);
+	return (1);
+}
+
+char *find_path(t_cmd *cmd, char **paths)
+{
+	char	*tmp;
+	char	*path;
+	int		i;
+
+	i = 0;
+	while (paths[i])
+	{
+		tmp = ft_strjoin(paths[i], "/");
+		if (!tmp)
+			return (NULL);
+		path = ft_strjoin(tmp, cmd->cmd);
+		if (!path)
+			return NULL;
+		if (access(path, F_OK | X_OK) == 0)
+			return (path);
+		free_ptr(tmp);
+		i++;	
+	}
+	return (NULL);
+}
+
+char *get_path(t_data *data, t_cmd *cmd)
+{
+	char **paths;
+	char *path;
+	int idx;
+
+	idx = get_env_idx(data, "PATH");
+	paths = ft_split(data->env[idx], ':');
+	if (!paths)
+		return (NULL);
+	path = find_path(cmd, paths);
+	if (!path)
+		return (NULL);
+	free_str(paths);
+	return (path);
+}
+
 int	shell_launch(t_data *data, t_cmd *cmd)
 {
-	char	*path;
-
-	path = ft_strjoin("/bin/", cmd->cmd);
-	printf("path = =%s=\n", path);
-	if (execve(path, cmd->args, data->env) == -1)
+	cmd->path = get_path(data, cmd);
+	if (execve(cmd->path, cmd->args, data->env) == -1)
 	{
 		perror("lsh1");
 		exit(EXIT_FAILURE);
 	}
+	exit(EXIT_SUCCESS);
 	return (1);
 }
 
@@ -172,13 +237,15 @@ void	launch_cmd(t_cmd *cmd, t_data *data)
 	};
 
 	id = 0;
+	set_pipes(data->cmd, cmd);
+	close_pipes(data->cmd, NULL);
 	if ((id = ft_strcmpargs(cmd->cmd, builtins_str)))
 	{
-		(launch_builtins(id, cmd->args, data));
-		exit(EXIT_FAILURE);
+		launch_builtins(id, cmd->args, data);
+		exit(EXIT_SUCCESS);
 	}
 	shell_launch(data, cmd);
-	exit(EXIT_FAILURE);
+	exit(EXIT_SUCCESS);
 }
 
 int	shell_execute(char **tokens, t_data *data)
@@ -192,6 +259,7 @@ int	shell_execute(char **tokens, t_data *data)
 		return (1);
 	if (tokens[0] == NULL)
 		return (1);
+	data->stdin_fd = dup(STDOUT_FILENO);
 	//printf("id = %d\n", ft_strcmpargs(tokens[0], builtins_str));
 	while (cmd)
 	{
@@ -199,10 +267,14 @@ int	shell_execute(char **tokens, t_data *data)
 		if (data->pid == -1)
 			return 0;
 		else if (data->pid == 0)
+		{
 			launch_cmd(cmd, data);
+		}
 		cmd = cmd->next;
 	}
+	close_pipes(data->cmd, NULL);
 	waitpid(data->pid, &status, WUNTRACED);
+	//dup2(data->stdin_fd, STDOUT_FILENO);
 	return (1);
 }
 
@@ -238,6 +310,7 @@ void	init_data(t_data *data, char **envp)
 		data->env[i] = ft_strdup(envp[i]);
 		i++;
 	}
+	data->stdin_fd = 0;
 	data->env[i] = NULL;
 	data->cmd = NULL;
 }
