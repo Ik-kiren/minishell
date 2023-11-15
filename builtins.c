@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:51:06 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/10 14:13:15 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/15 13:12:28 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	shell_cd(char **tokens, t_data *data)
 			perror("lsh");
 		else
 		{
-			printf("idx = %d\n", idx);
 			free(data->env[idx]);
 			getcwd(cwd, 4096);
 			data->env[idx] = ft_strjoin("PWD=", cwd);
@@ -72,7 +71,7 @@ int	shell_exit(t_data *data, char **tokens)
 {
 	if (tokens[1] != NULL)
 		return (0);
-	free_ptr(data->env);
+	free_str(data->env);
 	free_ptr(tokens);
 	printf("exit\n");
 	exit(EXIT_SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:58 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/10 14:16:19 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/15 13:29:28 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <signal.h>
 # include <fcntl.h>
 # include <sys/stat.h>
+# include <errno.h>
 
 typedef struct s_cmd
 {
@@ -64,7 +65,7 @@ void	signals_handler(void);
 char	*get_env_var(t_data *data, char *token);
 char	*get_key_value(char *key);
 void	add_cmd_lst(t_cmd **lst, t_cmd *new_cmd);
-t_cmd	*lst_new_cmd();
+t_cmd	*lst_new_cmd(void);
 void	fill_cmd(char **tokens, t_cmd **cmd);
 int		pipe_count(t_data *data, char **tokens);
 void	clean_cmd(t_cmd **cmd);

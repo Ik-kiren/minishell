@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:47 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/06 11:05:41 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/15 12:48:02 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,13 @@ char	**malloc_tokens(char *line, char **tokens)
 	{
 		if (line[i] != ' ')
 			count++;
-		if ((line[i] == ' ' && line[i - 1] != ' ') || (line[i] != ' ' && line[i + 1] == '\0'))
+		if ((line[i] == ' ' && line[i - 1] != ' ')
+			|| (line[i] != ' ' && line[i + 1] == '\0'))
 		{
 			printf("count_w = %d\n", count);
 			tokens[j] = malloc(sizeof(char) * (count + 1));
 			if (!tokens[j])
-				return NULL;
+				return (NULL);
 			count = 0;
 			j++;
 		}
@@ -69,13 +70,9 @@ char	**get_tokens(char *line, char **tokens)
 	while (line[i])
 	{
 		if (line[i] != ' ' && line[i] != '\0')
-		{
 			tokens[j][l++] = line[i];
-		}
 		if (line[i] != ' ' && line[i + 1] == '\0')
-		{
 			tokens[j][l] = '\0';
-		}
 		if ((line[i] == ' ' || line[i] == '\0') && line[i - 1] != ' ')
 		{
 			tokens[j][l] = '\0';
@@ -100,13 +97,13 @@ char	**shell_split_tokens(char *line)
 	if (line[0] == '\0')
 		return (NULL);
 	nbr_tokens = count_tokens(line);
-	printf("count = %d\n", nbr_tokens);
+	//printf("count = %d\n", nbr_tokens);
 	tokens = malloc(sizeof(char *) * (nbr_tokens + 1));
 	if (!tokens)
 		return (NULL);
 	malloc_tokens(line, tokens);
 	get_tokens(line, tokens);
-	while (i < nbr_tokens)
-		printf("tokens = %s\n", tokens[i++]);
+	//while (i < nbr_tokens)
+		//printf("tokens = %s\n", tokens[i++]);
 	return (tokens);
 }

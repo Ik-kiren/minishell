@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:30:31 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/10 13:30:32 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/15 12:46:32 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void init_cmd(t_cmd **cmd)
 {
-	(*cmd)->cmd = "test";
+	(*cmd)->cmd = NULL;
 	(*cmd)->args = NULL;
 	(*cmd)->pipe = NULL;
 	(*cmd)->prev = NULL;
@@ -29,9 +29,7 @@ t_cmd *lst_new_cmd()
 	tmp = malloc(sizeof(t_cmd));
 	if (!tmp)
 		return NULL;
-	printf("cmd created = %p\n", tmp);
 	init_cmd(&tmp);
-	printf("after init\n");
 	return (tmp);
 }
 
@@ -61,6 +59,8 @@ int	pipe_count(t_data *data, char **tokens)
 
 	i = 0;
 	count = 0;
+	if (!tokens)
+		return 0;
 	add_cmd_lst(&data->cmd, lst_new_cmd());
 	while (tokens[i])
 	{
@@ -71,8 +71,6 @@ int	pipe_count(t_data *data, char **tokens)
 		}
 		i++;
 	}
-	//printf("pipe_count = %d\n", count);
-	//printf("data->cmd->next = %p\n", data->cmd->next);
 	return (count);
 }
 
@@ -80,7 +78,6 @@ t_cmd	*get_last_cmd(t_cmd *cmd)
 {
 	while (cmd->next)
 	{
-		printf("last cmd = %p\n", cmd->next);
 		cmd = cmd->next;
 	}
 	return(cmd);
@@ -104,6 +101,8 @@ void	clean_cmd(t_cmd **cmd)
 	t_cmd	*tmp;
 
 	tmp = NULL;
+	if (!cmd)
+		return ;
 	while (*cmd)
 	{
 		tmp = (*cmd)->next;
@@ -123,9 +122,10 @@ void	fill_cmd(char **tokens, t_cmd **cmd)
 	i = 0;
 	j = 0;
 	l = 0;
+	if (!tokens)
+		return ;
 	while (tmp)
 	{
-		printf("tmp p = %p\n", tmp);
 		j = 0;
 		tmp->cmd = ft_strdup(tokens[i]);
 		//printf("tmp->cmd = %s\n", tmp->cmd);

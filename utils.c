@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:54 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/10 10:12:31 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/15 13:16:41 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,15 @@ void	free_str(char **str)
 	int	i;
 
 	i = 0;
-	while (str[i])
+	if (str != NULL)
 	{
-		free(str[i]);
-		str[i] = NULL;
-		i++;
+		while (str[i])
+		{
+			free(str[i]);
+			str[i] = NULL;
+			i++;
+		}
+		free(str);
+		str = NULL;
 	}
-	free(str);
-	str = NULL;
 }

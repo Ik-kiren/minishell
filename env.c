@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 11:28:19 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/06 13:53:56 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/15 12:44:18 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,15 @@ char	*get_env_var(t_data *data, char *token)
 
 int	shell_env(t_data *data, char **tokens)
 {
+	char *error;
+	
 	if (tokens[1] != NULL)
-		return (0);
+	{
+		error = ft_strjoin("env: ", tokens[1]);
+		errno = ENOENT;
+		perror(error);
+		return (1);
+	}
 	get_allenv(data->env);
 	return (1);
 }

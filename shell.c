@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:32:14 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/10 14:32:17 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/15 13:09:23 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,10 @@ int	shell_execute(char **tokens, t_data *data)
 {
 	t_cmd	*cmd;
 	int		status;
-    int     builtins;
+    int		builtins;
 
+	if (!tokens)
+		return 0;
 	cmd = data->cmd;
     builtins = 0;
 	status = 0;
@@ -48,7 +50,6 @@ int	shell_execute(char **tokens, t_data *data)
 	if (tokens[0] == NULL)
 		return (1);
 	data->stdin_fd = dup(STDOUT_FILENO);
-	//printf("id = %d\n", ft_strcmpargs(tokens[0], builtins_str));
     if (!cmd->next)
         builtins = launch_builtins(cmd, data, tokens);
 	while (cmd && builtins == 0)
@@ -64,7 +65,6 @@ int	shell_execute(char **tokens, t_data *data)
 	}
 	close_pipes(data->cmd, NULL);
 	waitpid(data->pid, &status, WUNTRACED);
-	//dup2(data->stdin_fd, STDOUT_FILENO);
 	return (1);
 }
 
@@ -78,8 +78,8 @@ void	shell_loop(t_data *data)
 	{
 		line = shell_line(data);
 		tokens = shell_split_tokens(line);
+		//printf("data->cmd = %s\n", tokens);
 		pipe_count(data, tokens);
-		//printf("data->cmd = %s\n", data->cmd->cmd);
 		fill_cmd(tokens, &data->cmd);
 		status = shell_execute(tokens, data);
 		clean_cmd(&data->cmd);
