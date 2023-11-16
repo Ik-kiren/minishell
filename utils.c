@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:54 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/15 13:16:41 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/16 11:18:49 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,20 @@ char	*ft_strdup(char *str)
 	}
 	tmp[i] = '\0';
 	return (tmp);
+}
+
+char	*ft_strchr(char c, char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if(str[i] == c)
+			return ((char *)str + i);
+		i++;
+	}
+	return (NULL);
 }
 
 void	free_ptr(void *ptr)
@@ -95,4 +109,13 @@ void	free_str(char **str)
 		free(str);
 		str = NULL;
 	}
+}
+
+int	ft_toupper(int c)
+{
+	if (c >= 'a' && c <= 'z')
+	{
+		c = c - 32;
+	}
+	return (c);
 }

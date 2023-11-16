@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:58 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/15 13:29:28 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/16 11:19:00 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct s_data
 	int		stdin_fd;
 }	t_data;
 
-char	**shell_split_tokens(char *line);
+char	**shell_split_tokens(t_data *data, char *line);
 int		launch_builtins(t_cmd *cmd, t_data *data, char **tokens);
 char	*ft_strjoin(char const *s1, char const *s2);
 void	get_allenv(char **envp);
@@ -77,5 +77,7 @@ char	*get_path(t_data *data, t_cmd *cmd);
 int		ft_strcmpargs(char *s1, char **s2);
 char	*shell_line(t_data *data);
 char	*get_lcwd(char *str);
+char	*ft_strchr(char c, char *str);
+int		ft_toupper(int c);
 
 #endif
