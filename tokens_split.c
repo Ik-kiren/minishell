@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:47 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/16 14:16:12 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/20 12:30:18 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	**malloc_tokens(char *line, char **tokens)
 		if ((line[i] == ' ' && line[i - 1] != ' ')
 			|| (line[i] != ' ' && line[i + 1] == '\0'))
 		{
-			printf("count_w = %d\n", count);
+			//printf("count_w = %d\n", count);
 			tokens[j] = malloc(sizeof(char) * (count + 1));
 			if (!tokens[j])
 				return (NULL);
@@ -106,36 +106,6 @@ char	*erase_env_var(char *token)
 	free(token);
 	return (tmp);
 }
-
-/*char	*replace_env_var(t_data *data, char *token)
-{
-	char	*tmp;
-	char	*str;
-	char	*ret;
-	int		i;
-
-	i = 0;
-	tmp = get_env_var(data, ft_strchr('$', token) + 1);
-	if (!tmp)
-		return (erase_env_var(token));
-	tmp = get_key_value(tmp);
-	while (token[i] != '$')
-		i++;
-	if (i == 0)
-		return (tmp);
-	str = malloc(sizeof(char) * (i + 1));
-	i = 0;
-	while (token[i] != '$')
-	{
-		str[i] = token[i];
-		i++;
-	}
-	str[i] = '\0';
-	ret = ft_strjoin(str, tmp);
-	free(str);
-	free(tmp);
-	return (ret);
-}*/
 
 char	*replace_env_var(t_data *data, char *token)
 {

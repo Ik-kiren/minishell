@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:32:14 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/16 12:04:32 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/20 14:31:27 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	shell_launch(t_data *data, t_cmd *cmd)
 	cmd->path = get_path(data, cmd);
 	if (execve(cmd->path, cmd->args, data->env) == -1)
 	{
-		perror("lsh1");
+		perror(cmd->cmd);
 		exit(EXIT_FAILURE);
 	}
 	exit(EXIT_SUCCESS);
@@ -30,7 +30,8 @@ void	launch_cmd(t_cmd *cmd, t_data *data, char **tokens)
 	set_pipes(data->cmd, cmd);
 	close_pipes(data->cmd, NULL);
 	launch_builtins(cmd, data, tokens);
-	shell_launch(data, cmd);
+	if (cmd->fds)	
+		shell_launch(data, cmd);
 	exit(EXIT_SUCCESS);
 }
 
@@ -80,7 +81,9 @@ void	shell_loop(t_data *data)
 		tokens = shell_split_tokens(data, line);
 		//printf("data->cmd = %s\n", tokens);
 		pipe_count(data, tokens);
+		printf("TEST3 \n");
 		fill_cmd(tokens, &data->cmd);
+		printf("TEST4 \n");
 		status = shell_execute(tokens, data);
 		clean_cmd(&data->cmd);
 		(void)status;

@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:58 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/16 11:19:00 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/20 13:03:52 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,19 @@
 # include <sys/stat.h>
 # include <errno.h>
 
+typedef struct s_fds
+{
+	char	*name;
+	int		fd;
+}	t_fds;
+
 typedef struct s_cmd
 {
 	int				*pipe;
 	char			*cmd;
 	char			**args;
 	char			*path;
+	t_fds			*fds;
 	struct s_cmd	*prev;
 	struct s_cmd	*next;
 }	t_cmd;
@@ -79,5 +86,6 @@ char	*shell_line(t_data *data);
 char	*get_lcwd(char *str);
 char	*ft_strchr(char c, char *str);
 int		ft_toupper(int c);
+t_cmd	*get_last_cmd(t_cmd *cmd);
 
 #endif

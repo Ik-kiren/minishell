@@ -6,15 +6,16 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:30:31 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/15 12:46:32 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/20 14:39:28 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void init_cmd(t_cmd **cmd)
+void	init_cmd(t_cmd **cmd)
 {
 	(*cmd)->cmd = NULL;
+	(*cmd)->fds = NULL;
 	(*cmd)->args = NULL;
 	(*cmd)->pipe = NULL;
 	(*cmd)->prev = NULL;
@@ -22,13 +23,23 @@ void init_cmd(t_cmd **cmd)
 	(*cmd)->path = NULL;
 }
 
-t_cmd *lst_new_cmd()
+t_fds	*new_fds(char *name)
 {
-	t_cmd *tmp;
+	t_fds *tmp;
+
+	tmp = malloc(sizeof(t_fds));
+	tmp->name = ft_strdup(name);
+	tmp->fd = 0;
+	return (tmp);
+}
+
+t_cmd	*lst_new_cmd(void)
+{
+	t_cmd	*tmp;
 
 	tmp = malloc(sizeof(t_cmd));
 	if (!tmp)
-		return NULL;
+		return (NULL);
 	init_cmd(&tmp);
 	return (tmp);
 }
@@ -56,6 +67,7 @@ int	pipe_count(t_data *data, char **tokens)
 {
 	int	i;
 	int	count;
+	t_cmd *last;
 
 	i = 0;
 	count = 0;
@@ -64,9 +76,23 @@ int	pipe_count(t_data *data, char **tokens)
 	add_cmd_lst(&data->cmd, lst_new_cmd());
 	while (tokens[i])
 	{
-		if (tokens[i][0] == '|')
+		if (tokens[i][0] == '|' )
 		{
 			add_cmd_lst(&data->cmd, lst_new_cmd());
+			count++;
+		}
+		else if (ft_strncmp(tokens[i], ">>", 2))
+		{
+			last = get_last_cmd(data->cmd);
+			last->fds = new_fds(tokens[i + 1]);
+			last->fds->fd = open(last->fds->name, O_RDWR | O_APPEND | O_CREAT, S_IRWXU);
+			count++;
+		}
+		else if (tokens[i][0] == '>')
+		{
+			last = get_last_cmd(data->cmd);
+			last->fds = new_fds(tokens[i + 1]);
+			last->fds->fd = open(last->fds->name, O_RDWR | O_TRUNC | O_CREAT, S_IRWXU);
 			count++;
 		}
 		i++;
@@ -120,7 +146,6 @@ void	fill_cmd(char **tokens, t_cmd **cmd)
 
 	tmp = *cmd;
 	i = 0;
-	j = 0;
 	l = 0;
 	if (!tokens)
 		return ;
@@ -128,15 +153,15 @@ void	fill_cmd(char **tokens, t_cmd **cmd)
 	{
 		j = 0;
 		tmp->cmd = ft_strdup(tokens[i]);
-		//printf("tmp->cmd = %s\n", tmp->cmd);
-		while (tokens[j] && tokens[j][0] != '|')
+		printf("tmp->cmd = %s\n", tmp->cmd);
+		while (tokens[j] && tokens[j][0] != '|' && tokens[j][0] != '>')
 			j++;
-		//printf("cmd j = %d\n", j);
+		printf("cmd j = %d\n", j);
 		tmp->args = malloc(sizeof(char *) * (j + 1));
-		while (tokens[i] && tokens[i][0] != '|')
+		while (tokens[i] && tokens[i][0] != '|' && tokens[i][0] != '>')
 		{
 			tmp->args[l] = ft_strdup(tokens[i]);
-			//printf("tmp->args = %s\n", tmp->args[l]);
+			printf("tmp->args = %s\n", tmp->args[l]);
 			l++;
 			i++;
 		}
