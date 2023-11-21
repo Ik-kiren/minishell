@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:30:31 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/20 14:39:28 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/21 14:20:36 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@ t_fds	*new_fds(char *name)
 	tmp = malloc(sizeof(t_fds));
 	tmp->name = ft_strdup(name);
 	tmp->fd = 0;
+	tmp->type = 0;
+	tmp->stdin_fd = -1;
+	tmp->stdout_fd = -1;
 	return (tmp);
 }
 
@@ -63,6 +66,20 @@ void	add_cmd_lst(t_cmd **lst, t_cmd *new_cmd)
 	}
 }
 
+void fill_heredoc(char *delimiter, int fd)
+{
+	char	*line;
+	
+	while (1)
+	{
+		line = readline(">");
+		ft_putendl_fd(line, fd);
+		printf("heredoc = %s / %s\n", line, delimiter);
+		if (!ft_strcmp(line, delimiter))
+			break;
+	}
+}
+
 int	pipe_count(t_data *data, char **tokens)
 {
 	int	i;
@@ -81,18 +98,41 @@ int	pipe_count(t_data *data, char **tokens)
 			add_cmd_lst(&data->cmd, lst_new_cmd());
 			count++;
 		}
-		else if (ft_strncmp(tokens[i], ">>", 2))
+		else if (!ft_strcmp(tokens[i], ">>"))
 		{
 			last = get_last_cmd(data->cmd);
 			last->fds = new_fds(tokens[i + 1]);
 			last->fds->fd = open(last->fds->name, O_RDWR | O_APPEND | O_CREAT, S_IRWXU);
 			count++;
 		}
+		else if (!ft_strcmp(tokens[i], "<<"))
+		{
+			int tmp_fd;
+			
+			last = get_last_cmd(data->cmd);
+			last->fds = new_fds(tokens[i + 1]);
+			last->fds->type = 1;
+			tmp_fd = open(last->fds->name, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+			fill_heredoc(tokens[i + 1],tmp_fd);
+			close(tmp_fd);
+			count++;
+		}
+		else if (tokens[i][0] == '<')
+		{
+			last = get_last_cmd(data->cmd);
+			last->fds = new_fds(tokens[i + 1]);
+			last->fds->type = 1;
+			last->fds->fd = open(last->fds->name, O_RDONLY);
+			count++;
+		}
 		else if (tokens[i][0] == '>')
 		{
 			last = get_last_cmd(data->cmd);
 			last->fds = new_fds(tokens[i + 1]);
-			last->fds->fd = open(last->fds->name, O_RDWR | O_TRUNC | O_CREAT, S_IRWXU);
+			last->fds->type = 2;
+			if (access(last->fds->name, F_OK) == 0)
+				unlink(last->fds->name);
+			last->fds->fd = open(last->fds->name, O_RDWR | O_CREAT, S_IRWXU);
 			count++;
 		}
 		i++;
@@ -154,11 +194,11 @@ void	fill_cmd(char **tokens, t_cmd **cmd)
 		j = 0;
 		tmp->cmd = ft_strdup(tokens[i]);
 		printf("tmp->cmd = %s\n", tmp->cmd);
-		while (tokens[j] && tokens[j][0] != '|' && tokens[j][0] != '>')
+		while (tokens[j] && tokens[j][0] != '|' && tokens[j][0] != '>' && tokens[j][0] != '<')
 			j++;
 		printf("cmd j = %d\n", j);
 		tmp->args = malloc(sizeof(char *) * (j + 1));
-		while (tokens[i] && tokens[i][0] != '|' && tokens[i][0] != '>')
+		while (tokens[i] && tokens[i][0] != '|' && tokens[i][0] != '>' && tokens[i][0] != '<')
 		{
 			tmp->args[l] = ft_strdup(tokens[i]);
 			printf("tmp->args = %s\n", tmp->args[l]);

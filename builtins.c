@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:51:06 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/15 13:12:28 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/21 11:14:56 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,19 +83,19 @@ int	launch_builtins(t_cmd *cmd, t_data *data, char **tokens)
 	int	ret;
 
 	ret = 0;
-	if (ft_strcmp(cmd->cmd, "cd"))
+	if (!ft_strcmp(cmd->cmd, "cd"))
 		ret = shell_cd(tokens, data);
-	else if (ft_strcmp(cmd->cmd, "echo"))
+	else if (!ft_strcmp(cmd->cmd, "echo"))
 		ret = shell_echo(tokens);
-	else if (ft_strcmp(cmd->cmd, "pwd"))
+	else if (!ft_strcmp(cmd->cmd, "pwd"))
 		ret = shell_pwd(tokens, data);
-	else if (ft_strcmp(cmd->cmd, "export"))
+	else if (!ft_strcmp(cmd->cmd, "export"))
 		ret = shell_export(tokens, data);
-	else if (ft_strcmp(cmd->cmd, "unset"))
+	else if (!ft_strcmp(cmd->cmd, "unset"))
 		ret = shell_unset(tokens, data);
-	else if (ft_strcmp(cmd->cmd, "env"))
+	else if (!ft_strcmp(cmd->cmd, "env"))
 		ret = shell_env(data, tokens);
-	else if (ft_strcmp(cmd->cmd, "exit"))
+	else if (!ft_strcmp(cmd->cmd, "exit"))
 		ret = shell_exit(data, tokens);
 	return (ret);
 }

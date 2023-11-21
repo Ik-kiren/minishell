@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:51:03 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/16 11:57:36 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/21 12:48:03 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ void	init_data(t_data *data, char **envp)
 		data->env[i] = ft_strdup(envp[i]);
 		i++;
 	}
-	data->stdin_fd = 0;
 	data->env[i] = NULL;
 	data->cmd = NULL;
 }

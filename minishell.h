@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:58 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/20 13:03:52 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/21 14:06:12 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ typedef struct s_fds
 {
 	char	*name;
 	int		fd;
+	int		type;
+	int		stdin_fd;
+	int 	stdout_fd;
 }	t_fds;
 
 typedef struct s_cmd
@@ -47,7 +50,6 @@ typedef struct s_data
 	char	**env;
 	t_cmd	*cmd;
 	pid_t	pid;
-	int		stdin_fd;
 }	t_data;
 
 char	**shell_split_tokens(t_data *data, char *line);
@@ -87,5 +89,6 @@ char	*get_lcwd(char *str);
 char	*ft_strchr(char c, char *str);
 int		ft_toupper(int c);
 t_cmd	*get_last_cmd(t_cmd *cmd);
+void	ft_putendl_fd(char *s, int fd);
 
 #endif

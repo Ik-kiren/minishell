@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:32:14 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/20 14:31:27 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/21 12:54:54 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ void	launch_cmd(t_cmd *cmd, t_data *data, char **tokens)
 	set_pipes(data->cmd, cmd);
 	close_pipes(data->cmd, NULL);
 	launch_builtins(cmd, data, tokens);
-	if (cmd->fds)	
-		shell_launch(data, cmd);
+	shell_launch(data, cmd);
 	exit(EXIT_SUCCESS);
 }
 
@@ -50,7 +49,6 @@ int	shell_execute(char **tokens, t_data *data)
 		return (1);
 	if (tokens[0] == NULL)
 		return (1);
-	data->stdin_fd = dup(STDOUT_FILENO);
     if (!cmd->next)
         builtins = launch_builtins(cmd, data, tokens);
 	while (cmd && builtins == 0)
@@ -81,9 +79,7 @@ void	shell_loop(t_data *data)
 		tokens = shell_split_tokens(data, line);
 		//printf("data->cmd = %s\n", tokens);
 		pipe_count(data, tokens);
-		printf("TEST3 \n");
 		fill_cmd(tokens, &data->cmd);
-		printf("TEST4 \n");
 		status = shell_execute(tokens, data);
 		clean_cmd(&data->cmd);
 		(void)status;
