@@ -105,6 +105,7 @@ void	init_data(t_data *data, char **envp)
 	}
 	data->env[i] = NULL;
 	data->cmd = NULL;
+	data->ret = "1";
 }
 
 int	main(int argc, char **argv, char **envp)

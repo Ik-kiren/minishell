@@ -182,6 +182,8 @@ void	parse_env_var(t_data *data, char **tokens)
 	j = 0;
 	while (tokens[i])
 	{
+		if (!ft_strcmp("$?", tokens[i]))
+			tokens[i] = data->ret;
 		if (ft_strchr('$', tokens[i]))
 			if (check_squotes(tokens[i]) == 0)
 				tokens[i] = replace_env_var(data, tokens[i]);

@@ -50,6 +50,7 @@ typedef struct s_data
 	char	**env;
 	t_cmd	*cmd;
 	pid_t	pid;
+	char	*ret;
 }	t_data;
 
 char	**shell_split_tokens(t_data *data, char *line);

@@ -29,11 +29,17 @@ int	shell_cd(char **tokens, t_data *data)
 
 	idx = get_env_idx(data, "PWD");
 	if (tokens[1] == NULL)
+	{
+		data->ret = "0";
 		fprintf(stderr, "pathname error");
+	}
 	else
 	{
 		if (chdir(tokens[1]) != 0)
+		{
+			data->ret = "0";
 			perror("lsh");
+		}
 		else
 		{
 			free(data->env[idx]);

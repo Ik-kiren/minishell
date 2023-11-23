@@ -17,6 +17,7 @@ int	shell_launch(t_data *data, t_cmd *cmd)
 	cmd->path = get_path(data, cmd);
 	if (execve(cmd->path, cmd->args, data->env) == -1)
 	{
+		data->ret = "0";
 		perror(cmd->cmd);
 		exit(EXIT_FAILURE);
 	}
