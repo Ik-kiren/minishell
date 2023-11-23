@@ -19,10 +19,12 @@ int	get_env_idx(t_data *data, char *token)
 
 	i = 0;
 	len = 0;
-	while (token[len] != '=' && token[len] != '\0')
-		len++;
+	//printf("env_idx = %d\n", len);
 	while (data->env[i])
 	{
+		len = 0;
+		while (data->env[i][len] != '=' && data->env[i][len] != '\0')
+			len++;
 		if (token[len] == '\0')
 			len--;
 		if (ft_strncmp(data->env[i], token, len))

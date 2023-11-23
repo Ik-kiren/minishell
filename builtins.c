@@ -53,7 +53,7 @@ int	shell_echo(char **tokens)
 	arg = 0;
 	while (tokens[i])
 	{
-		if (ft_strcmp(tokens[i], "-n"))
+		if (!ft_strcmp(tokens[i], "-n"))
 		{
 			printf("%s", tokens[++i]);
 			arg++;

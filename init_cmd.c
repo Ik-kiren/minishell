@@ -66,17 +66,18 @@ void	add_cmd_lst(t_cmd **lst, t_cmd *new_cmd)
 	}
 }
 
-void fill_heredoc(char *delimiter, int fd)
+void fill_heredoc(t_data *data, char *delimiter, int fd)
 {
 	char	*line;
 	
 	while (1)
 	{
 		line = readline(">");
-		ft_putendl_fd(line, fd);
-		printf("heredoc = %s / %s\n", line, delimiter);
 		if (!ft_strcmp(line, delimiter))
 			break;
+		if (ft_strchr('$', line))
+			line = replace_env_var(data, line);
+		ft_putendl_fd(line, fd);
 	}
 }
 
@@ -113,8 +114,9 @@ int	pipe_count(t_data *data, char **tokens)
 			last->fds = new_fds(tokens[i + 1]);
 			last->fds->type = 1;
 			tmp_fd = open(last->fds->name, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-			fill_heredoc(tokens[i + 1],tmp_fd);
+			fill_heredoc(data, tokens[i + 1],tmp_fd);
 			close(tmp_fd);
+			last->fds->fd = open(last->fds->name, O_RDONLY);
 			count++;
 		}
 		else if (tokens[i][0] == '<')

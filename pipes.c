@@ -51,7 +51,8 @@ int	set_pipes(t_cmd *cmd, t_cmd *c)
 	close_pipes(cmd, c);
 	//cmd->fds->stdout_fd = dup(STDOUT_FILENO);
 	//cmd->fds->stdin_fd = dup(STDIN_FILENO);
-	close(c->fds->fd);
+	if (cmd->fds)
+		close(c->fds->fd);
 	//close(cmd->fds->stdout_fd);
 	//close(cmd->fds->stdin_fd);
 	return (1);

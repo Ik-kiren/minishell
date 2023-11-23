@@ -90,5 +90,6 @@ char	*ft_strchr(char c, char *str);
 int		ft_toupper(int c);
 t_cmd	*get_last_cmd(t_cmd *cmd);
 void	ft_putendl_fd(char *s, int fd);
+char	*replace_env_var(t_data *data, char *token);
 
 #endif
