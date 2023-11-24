@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:58 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/21 14:06:12 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/24 11:25:39 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,9 @@ int		ft_strcmpargs(char *s1, char **s2);
 char	*shell_line(t_data *data);
 char	*get_lcwd(char *str);
 char	*ft_strchr(char c, char *str);
-int		ft_toupper(int c);
 t_cmd	*get_last_cmd(t_cmd *cmd);
 void	ft_putendl_fd(char *s, int fd);
 char	*replace_env_var(t_data *data, char *token);
+int		shell_exit(t_data *data, char **tokens);
 
 #endif

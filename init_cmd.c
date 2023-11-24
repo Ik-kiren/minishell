@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:30:31 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/21 14:20:36 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/24 11:17:36 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	init_cmd(t_cmd **cmd)
 
 t_fds	*new_fds(char *name)
 {
-	t_fds *tmp;
+	t_fds	*tmp;
 
 	tmp = malloc(sizeof(t_fds));
 	tmp->name = ft_strdup(name);
@@ -69,7 +69,7 @@ void	add_cmd_lst(t_cmd **lst, t_cmd *new_cmd)
 void fill_heredoc(t_data *data, char *delimiter, int fd)
 {
 	char	*line;
-	
+
 	while (1)
 	{
 		line = readline(">");
@@ -159,8 +159,9 @@ void	free_cmd(t_cmd *cmd)
 	tmp = NULL;
 	i = 0;
 	free_str(cmd->args);
-	free(cmd->cmd);
-	free(cmd->pipe);
+	free_ptr(cmd->cmd);
+	free_ptr(cmd->pipe);
+	free_ptr(cmd->path);
 	free_ptr(cmd);
 }
 
@@ -174,6 +175,11 @@ void	clean_cmd(t_cmd **cmd)
 	while (*cmd)
 	{
 		tmp = (*cmd)->next;
+		if((*cmd)->fds)
+		{
+			free_ptr((*cmd)->fds->name);
+			free_ptr((*cmd)->fds);
+		}
 		free_cmd(*cmd);
 		*cmd = tmp;
 	}
@@ -195,15 +201,12 @@ void	fill_cmd(char **tokens, t_cmd **cmd)
 	{
 		j = 0;
 		tmp->cmd = ft_strdup(tokens[i]);
-		printf("tmp->cmd = %s\n", tmp->cmd);
 		while (tokens[j] && tokens[j][0] != '|' && tokens[j][0] != '>' && tokens[j][0] != '<')
 			j++;
-		printf("cmd j = %d\n", j);
 		tmp->args = malloc(sizeof(char *) * (j + 1));
 		while (tokens[i] && tokens[i][0] != '|' && tokens[i][0] != '>' && tokens[i][0] != '<')
 		{
 			tmp->args[l] = ft_strdup(tokens[i]);
-			printf("tmp->args = %s\n", tmp->args[l]);
 			l++;
 			i++;
 		}

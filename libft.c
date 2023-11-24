@@ -6,12 +6,11 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 11:11:16 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/21 14:06:02 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/24 11:31:56 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 void	ft_putstr_fd(char *s, int fd)
 {

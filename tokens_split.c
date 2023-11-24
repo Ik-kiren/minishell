@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:47 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/20 12:30:18 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/24 12:56:29 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ char	**malloc_tokens(char *line, char **tokens)
 		if ((line[i] == ' ' && line[i - 1] != ' ')
 			|| (line[i] != ' ' && line[i + 1] == '\0'))
 		{
-			//printf("count_w = %d\n", count);
 			tokens[j] = malloc(sizeof(char) * (count + 1));
 			if (!tokens[j])
 				return (NULL);
@@ -142,7 +141,7 @@ char	*replace_env_var(t_data *data, char *token)
 	}
 	free(tmp);
 	free(token);
-	if (str_tmp != "")
+	if (str_tmp[0] != '\0')
 		free(str_tmp);
 	return (str);
 }
@@ -198,19 +197,15 @@ char	**shell_split_tokens(t_data *data, char *line)
 	int		i;
 
 	i = 0;
-	if (line == NULL)
-		exit(EXIT_SUCCESS);
 	if (line[0] == '\0')
 		return (NULL);
 	nbr_tokens = count_tokens(line);
-	//printf("count = %d\n", nbr_tokens);
 	tokens = malloc(sizeof(char *) * (nbr_tokens + 1));
 	if (!tokens)
 		return (NULL);
 	malloc_tokens(line, tokens);
 	get_tokens(line, tokens);
-	//while (i < nbr_tokens)
-		//printf("tokens = %s\n", tokens[i++]);
 	parse_env_var(data, tokens);
+	free_ptr(line);
 	return (tokens);
 }

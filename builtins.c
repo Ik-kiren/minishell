@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:51:06 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/21 11:14:56 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/24 12:30:24 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,13 @@ int	shell_echo(char **tokens)
 
 int	shell_exit(t_data *data, char **tokens)
 {
-	if (tokens[1] != NULL)
-		return (0);
+	if (tokens)
+	{
+		if (tokens[1] != NULL)
+			return (0);
+		free_str(tokens);
+	}
 	free_str(data->env);
-	free_ptr(tokens);
 	printf("exit\n");
 	exit(EXIT_SUCCESS);
 	return (1);
@@ -92,7 +95,7 @@ int	launch_builtins(t_cmd *cmd, t_data *data, char **tokens)
 	if (!ft_strcmp(cmd->cmd, "cd"))
 		ret = shell_cd(tokens, data);
 	else if (!ft_strcmp(cmd->cmd, "echo"))
-		ret = shell_echo(tokens);
+		ret = shell_echo(cmd->args);
 	else if (!ft_strcmp(cmd->cmd, "pwd"))
 		ret = shell_pwd(tokens, data);
 	else if (!ft_strcmp(cmd->cmd, "export"))

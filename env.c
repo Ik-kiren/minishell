@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 11:28:19 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/16 13:43:16 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/24 13:08:11 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,15 @@
 int	get_env_idx(t_data *data, char *token)
 {
 	int	i;
-	int	len;
+	size_t	len;
 
 	i = 0;
-	len = 0;
-	//printf("env_idx = %d\n", len);
 	while (data->env[i])
 	{
 		len = 0;
 		while (data->env[i][len] != '=' && data->env[i][len] != '\0')
 			len++;
-		if (token[len] == '\0')
+		if (len <= ft_strlen(token) && token[len] == '\0')
 			len--;
 		if (ft_strncmp(data->env[i], token, len))
 			return (i);

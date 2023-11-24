@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:53 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/06 11:07:06 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/24 10:12:11 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int	unset_env_variable(t_data *data, char *token)
 
 	token_tmp = ft_strjoin(token, "=");
 	idx = get_env_idx(data, token_tmp);
-	printf("unset_idx = %d\n", idx);
 	if (idx == -1)
 		return (0);
 	else

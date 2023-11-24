@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:30:24 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/10 13:30:25 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/24 13:06:39 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static char	*getstr(char const *s, int min, int max)
 	str = malloc(sizeof(char) * ((max - min) + 1));
 	if (!str)
 		return (NULL);
-	while (min <= max - 1)
+	while (min < max)
 	{
 		str[i] = s[min];
 		i++;
