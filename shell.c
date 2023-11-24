@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:32:14 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/24 12:26:02 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/24 13:55:25 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,16 @@ void	shell_loop(t_data *data)
 		line = shell_line(data);
 		if (!line)
 			shell_exit(data, NULL);
-		tokens = shell_split_tokens(data, line);
-		pipe_count(data, tokens);
-		fill_cmd(tokens, &data->cmd);
-		status = shell_execute(tokens, data);
-		clean_cmd(&data->cmd);
+		if (line[0]!= '\0')
+		{
+			tokens = shell_split_tokens(data, line);
+			pipe_count(data, tokens);
+			fill_cmd(tokens, &data->cmd);
+			status = shell_execute(tokens, data);
+			if (data->cmd->fds && data->cmd->fds->type == 3)
+				unlink(data->cmd->fds->name);
+			clean_cmd(&data->cmd);
+		}
 		(void)status;
 	}
 }

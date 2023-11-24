@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:30:31 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/24 11:17:36 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/24 13:44:17 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int	pipe_count(t_data *data, char **tokens)
 			
 			last = get_last_cmd(data->cmd);
 			last->fds = new_fds(tokens[i + 1]);
-			last->fds->type = 1;
+			last->fds->type = 3;
 			tmp_fd = open(last->fds->name, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 			fill_heredoc(data, tokens[i + 1],tmp_fd);
 			close(tmp_fd);
@@ -199,7 +199,7 @@ void	fill_cmd(char **tokens, t_cmd **cmd)
 		return ;
 	while (tmp)
 	{
-		j = 0;
+		j = i;
 		tmp->cmd = ft_strdup(tokens[i]);
 		while (tokens[j] && tokens[j][0] != '|' && tokens[j][0] != '>' && tokens[j][0] != '<')
 			j++;
