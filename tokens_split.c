@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:47 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/24 12:56:29 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/28 14:20:57 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,21 @@ int	count_tokens(char *line)
 		count++;
 	while (line[i])
 	{
-		if (line[i] == ' ' && line[i + 1] != ' ' && line[i + 1] != '\0')
+		if (line[i] == '\"')
+		{
+			count++;
+			i++;
+			while (line[i] != '\"')
+			{
+				if (line[i] == '\0')
+					return 0;
+				i++;
+			}
+			i++;
+			if(line[i] == '\0')
+				break;
+		}
+		if (line[i] == ' ' && line[i + 1] != ' ' && line[i + 1] != '\0' && line[i + 1] != '\"')
 			count++;
 		i++;
 	}
@@ -41,6 +55,21 @@ char	**malloc_tokens(char *line, char **tokens)
 	count = 0;
 	while (line[i])
 	{
+		if (line[i] == '\"')
+		{
+			i++;
+			while (line[i] != '\"')
+			{
+				count++;
+				i++;
+			}
+			count += 2;
+			i++;
+			tokens[j++] = malloc(sizeof(char) * (count + 1));
+			count = 0;
+			if (line[i] == '\0')
+				break;
+		}
 		if (line[i] != ' ')
 			count++;
 		if ((line[i] == ' ' && line[i - 1] != ' ')
@@ -62,25 +91,39 @@ char	**get_tokens(char *line, char **tokens)
 	int	i;
 	int	j;
 	int	l;
+	int	status;
 
 	i = 0;
 	j = 0;
 	l = 0;
+	status = 0;
 	while (line[i])
 	{
-		if (line[i] != ' ' && line[i] != '\0')
-			tokens[j][l++] = line[i];
-		if (line[i] != ' ' && line[i + 1] == '\0')
-			tokens[j][l] = '\0';
-		if ((line[i] == ' ' || line[i] == '\0') && line[i - 1] != ' ')
+		l = 0;
+		if (line[i] == '\"')
 		{
+			status = 1;
+			while (status == 1)
+			{
+				tokens[j][l++] = line[i++];
+				if (line[i] == '\"')
+					status = 0;
+			}
+			tokens[j][l++] = line[i];
 			tokens[j][l] = '\0';
-			l = 0;
 			j++;
 		}
-		i++;
+		else if (line[i] != '\0' && line[i] != ' ')
+		{
+			while (line[i] != '\0' && line[i] != ' ')
+				tokens[j][l++] = line[i++];
+			tokens[j][l] = '\0';
+			j++;
+		}
+		if (line[i])
+			i++;
 	}
-	tokens[j + 1] = NULL;
+	tokens[j] = NULL;
 	return (tokens);
 }
 
@@ -106,19 +149,113 @@ char	*erase_env_var(char *token)
 	return (tmp);
 }
 
+char	*erase_quotes(char *token)
+{
+	char	*tmp;
+	int		i;
+	int		j;
+	int		count;
+
+	i = 0;
+	j = 0;
+	count = 0;
+	while (token[i])
+	{
+		if (token[i] != '\"' && token[i] != '\'')
+			count++;
+		i++;
+	}
+	tmp = malloc(sizeof(char) * (count + 1));
+	i = 0;
+	while (token[i])
+	{
+		if (token[i] != '\"' && token[i] != '\'')
+		{
+			tmp[j] = token[i];
+			j++;
+		}
+		i++;
+	}
+	tmp[j] = '\0';
+	free(token);
+	return (tmp);
+}
+
+char	*search_env_var(t_data	*data, char	*token)
+{
+	size_t	len;
+	char	*tmp;
+	char	*str;
+	size_t	i;
+
+	i = 0;
+	len = ft_strlen(token);
+	while (token[i] && token[i] != '\"' && token[i] != ' ')
+		i++;
+	tmp = malloc(sizeof(char) * (i + 1));
+	i = 0;
+	while (token[i] && token[i] != '\"' && token[i] != ' ')
+	{
+		tmp[i] = token[i];
+		i++;
+	}
+	tmp[i] = '\0';
+	str = get_env_var(data, tmp + 1);
+	str = get_key_value(str);
+	return (str);
+}
+
 char	*replace_env_var(t_data *data, char *token)
+{
+	char	*tmp;
+	char	*ret;
+	char	*str;
+	int		i;
+	int		count;
+	int		l;
+
+	i = 0;
+	count = 0;
+	l = 0;
+	ret = "";
+	token = erase_quotes(token);
+	while (token[i])
+	{
+		while (token[i] && token[i] != '$')
+			i++;
+		tmp = malloc(sizeof(char) * (i + 1));
+		while (count < i)
+		{
+			printf("l, count = %d, %d\n", l, count);
+			tmp[l++] = token[count++];
+		}
+		tmp[l] = '\0';
+		l = 0;
+		ret = ft_strjoin(ret, tmp);
+		if (!token[i])
+			break;
+		str = search_env_var(data, token + i);
+		ret = ft_strjoin(ret, str);
+		while (token[i + 1] && token[i++] != ' ')
+			count++;
+		i++;
+	}
+	free_ptr(tmp);
+	free_ptr(str);
+	return (ret);
+}
+
+/*char	*replace_env_var(t_data *data, char *token)
 {
 	char	**tmp;
 	char	*str;
 	char	*str_tmp;
 	int		i;
 
+	token = erase_quotes(token);
 	tmp = ft_split(token, '$');
 	str = "";
-	if (token[0] == '$')
-		i = 0;
-	else
-		i = 1;
+	i = 0;
 	if (!tmp[1])
 	{
 		str = get_env_var(data, tmp[0]);
@@ -131,48 +268,87 @@ char	*replace_env_var(t_data *data, char *token)
 	}
 	while (tmp[i])
 	{
+		printf("TEST = %s\n", tmp[i]);
 		str_tmp = get_env_var(data, tmp[i]);
 		if (!str_tmp)
-			str_tmp = "";
+			str = ft_strjoin(str, tmp[i]);
 		else
+		{
 			str_tmp = get_key_value(str_tmp);
-		str = ft_strjoin(str, str_tmp);
+			str = ft_strjoin(str, str_tmp);
+		}
 		i++;
 	}
 	free(tmp);
 	free(token);
 	if (str_tmp[0] != '\0')
-		free(str_tmp);
+		free_ptr(str_tmp);
 	return (str);
-}
+}*/
 
-int check_squotes(char *token)
+int	check_squotes(char *token)
 {
-	int	left;
-	int	right;
 	int	i;
-
+	int	squotes;
+	int dquotes;
+	
+	squotes = 0;
+	dquotes = 1;
 	i = 0;
-	left = 0;
-	right = 0;
-	while (token[i] != '$')
+	while (token[i])
 	{
-		if (token[i] == '\'')
-			left++;
+		if (token[i] == '\'' && squotes == 0)
+			squotes = 1;
+		else if (token[i] == '\'' && squotes == 1)
+			squotes = 0;
+		if (token[i] == '\"' && dquotes == 0)
+			dquotes = 1;
+		else if (token[i] == '\"' && dquotes == 1)
+			dquotes = 0;
 		i++;
 	}
-	while (token[i] != '\0')
-	{
-		if (token[i] == '\'')
-			right++;
-		i++;
-	}
-	if (left % 2 == 0 && right % 2 == 0)
-		return 0;
+	if (squotes == 1 || dquotes == 0)
+		return (0);
 	return (1);
 }
 
-void	parse_env_var(t_data *data, char **tokens)
+char *replace_squotes(t_data *data,char *token)
+{
+	int	i;
+	int	squotes;
+	int dquotes;
+	int none;
+
+	squotes = 0;
+	dquotes = 1;
+	none = 0;
+	i = 0;
+	while (token[i])
+	{
+		if (token[i] == '\'' && squotes == 0)
+		{
+			none = 1;
+			squotes = 1;
+		}
+		else if (token[i] == '\'' && squotes == 1)
+			squotes = 0;
+		if (token[i] == '\"' && dquotes == 0)
+			dquotes = 1;
+		else if (token[i] == '\"' && dquotes == 1)
+		{
+			none = 1;
+			dquotes = 0;
+		}
+		if ((token[i] == '$' && squotes == 0) && dquotes == 0)
+			return (replace_env_var(data, token));
+		i++;
+	}
+	if (none == 0)
+		return (replace_env_var(data, token));
+	return (token);
+}
+
+int	parse_env_var(t_data *data, char **tokens)
 {
 	int	i;
 	int	j;
@@ -183,11 +359,11 @@ void	parse_env_var(t_data *data, char **tokens)
 	{
 		if (!ft_strcmp("$?", tokens[i]))
 			tokens[i] = data->ret;
-		if (ft_strchr('$', tokens[i]))
-			if (check_squotes(tokens[i]) == 0)
-				tokens[i] = replace_env_var(data, tokens[i]);
+		if (ft_strchr('$', tokens[i]) && check_squotes(tokens[i]))
+			tokens[i] = replace_squotes(data, tokens[i]);
 		i++;
 	}
+	return (1);
 }
 
 char	**shell_split_tokens(t_data *data, char *line)
@@ -200,12 +376,15 @@ char	**shell_split_tokens(t_data *data, char *line)
 	if (line[0] == '\0')
 		return (NULL);
 	nbr_tokens = count_tokens(line);
+	if (nbr_tokens == 0)
+		return (NULL);
 	tokens = malloc(sizeof(char *) * (nbr_tokens + 1));
 	if (!tokens)
 		return (NULL);
 	malloc_tokens(line, tokens);
 	get_tokens(line, tokens);
-	parse_env_var(data, tokens);
+	if (parse_env_var(data, tokens) == 0)
+		return (NULL);
 	free_ptr(line);
 	return (tokens);
 }
