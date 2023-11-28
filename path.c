@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-char *find_path(t_cmd *cmd, char **paths)
+char	*find_path(t_cmd *cmd, char **paths)
 {
 	char	*tmp;
 	char	*path;
@@ -26,23 +26,23 @@ char *find_path(t_cmd *cmd, char **paths)
 			return (NULL);
 		path = ft_strjoin(tmp, cmd->cmd);
 		if (!path)
-			return NULL;
+			return (NULL);
 		if (access(path, F_OK | X_OK) == 0)
 		{
 			free_ptr(tmp);
 			return (path);
 		}
 		free_ptr(tmp);
-		i++;	
+		i++;
 	}
 	return (ft_strjoin("/bin/", cmd->cmd));
 }
 
-char *get_path(t_data *data, t_cmd *cmd)
+char	*get_path(t_data *data, t_cmd *cmd)
 {
-	char **paths;
-	char *path;
-	int idx;
+	char	**paths;
+	char	*path;
+	int		idx;
 
 	idx = get_env_idx(data, "PATH");
 	paths = ft_split(data->env[idx], ':');

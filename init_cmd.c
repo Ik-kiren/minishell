@@ -57,7 +57,7 @@ void	add_cmd_lst(t_cmd **lst, t_cmd *new_cmd)
 		*lst = new_cmd;
 		return ;
 	}
-	if (lst, *lst, new_cmd)
+	if (new_cmd)
 	{
 		while (tmp->next)
 			tmp = tmp->next;
@@ -66,7 +66,7 @@ void	add_cmd_lst(t_cmd **lst, t_cmd *new_cmd)
 	}
 }
 
-void fill_heredoc(t_data *data, char *delimiter, int fd)
+void	fill_heredoc(t_data *data, char *delimiter, int fd)
 {
 	char	*line;
 
@@ -74,7 +74,7 @@ void fill_heredoc(t_data *data, char *delimiter, int fd)
 	{
 		line = readline(">");
 		if (!ft_strcmp(line, delimiter))
-			break;
+			break ;
 		if (ft_strchr('$', line))
 			line = replace_env_var(data, line);
 		ft_putendl_fd(line, fd);
@@ -83,9 +83,9 @@ void fill_heredoc(t_data *data, char *delimiter, int fd)
 
 int	pipe_count(t_data *data, char **tokens)
 {
-	int	i;
-	int	count;
-	t_cmd *last;
+	int		i;
+	int		count;
+	t_cmd	*last;
 
 	i = 0;
 	count = 0;
@@ -108,13 +108,12 @@ int	pipe_count(t_data *data, char **tokens)
 		}
 		else if (!ft_strcmp(tokens[i], "<<"))
 		{
-			int tmp_fd;
-			
+			int	tmp_fd;
 			last = get_last_cmd(data->cmd);
 			last->fds = new_fds(tokens[i + 1]);
 			last->fds->type = 3;
 			tmp_fd = open(last->fds->name, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-			fill_heredoc(data, tokens[i + 1],tmp_fd);
+			fill_heredoc(data, tokens[i + 1], tmp_fd);
 			close(tmp_fd);
 			last->fds->fd = open(last->fds->name, O_RDONLY);
 			count++;
@@ -148,16 +147,11 @@ t_cmd	*get_last_cmd(t_cmd *cmd)
 	{
 		cmd = cmd->next;
 	}
-	return(cmd);
+	return (cmd);
 }
 
 void	free_cmd(t_cmd *cmd)
 {
-	int		i;
-	t_cmd	*tmp;
-
-	tmp = NULL;
-	i = 0;
 	free_str(cmd->args);
 	free_ptr(cmd->cmd);
 	free_ptr(cmd->pipe);
@@ -175,7 +169,7 @@ void	clean_cmd(t_cmd **cmd)
 	while (*cmd)
 	{
 		tmp = (*cmd)->next;
-		if((*cmd)->fds)
+		if ((*cmd)->fds)
 		{
 			free_ptr((*cmd)->fds->name);
 			free_ptr((*cmd)->fds);

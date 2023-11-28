@@ -41,24 +41,24 @@ int	shell_execute(char **tokens, t_data *data)
 {
 	t_cmd	*cmd;
 	int		status;
-    int		builtins;
+	int		builtins;
 
 	if (!tokens)
-		return 0;
+		return (0);
 	cmd = data->cmd;
-    builtins = 0;
+	builtins = 0;
 	status = 0;
 	if (tokens == NULL)
 		return (1);
 	if (tokens[0] == NULL)
 		return (1);
-    if (!cmd->next && !cmd->fds)
-        builtins = launch_builtins(cmd, data, tokens);
+	if (!cmd->next && !cmd->fds)
+		builtins = launch_builtins(cmd, data, tokens);
 	while (cmd && builtins == 0)
 	{
 		data->pid = fork();
 		if (data->pid == -1)
-			return 0;
+			return (0);
 		else if (data->pid == 0)
 		{
 			launch_cmd(cmd, data, tokens);
@@ -77,6 +77,7 @@ void	shell_loop(t_data *data)
 	int		status;
 
 	status = 0;
+	tokens = NULL;
 	while (1)
 	{
 		line = shell_line(data);
@@ -90,6 +91,7 @@ void	shell_loop(t_data *data)
 			status = shell_execute(tokens, data);
 			if (data->cmd->fds && data->cmd->fds->type == 3)
 				unlink(data->cmd->fds->name);
+			free_str(tokens);
 			clean_cmd(&data->cmd);
 		}
 		(void)status;

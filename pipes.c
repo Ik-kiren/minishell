@@ -24,7 +24,7 @@ void	close_pipes(t_cmd *cmd, t_cmd *skip_cmd)
 		if (cmd->fds)
 			close(cmd->fds->fd);
 		cmd = cmd->next;
-	}		
+	}
 }
 
 int	set_pipes(t_cmd *cmd, t_cmd *c)

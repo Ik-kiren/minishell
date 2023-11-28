@@ -39,20 +39,11 @@ char	*ft_strchr(char c, char *str)
 	i = 0;
 	while (str[i])
 	{
-		if(str[i] == c)
+		if (str[i] == c)
 			return ((char *)str + i);
 		i++;
 	}
 	return (NULL);
-}
-
-void	free_ptr(void *ptr)
-{
-	if (ptr != NULL)
-	{
-		free(ptr);
-		ptr = NULL;
-	}
 }
 
 char	*ft_strjoin(char const *s1, char const *s2)
@@ -81,6 +72,33 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (s);
 }
 
+char	*ft_strjoin_f(char *s1, char const *s2)
+{
+	char	*s;
+	size_t	len;
+	int		i;
+
+	len = ft_strlen(s1) + ft_strlen(s2);
+	s = malloc(sizeof(char) * (len + 1));
+	if (!s)
+		return (NULL);
+	len = 0;
+	while (s1[len])
+	{
+		s[len] = s1[len];
+		len++;
+	}
+	i = 0;
+	while (s2[i])
+	{
+		s[len + i] = s2[i];
+		i++;
+	}
+	s[len + i] = '\0';
+	free(s1);
+	return (s);
+}
+
 void	get_allenv(char **envp)
 {
 	int	i;
@@ -92,22 +110,3 @@ void	get_allenv(char **envp)
 		i++;
 	}
 }
-
-void	free_str(char **str)
-{
-	int	i;
-
-	i = 0;
-	if (str != NULL)
-	{
-		while (str[i])
-		{
-			free(str[i]);
-			str[i] = NULL;
-			i++;
-		}
-		free(str);
-		str = NULL;
-	}
-}
-

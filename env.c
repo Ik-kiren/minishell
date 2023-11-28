@@ -14,7 +14,7 @@
 
 int	get_env_idx(t_data *data, char *token)
 {
-	int	i;
+	int		i;
 	size_t	len;
 
 	i = 0;

@@ -82,7 +82,6 @@ int	shell_exit(t_data *data, char **tokens)
 		free_str(tokens);
 	}
 	free_str(data->env);
-	printf("exit\n");
 	exit(EXIT_SUCCESS);
 	return (1);
 }

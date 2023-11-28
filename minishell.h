@@ -31,7 +31,7 @@ typedef struct s_fds
 	int		fd;
 	int		type;
 	int		stdin_fd;
-	int 	stdout_fd;
+	int		stdout_fd;
 }	t_fds;
 
 typedef struct s_cmd
@@ -92,5 +92,8 @@ t_cmd	*get_last_cmd(t_cmd *cmd);
 void	ft_putendl_fd(char *s, int fd);
 char	*replace_env_var(t_data *data, char *token);
 int		shell_exit(t_data *data, char **tokens);
+char	*ft_strjoin_f(char *s1, char const *s2);
+char	*replace_squotes(t_data *data, char *token);
+int		check_squotes(char *token);
 
 #endif
