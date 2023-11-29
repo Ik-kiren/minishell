@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -I/Users/cdupuis/.brew/opt/readline/include -g -fsanitize=address
 NAME = minishell
-SRCS = main.c builtins.c tokens_split.c utils.c export.c unset.c libft.c env.c signals.c init_cmd.c ft_split.c pipes.c shell.c path.c line.c parse_quotes.c free_utils.c
+SRCS = main.c builtins.c tokens_split.c utils.c export.c unset.c libft.c env.c signals.c init_cmd.c ft_split.c pipes.c shell.c path.c line.c parse_quotes.c free_utils.c heredoc.c redirections.c execute.c cmd_utils.c utils2.c quotes.c get_tokens.c malloc_tokens.c replace_env_var.c
 OBJS = $(SRCS:c=o)
 
 all : $(NAME)
@@ -18,7 +18,10 @@ exp:
 
 re : fclean all	
 
-fclean :
-	rm -f $(OBJS) $(NAME)
+clean :
+	rm -f $(OBJS)
 
-.PHONY: all fclean exp linux re
+fclean : clean
+	rm -f $(NAME)
+
+.PHONY: all clean fclean exp linux re

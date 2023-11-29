@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:58 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/24 11:25:39 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/29 15:32:00 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_data
 	t_cmd	*cmd;
 	pid_t	pid;
 	char	*ret;
+	int		err;
 }	t_data;
 
 char	**shell_split_tokens(t_data *data, char *line);
@@ -94,6 +95,16 @@ char	*replace_env_var(t_data *data, char *token);
 int		shell_exit(t_data *data, char **tokens);
 char	*ft_strjoin_f(char *s1, char const *s2);
 char	*replace_squotes(t_data *data, char *token);
-int		check_squotes(char *token);
+int		check_squotes(char *token, int squotes, int dquotes);
+int		heredoc_redirect(t_cmd *last, t_data *data, char **tokens, int i);
+t_fds	*new_fds(char *name);
+void	fill_heredoc(t_data *data, char *delimiter, int fd);
+int		parse_redirect(t_cmd *last, t_data *data, char **tokens, int i);
+int		shell_execute(char **tokens, t_data *data);
+void	launch_cmd(t_cmd *cmd, t_data *data, char **tokens);
+void	malloc_tokens(char *line, char **tokens);
+char	**get_tokens(char *line, char **tokens);
+char	*erase_quotes(char *token);
+char	*search_env_var(t_data	*data, char	*token);
 
 #endif

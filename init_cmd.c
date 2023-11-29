@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:30:31 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/24 13:44:17 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/29 11:39:25 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,158 +47,20 @@ t_cmd	*lst_new_cmd(void)
 	return (tmp);
 }
 
-void	add_cmd_lst(t_cmd **lst, t_cmd *new_cmd)
+void	fill_in_cmd(t_cmd *tmp, char **tokens, int i, int l)
 {
-	t_cmd	*tmp;
+	int	j;
 
-	tmp = *lst;
-	if (tmp == NULL)
-	{
-		*lst = new_cmd;
-		return ;
-	}
-	if (new_cmd)
-	{
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = new_cmd;
-		new_cmd->prev = tmp;
-	}
-}
-
-void	fill_heredoc(t_data *data, char *delimiter, int fd)
-{
-	char	*line;
-
-	while (1)
-	{
-		line = readline(">");
-		if (!ft_strcmp(line, delimiter))
-			break ;
-		if (ft_strchr('$', line))
-			line = replace_env_var(data, line);
-		ft_putendl_fd(line, fd);
-	}
-}
-
-int	pipe_count(t_data *data, char **tokens)
-{
-	int		i;
-	int		count;
-	t_cmd	*last;
-
-	i = 0;
-	count = 0;
-	if (!tokens)
-		return 0;
-	add_cmd_lst(&data->cmd, lst_new_cmd());
-	while (tokens[i])
-	{
-		if (tokens[i][0] == '|' )
-		{
-			add_cmd_lst(&data->cmd, lst_new_cmd());
-			count++;
-		}
-		else if (!ft_strcmp(tokens[i], ">>"))
-		{
-			last = get_last_cmd(data->cmd);
-			last->fds = new_fds(tokens[i + 1]);
-			last->fds->fd = open(last->fds->name, O_RDWR | O_APPEND | O_CREAT, S_IRWXU);
-			count++;
-		}
-		else if (!ft_strcmp(tokens[i], "<<"))
-		{
-			int	tmp_fd;
-			last = get_last_cmd(data->cmd);
-			last->fds = new_fds(tokens[i + 1]);
-			last->fds->type = 3;
-			tmp_fd = open(last->fds->name, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-			fill_heredoc(data, tokens[i + 1], tmp_fd);
-			close(tmp_fd);
-			last->fds->fd = open(last->fds->name, O_RDONLY);
-			count++;
-		}
-		else if (tokens[i][0] == '<')
-		{
-			last = get_last_cmd(data->cmd);
-			last->fds = new_fds(tokens[i + 1]);
-			last->fds->type = 1;
-			last->fds->fd = open(last->fds->name, O_RDONLY);
-			count++;
-		}
-		else if (tokens[i][0] == '>')
-		{
-			last = get_last_cmd(data->cmd);
-			last->fds = new_fds(tokens[i + 1]);
-			last->fds->type = 2;
-			if (access(last->fds->name, F_OK) == 0)
-				unlink(last->fds->name);
-			last->fds->fd = open(last->fds->name, O_RDWR | O_CREAT, S_IRWXU);
-			count++;
-		}
-		i++;
-	}
-	return (count);
-}
-
-t_cmd	*get_last_cmd(t_cmd *cmd)
-{
-	while (cmd->next)
-	{
-		cmd = cmd->next;
-	}
-	return (cmd);
-}
-
-void	free_cmd(t_cmd *cmd)
-{
-	free_str(cmd->args);
-	free_ptr(cmd->cmd);
-	free_ptr(cmd->pipe);
-	free_ptr(cmd->path);
-	free_ptr(cmd);
-}
-
-void	clean_cmd(t_cmd **cmd)
-{
-	t_cmd	*tmp;
-
-	tmp = NULL;
-	if (!cmd)
-		return ;
-	while (*cmd)
-	{
-		tmp = (*cmd)->next;
-		if ((*cmd)->fds)
-		{
-			free_ptr((*cmd)->fds->name);
-			free_ptr((*cmd)->fds);
-		}
-		free_cmd(*cmd);
-		*cmd = tmp;
-	}
-}
-
-void	fill_cmd(char **tokens, t_cmd **cmd)
-{
-	int		i;
-	int		j;
-	t_cmd	*tmp;
-	int		l;
-
-	tmp = *cmd;
-	i = 0;
-	l = 0;
-	if (!tokens)
-		return ;
 	while (tmp)
 	{
 		j = i;
 		tmp->cmd = ft_strdup(tokens[i]);
-		while (tokens[j] && tokens[j][0] != '|' && tokens[j][0] != '>' && tokens[j][0] != '<')
+		while (tokens[j] && tokens[j][0] != '|'
+			&& tokens[j][0] != '>' && tokens[j][0] != '<')
 			j++;
 		tmp->args = malloc(sizeof(char *) * (j + 1));
-		while (tokens[i] && tokens[i][0] != '|' && tokens[i][0] != '>' && tokens[i][0] != '<')
+		while (tokens[i] && tokens[i][0] != '|'
+			&& tokens[i][0] != '>' && tokens[i][0] != '<')
 		{
 			tmp->args[l] = ft_strdup(tokens[i]);
 			l++;
@@ -211,4 +73,18 @@ void	fill_cmd(char **tokens, t_cmd **cmd)
 		tmp = tmp->next;
 		i++;
 	}
+}
+
+void	fill_cmd(char **tokens, t_cmd **cmd)
+{
+	int		i;
+	t_cmd	*tmp;
+	int		l;
+
+	tmp = *cmd;
+	i = 0;
+	l = 0;
+	if (!tokens)
+		return ;
+	fill_in_cmd(tmp, tokens, i, l);
 }

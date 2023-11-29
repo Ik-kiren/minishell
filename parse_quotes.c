@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_quotes.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/29 11:42:34 by cdupuis           #+#    #+#             */
+/*   Updated: 2023/11/29 15:48:26 by cdupuis          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
@@ -22,17 +33,13 @@ char	*erase_quotes(char *token)
 	while (token[i])
 	{
 		if (token[i] != '\"' && token[i] != '\'')
-		{
-			tmp[j] = token[i];
-			j++;
-		}
+			tmp[j++] = token[i];
 		i++;
 	}
 	tmp[j] = '\0';
 	free(token);
 	return (tmp);
 }
-
 
 char	*search_env_var(t_data	*data, char	*token)
 {
@@ -63,102 +70,25 @@ char	*search_env_var(t_data	*data, char	*token)
 	return (str);
 }
 
-char	*replace_env_var(t_data *data, char *token)
-{
-	char	*tmp;
-	char	*ret;
-	char	*str;
-	int		i;
-	int		count;
-	int		l;
-
-	i = 0;
-	count = 0;
-	l = 0;
-	ret = malloc(sizeof(char) * 1);
-	ret[0] = '\0';
-	token = erase_quotes(token);
-	while (token[i])
-	{
-		while (token[i] && token[i] != '$')
-			i++;
-		tmp = malloc(sizeof(char) * (i + 1));
-		while (count < i)
-			tmp[l++] = token[count++];
-		tmp[l] = '\0';
-		l = 0;
-		ret = ft_strjoin_f(ret, tmp);
-		if (!token[i])
-			break ;
-		str = search_env_var(data, token + i);
-		ret = ft_strjoin_f(ret, str);
-		while (token[i] && token[i++] != ' ')
-			count++;
-	}
-	free_ptr(token);
-	free_ptr(tmp);
-	free_ptr(str);
-	return (ret);
-}
-
-int	check_squotes(char *token)
+int	check_squotes(char *token, int squotes, int dquotes)
 {
 	int	i;
-	int	squotes;
-	int	dquotes;
 
-	squotes = 0;
-	dquotes = 1;
-	i = 0;
-	while (token[i])
+	i = -1;
+	while (token[++i])
 	{
 		if (token[i] == '\'' && squotes == 0)
+		{
 			squotes = 1;
+		}
 		else if (token[i] == '\'' && squotes == 1)
 			squotes = 0;
 		if (token[i] == '\"' && dquotes == 0)
 			dquotes = 1;
 		else if (token[i] == '\"' && dquotes == 1)
 			dquotes = 0;
-		i++;
 	}
 	if (squotes == 1 || dquotes == 0)
 		return (0);
 	return (1);
-}
-
-char *replace_squotes(t_data *data, char *token)
-{
-	int	i;
-	int	squotes;
-	int dquotes;
-	int none;
-
-	squotes = 0;
-	dquotes = 1;
-	none = 0;
-	i = 0;
-	while (token[i])
-	{
-		if (token[i] == '\'' && squotes == 0)
-		{
-			none = 1;
-			squotes = 1;
-		}
-		else if (token[i] == '\'' && squotes == 1)
-			squotes = 0;
-		if (token[i] == '\"' && dquotes == 0)
-			dquotes = 1;
-		else if (token[i] == '\"' && dquotes == 1)
-		{
-			none = 1;
-			dquotes = 0;
-		}
-		if ((token[i] == '$' && squotes == 0) && dquotes == 0)
-			return (replace_env_var(data, token));
-		i++;
-	}
-	if (none == 0)
-		return (replace_env_var(data, token));
-	return (token);
 }

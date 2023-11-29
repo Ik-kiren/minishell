@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 11:11:16 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/24 11:31:56 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/29 11:41:54 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,6 @@ int	ft_strncmp(char *s1, char *s2, int size)
 		i++;
 	}
 	return (1);
-}
-
-size_t	ft_ptrlen(char **str)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i] != NULL)
-		i++;
-	return (i);
 }
 
 size_t	ft_strlen(const char *str)

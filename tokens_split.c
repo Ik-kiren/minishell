@@ -6,11 +6,37 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:47 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/28 14:20:57 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/29 15:46:56 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	count_quotes(char *line, int i, int count)
+{
+	while (line[i])
+	{
+		if (line[i] == '\"' || line[i] == '\'')
+		{
+			count++;
+			i++;
+			while (line[i] != '\"' && line[i] != '\'')
+			{
+				if (line[i] == '\0')
+					return (0);
+				i++;
+			}
+			i++;
+			if (line[i] == '\0')
+				break ;
+		}
+		if (line[i] == ' ' && line[i + 1] != ' '
+			&& line[i + 1] != '\0' && line[i + 1] != '\"' && line[i + 1] != '\'')
+			count++;
+		i++;
+	}
+	return (count);
+}
 
 int	count_tokens(char *line)
 {
@@ -21,109 +47,8 @@ int	count_tokens(char *line)
 	count = 0;
 	if (line[0] != ' ')
 		count++;
-	while (line[i])
-	{
-		if (line[i] == '\"')
-		{
-			count++;
-			i++;
-			while (line[i] != '\"')
-			{
-				if (line[i] == '\0')
-					return (0);
-				i++;
-			}
-			i++;
-			if (line[i] == '\0')
-				break ;
-		}
-		if (line[i] == ' ' && line[i + 1] != ' ' && line[i + 1] != '\0' && line[i + 1] != '\"')
-			count++;
-		i++;
-	}
+	count = count_quotes(line, i, count);
 	return (count);
-}
-
-void	malloc_tokens(char *line, char **tokens)
-{
-	int	i;
-	int	j;
-	int	count;
-
-	i = 0;
-	j = 0;
-	count = 0;
-	while (line[i])
-	{
-		if (line[i] == '\"')
-		{
-			i++;
-			while (line[i] != '\"')
-			{
-				count++;
-				i++;
-			}
-			count += 2;
-			i++;
-			tokens[j++] = malloc(sizeof(char) * (count + 1));
-			count = 0;
-			if (line[i] == '\0')
-				break ;
-		}
-		if (line[i] != ' ')
-			count++;
-		if ((line[i] == ' ' && line[i - 1] != ' ')
-			|| (line[i] != ' ' && line[i + 1] == '\0'))
-		{
-			tokens[j] = malloc(sizeof(char) * (count + 1));
-			if (!tokens[j])
-				tokens[j] = NULL;
-			count = 0;
-			j++;
-		}
-		i++;
-	}
-}
-
-char	**get_tokens(char *line, char **tokens)
-{
-	int	i;
-	int	j;
-	int	l;
-	int	status;
-
-	i = 0;
-	j = 0;
-	l = 0;
-	status = 0;
-	while (line[i])
-	{
-		l = 0;
-		if (line[i] == '\"')
-		{
-			status = 1;
-			while (status == 1)
-			{
-				tokens[j][l++] = line[i++];
-				if (line[i] == '\"')
-					status = 0;
-			}
-			tokens[j][l++] = line[i];
-			tokens[j][l] = '\0';
-			j++;
-		}
-		else if (line[i] != '\0' && line[i] != ' ')
-		{
-			while (line[i] != '\0' && line[i] != ' ')
-				tokens[j][l++] = line[i++];
-			tokens[j][l] = '\0';
-			j++;
-		}
-		if (line[i])
-			i++;
-	}
-	tokens[j] = NULL;
-	return (tokens);
 }
 
 char	*erase_env_var(char *token)
@@ -148,17 +73,20 @@ char	*erase_env_var(char *token)
 	return (tmp);
 }
 
-
 int	parse_env_var(t_data *data, char **tokens)
 {
 	int	i;
+	int	squotes;
+	int	dquotes;
 
 	i = 0;
+	squotes = 0;
+	dquotes = 1;
 	while (tokens[i])
 	{
 		if (!ft_strcmp("$?", tokens[i]))
 			tokens[i] = data->ret;
-		if (ft_strchr('$', tokens[i]) && check_squotes(tokens[i]))
+		if (ft_strchr('$', tokens[i]) && check_squotes(tokens[i], squotes, dquotes))
 			tokens[i] = replace_squotes(data, tokens[i]);
 		i++;
 	}

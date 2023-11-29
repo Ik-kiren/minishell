@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:51:03 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/24 12:15:53 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/29 14:47:45 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ void	init_data(t_data *data, char **envp)
 	data->env[i] = NULL;
 	data->cmd = NULL;
 	data->ret = "1";
+	data->err = 0;
 }
 
 int	main(int argc, char **argv, char **envp)

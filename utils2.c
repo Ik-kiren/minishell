@@ -1,40 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_utils.c                                       :+:      :+:    :+:   */
+/*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/29 10:23:36 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/29 10:23:43 by cdupuis          ###   ########.fr       */
+/*   Created: 2023/11/29 11:40:54 by cdupuis           #+#    #+#             */
+/*   Updated: 2023/11/29 11:41:56 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_str(char **str)
+size_t	ft_ptrlen(char **str)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
-	if (str != NULL)
-	{
-		while (str[i])
-		{
-			free_ptr(str[i]);
-			str[i] = NULL;
-			i++;
-		}
-		free(str);
-		str = NULL;
-	}
-}
-
-void	free_ptr(void *ptr)
-{
-	if (ptr != NULL)
-	{
-		free(ptr);
-		ptr = NULL;
-	}
+	while (str[i] != NULL)
+		i++;
+	return (i);
 }
