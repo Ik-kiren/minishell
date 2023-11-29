@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:51:03 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/29 14:47:45 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/29 16:23:22 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,8 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data				data;
 
-	(void)argc;
+	if (argc != 1)
+		return (0);
 	(void)argv;
 	signals_handler();
 	init_data(&data, envp);

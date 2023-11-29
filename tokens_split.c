@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:47 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/29 15:46:56 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/29 16:20:19 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int	count_quotes(char *line, int i, int count)
 				break ;
 		}
 		if (line[i] == ' ' && line[i + 1] != ' '
-			&& line[i + 1] != '\0' && line[i + 1] != '\"' && line[i + 1] != '\'')
+			&& line[i + 1] != '\0' && line[i + 1] != '\"'
+			&& line[i + 1] != '\'')
 			count++;
 		i++;
 	}
@@ -86,7 +87,8 @@ int	parse_env_var(t_data *data, char **tokens)
 	{
 		if (!ft_strcmp("$?", tokens[i]))
 			tokens[i] = data->ret;
-		if (ft_strchr('$', tokens[i]) && check_squotes(tokens[i], squotes, dquotes))
+		if (ft_strchr('$', tokens[i])
+			&& check_squotes(tokens[i], squotes, dquotes))
 			tokens[i] = replace_squotes(data, tokens[i]);
 		i++;
 	}

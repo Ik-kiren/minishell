@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:51:06 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/24 12:30:24 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/29 16:43:45 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ int	shell_exit(t_data *data, char **tokens)
 int	launch_builtins(t_cmd *cmd, t_data *data, char **tokens)
 {
 	int	ret;
-
 	ret = 0;
 	if (!ft_strcmp(cmd->cmd, "cd"))
 		ret = shell_cd(tokens, data);
