@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:42:34 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/29 15:48:26 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/30 13:48:13 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,6 @@ int	check_squotes(char *token, int squotes, int dquotes)
 	}
 	if (squotes == 1 || dquotes == 0)
 		return (0);
+	printf("");
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 13:40:22 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/29 15:22:04 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/30 14:49:00 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,19 @@
 void	malloc_tokens_utils2(char *line, int *i, int *count)
 {
 	*i += 1;
-	while (line[*i] != '\"' && line[*i] != '\'')
+	while (line[*i] && line[*i] != '\"' && line[*i] != '\'')
 	{
 		*count += 1;
 		*i += 1;
 	}
+	if (line[*i] == '\0')
+	{
+		*count += 1;
+		return ;
+	}
 	*count += 2;
+	*i += 1;
+	if (line[*i] && line[*i + 1])
 	*i += 1;
 }
 
@@ -60,5 +67,11 @@ void	malloc_tokens(char *line, char **tokens)
 
 	i = -1;
 	j = 0;
+	if (line[0] == ' ')
+	{
+		i++;
+		while (line[i + 1] == ' ')
+			i++;
+	}
 	malloc_tokens_utils(line, tokens, i, j);
 }

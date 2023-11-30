@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:54 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/27 13:01:43 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/30 14:21:41 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	get_allenv(char **envp)
 	i = 0;
 	while (envp[i])
 	{
-		printf("%d   %s\n", i, envp[i]);
+		printf("%s\n", envp[i]);
 		i++;
 	}
 }

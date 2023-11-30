@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:47 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/29 16:20:19 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/30 13:09:45 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,12 @@ int	count_quotes(char *line, int i, int count)
 		{
 			count++;
 			i++;
-			while (line[i] != '\"' && line[i] != '\'')
+			while (line[i] && line[i] != '\"' && line[i] != '\'')
 			{
 				if (line[i] == '\0')
 					return (0);
 				i++;
 			}
-			i++;
 			if (line[i] == '\0')
 				break ;
 		}
@@ -85,8 +84,6 @@ int	parse_env_var(t_data *data, char **tokens)
 	dquotes = 1;
 	while (tokens[i])
 	{
-		if (!ft_strcmp("$?", tokens[i]))
-			tokens[i] = data->ret;
 		if (ft_strchr('$', tokens[i])
 			&& check_squotes(tokens[i], squotes, dquotes))
 			tokens[i] = replace_squotes(data, tokens[i]);

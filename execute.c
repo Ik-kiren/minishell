@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:22:16 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/29 11:30:01 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/30 14:20:56 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ int	execute_child(t_cmd *cmd, t_data *data, char **tokens, int builtins)
 		cmd = cmd->next;
 	}
 	close_pipes(data->cmd, NULL);
-	waitpid(data->pid, &status, WUNTRACED);
+	if (data->pid != -1)
+		waitpid(data->pid, &status, WUNTRACED);
+	if (status != 0)
+		data->ret = set_ret('0', data->ret);
 	return (1);
 }
 
@@ -46,7 +49,7 @@ int	shell_execute(char **tokens, t_data *data)
 	status = 0;
 	if (tokens[0] == NULL)
 		return (1);
-	if (!cmd && !cmd->next && !cmd->fds)
+	if (cmd && !cmd->next && !cmd->fds)
 		builtins = launch_builtins(cmd, data, tokens);
 	if (execute_child(cmd, data, tokens, builtins) == 0)
 		return (0);

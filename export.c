@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:51:05 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/06 10:57:11 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/11/30 11:48:02 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	shell_export(char **tokens, t_data *data)
 	int	j;
 
 	j = 1;
-	if (!tokens[1])
+	if (!data->cmd->args[1])
 		get_allenv(data->env);
 	else
 	{
