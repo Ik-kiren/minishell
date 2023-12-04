@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:58 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/30 13:58:40 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/04 11:40:28 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int		get_env_idx(t_data *data, char *token);
 int		token_size(char *token);
 int		ft_strcmp(char *s1, char *s2);
 int		shell_env(t_data *data);
-int		shell_pwd(char **tokens, t_data *data);
+int		shell_pwd(t_data *data);
 void	sig_exit(int signal, siginfo_t *r_info, void *s);
 void	signals_handler(void);
 char	*get_env_var(t_data *data, char *token);
@@ -107,5 +107,6 @@ char	**get_tokens(char *line, char **tokens);
 char	*erase_quotes(char *token);
 char	*search_env_var(t_data	*data, char	*token);
 char	*set_ret(char c, char *ret);
+void	set_pwd(t_data *data);
 
 #endif

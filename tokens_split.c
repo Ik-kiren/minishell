@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:47 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/30 13:09:45 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/04 15:51:25 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,11 @@ int	count_tokens(char *line)
 
 	i = 0;
 	count = 0;
+	while (line[i] == ' ')
+		i++;
+	if (line[i] == '\0')
+		return (0);
+	i = 0;
 	if (line[0] != ' ')
 		count++;
 	count = count_quotes(line, i, count);
@@ -87,6 +92,8 @@ int	parse_env_var(t_data *data, char **tokens)
 		if (ft_strchr('$', tokens[i])
 			&& check_squotes(tokens[i], squotes, dquotes))
 			tokens[i] = replace_squotes(data, tokens[i]);
+		if (check_squotes(tokens[i], squotes, dquotes))
+			tokens[i] = erase_quotes(tokens[i]);
 		i++;
 	}
 	return (1);
@@ -99,6 +106,8 @@ char	**shell_split_tokens(t_data *data, char *line)
 
 	if (line[0] == '\0')
 		return (NULL);
+	if (check_squotes(line, 0, 1) == 0)
+			return (0);
 	nbr_tokens = count_tokens(line);
 	if (nbr_tokens == 0)
 		return (NULL);

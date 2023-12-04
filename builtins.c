@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:51:06 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/30 14:35:52 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/04 11:40:32 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,29 +24,22 @@ int	token_size(char *token)
 
 int	shell_cd(t_data *data)
 {
-	int		idx;
-	char	cwd[4096];
-
-	idx = get_env_idx(data, "PWD");
+	if (data->cmd->args[1] != NULL && data->cmd->args[2] != NULL)
+		return (1);
 	if (data->cmd->args[1] == NULL)
 	{
 		chdir(getenv("HOME"));
-		getcwd(cwd, 4096);
-		data->env[idx] = ft_strjoin("PWD=", cwd);
+		set_pwd(data);
 	}
 	else
 	{
 		if (chdir(data->cmd->args[1]) != 0)
 		{
-			data->ret = set_ret('0', data->ret);
-			perror("lsh");
+			data->ret = set_ret('1', data->ret);
+			perror("bash");
 		}
 		else
-		{
-			free(data->env[idx]);
-			getcwd(cwd, 4096);
-			data->env[idx] = ft_strjoin("PWD=", cwd);
-		}
+			set_pwd(data);
 	}
 	return (1);
 }
@@ -81,8 +74,6 @@ int	shell_exit(t_data *data, char **tokens)
 {
 	if (tokens)
 	{
-		if (tokens[1] != NULL)
-			return (0);
 		free_str(tokens);
 	}
 	free_ptr(data->ret);
@@ -101,7 +92,7 @@ int	launch_builtins(t_cmd *cmd, t_data *data, char **tokens)
 	else if (!ft_strcmp(cmd->cmd, "echo"))
 		ret = shell_echo(data, cmd->args);
 	else if (!ft_strcmp(cmd->cmd, "pwd"))
-		ret = shell_pwd(tokens, data);
+		ret = shell_pwd(data);
 	else if (!ft_strcmp(cmd->cmd, "export"))
 		ret = shell_export(tokens, data);
 	else if (!ft_strcmp(cmd->cmd, "unset"))

@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:30:18 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/30 10:28:42 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/04 12:09:07 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int	set_pipes(t_cmd *cmd, t_cmd *c)
 	{
 		cmd->fds->stdout_fd = dup(STDOUT_FILENO);
 		cmd->fds->stdin_fd = dup(STDIN_FILENO);
-		close(c->fds->fd);
 		close(cmd->fds->stdout_fd);
 		close(cmd->fds->stdin_fd);
 	}

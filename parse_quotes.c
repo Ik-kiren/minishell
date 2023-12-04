@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:42:34 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/30 13:48:13 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/04 15:49:15 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,7 @@ int	check_squotes(char *token, int squotes, int dquotes)
 	while (token[++i])
 	{
 		if (token[i] == '\'' && squotes == 0)
-		{
 			squotes = 1;
-		}
 		else if (token[i] == '\'' && squotes == 1)
 			squotes = 0;
 		if (token[i] == '\"' && dquotes == 0)

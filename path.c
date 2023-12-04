@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:34:40 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/15 12:39:40 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/04 11:55:43 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*find_path(t_cmd *cmd, char **paths)
 		free_ptr(tmp);
 		i++;
 	}
-	return (ft_strjoin("/bin/", cmd->cmd));
+	return (cmd->cmd);
 }
 
 char	*get_path(t_data *data, t_cmd *cmd)
@@ -45,6 +45,8 @@ char	*get_path(t_data *data, t_cmd *cmd)
 	int		idx;
 
 	idx = get_env_idx(data, "PATH");
+	if (idx == -1)
+		return ("");
 	paths = ft_split(data->env[idx], ':');
 	if (!paths)
 		return (NULL);

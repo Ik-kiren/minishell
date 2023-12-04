@@ -6,11 +6,22 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 11:28:19 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/30 13:32:26 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/04 15:08:53 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	set_pwd(t_data *data)
+{
+	int		idx;
+	char	cwd[4096];
+
+	idx = get_env_idx(data, "PWD");
+	free(data->env[idx]);
+	getcwd(cwd, 4096);
+	data->env[idx] = ft_strjoin("PWD=", cwd);
+}
 
 int	get_env_idx(t_data *data, char *token)
 {
@@ -23,7 +34,7 @@ int	get_env_idx(t_data *data, char *token)
 		len = 0;
 		while (data->env[i][len] != '=' && data->env[i][len] != '\0')
 			len++;
-		if (len <= ft_strlen(token) && token[len] == '\0')
+		if (len <= ft_strlen(token) && (token[len] == '\0' || token[len] == '+'))
 			len--;
 		if (ft_strncmp(data->env[i], token, len))
 			return (i);
@@ -48,25 +59,18 @@ char	*get_env_var(t_data *data, char *token)
 
 int	shell_env(t_data *data)
 {
-	char	*error;
-
 	if (data->cmd->args[1] != NULL)
 	{
-		error = ft_strjoin("env: ", data->cmd->args[1]);
-		errno = ENOENT;
-		perror(error);
 		return (1);
 	}
 	get_allenv(data->env);
 	return (1);
 }
 
-int	shell_pwd(char **tokens, t_data *data)
+int	shell_pwd(t_data *data)
 {
 	int	idx;
 
-	if (tokens[1] != NULL)
-		return (0);
 	idx = get_env_idx(data, "PWD");
 	printf("%s\n", data->env[idx] + 4);
 	return (1);

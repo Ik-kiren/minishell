@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 13:41:10 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/30 14:49:04 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/04 16:11:13 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,17 @@ void	get_tokens_utils(char *line, char **tokens, int i, int j)
 	while (line[++i])
 	{
 		l = 0;
-		if (line[i] == '\"' || line[i] == '\'')
+		/*if (line[i] == '\"' || line[i] == '\'')
 		{
 			tokens[j][l++] = line[i++];
-			while (line[i + 1] && line[i] != '\"' && line[i] != '\'')
+			while (line[i] && line[i + 1] && line[i] != '\"' && line[i] != '\'')
 			{
 				tokens[j][l++] = line[i++];
 			}
 			tokens[j][l++] = line[i];
 			tokens[j++][l] = '\0';
-		}
-		else if (line[i] != '\0' && line[i] != ' ')
+		}*/
+		/*else*/ if (line[i] != '\0' && line[i] != ' ')
 		{
 			while (line[i] && line[i] != '\0' && line[i] != ' ')
 				tokens[j][l++] = line[i++];
