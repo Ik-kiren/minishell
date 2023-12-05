@@ -6,13 +6,40 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:42:34 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/04 15:49:15 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/05 15:15:17 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*erase_quotes(char *token)
+int	malloc_quotes(char *token)
+{
+	int	i;
+	int	quotes;
+	int	count;
+
+	count = 0;
+	quotes = 0;
+	i = 0;
+	while (token[i])
+	{
+		while (quotes_states(token, i, &quotes) == 1)
+			i++;
+		if (token[i])
+		{
+			while (token[i] == ' ' && token[i + 1] == ' ')
+				i++;
+			count++;
+		}
+		if (!token[i])
+			return (count);
+		if (quotes_states(token, i, &quotes) != 1)
+			i++;
+	}
+	return (count);
+}
+
+char	*erase_quotes(char *token, int quotes)
 {
 	char	*tmp;
 	int		i;
@@ -21,20 +48,22 @@ char	*erase_quotes(char *token)
 
 	i = 0;
 	j = 0;
-	count = 0;
-	while (token[i])
-	{
-		if (token[i] != '\"' && token[i] != '\'')
-			count++;
-		i++;
-	}
+	count = malloc_quotes(token);
 	tmp = malloc(sizeof(char) * (count + 1));
-	i = 0;
 	while (token[i])
 	{
-		if (token[i] != '\"' && token[i] != '\'')
+		while (quotes_states(token, i, &quotes) == 1)
+			i++;
+		if (token[i])
+		{
+			while (token[i] == ' ' && token[i + 1] == ' ')
+				i++;
 			tmp[j++] = token[i];
-		i++;
+		}
+		if (!token[i])
+			break ;
+		if (quotes_states(token, i, &quotes) != 1)
+			i++;
 	}
 	tmp[j] = '\0';
 	free(token);
@@ -48,11 +77,11 @@ char	*search_env_var(t_data	*data, char	*token)
 	size_t	i;
 
 	i = 0;
-	while (token[i] && token[i] != '\"' && token[i] != ' ')
+	while (token[i] && token[i] != '\"' && token[i] != ' ' && token[i] != '\'')
 		i++;
 	tmp = malloc(sizeof(char) * (i + 1));
 	i = 0;
-	while (token[i] && token[i] != '\"' && token[i] != ' ')
+	while (token[i] && token[i] != '\"' && token[i] != ' ' && token[i] != '\'')
 	{
 		tmp[i] = token[i];
 		i++;
@@ -70,24 +99,15 @@ char	*search_env_var(t_data	*data, char	*token)
 	return (str);
 }
 
-int	check_squotes(char *token, int squotes, int dquotes)
+int	check_squotes(char *token)
 {
 	int	i;
 
 	i = -1;
 	while (token[++i])
 	{
-		if (token[i] == '\'' && squotes == 0)
-			squotes = 1;
-		else if (token[i] == '\'' && squotes == 1)
-			squotes = 0;
-		if (token[i] == '\"' && dquotes == 0)
-			dquotes = 1;
-		else if (token[i] == '\"' && dquotes == 1)
-			dquotes = 0;
+		if (token[i] == '\"' || token[i] == '\'')
+			return (1);
 	}
-	if (squotes == 1 || dquotes == 0)
-		return (0);
-	printf("");
-	return (1);
+	return (0);
 }

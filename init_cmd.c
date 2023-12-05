@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:30:31 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/30 10:45:05 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/05 16:32:43 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ void	fill_in_cmd(t_cmd *tmp, char **tokens, int i, int l)
 			l++;
 			i++;
 		}
+		if (tokens[i] && tokens[i][0] == '<')
+			i += 2;
 		tmp->pipe = malloc(sizeof(int) * 2);
 		pipe(tmp->pipe);
 		tmp->args[l] = NULL;

@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 13:40:22 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/04 16:18:42 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/05 15:57:11 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,41 +34,30 @@ void	malloc_tokens_utils2(char *line, int *i, int *count)
 void	malloc_tokens_utils(char *line, char **tokens, int i, int j)
 {
 	int	count;
+	int	quotes;
+	int	dquotes;
 
 	count = 0;
+	quotes = 0;
+	dquotes = 0;
 	while (line[++i])
 	{
-		/*if (line[i] == '\"' || line[i] == '\'')
+		count = 0;
+		quotes_states2(line, i, &quotes, &dquotes);
+		if (line[i] != '\0' && line[i] != ' ')
 		{
-			malloc_tokens_utils2(line, &i, &count);
+			while (line[i] && (line[i] != ' ' || quotes || dquotes))
+			{
+				quotes_states2(line, i, &quotes, &dquotes);
+				i++;
+				count++;
+			}
 			tokens[j++] = malloc(sizeof(char) * (count + 1));
-			count = 0;
-			printf("count = %d\n", count);
-			if (line[i] == '\0')
-				break ;
-		}*/
-		/*if (line[i] != ' ')
-			count++;
-		if ((line[i] == ' ' && line[i - 1] != ' ')
-			|| (line[i] != ' ' && line[i + 1] == '\0'))
-		{
-			tokens[j] = malloc(sizeof(char) * (count + 1));
-			if (!tokens[j])
-				tokens[j] = NULL;
-			count = 0;
-			j++;*/
-		if (line[i] != ' ')
-			count++;
-		if ((line[i] == ' ' && line[i - 1] != ' ')
-			|| (line[i] != ' ' && line[i + 1] == '\0'))
-		{
-			tokens[j] = malloc(sizeof(char) * (count + 1));
-			if (!tokens[j])
-				tokens[j] = NULL;
-			count = 0;
-			j++;
 		}
+		if (!line[i])
+			break ;
 	}
+	tokens[j] = NULL;
 }
 
 void	malloc_tokens(char *line, char **tokens)
@@ -81,8 +70,6 @@ void	malloc_tokens(char *line, char **tokens)
 	if (line[0] == ' ')
 	{
 		i++;
-		/*while (line[i + 1] == ' ')
-			i++;*/
 		while (line[i] == ' ')
 			i++;
 	}

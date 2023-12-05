@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:47 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/04 15:51:25 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/05 16:00:43 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,28 @@ int	count_tokens(char *line)
 {
 	int	i;
 	int	count;
+	int	quotes;
+	int	dquotes;
 
-	i = 0;
+	i = -1;
 	count = 0;
-	while (line[i] == ' ')
-		i++;
-	if (line[i] == '\0')
-		return (0);
-	i = 0;
-	if (line[0] != ' ')
-		count++;
-	count = count_quotes(line, i, count);
+	dquotes = 0;
+	quotes = 0;
+	while (line[++i])
+	{
+		quotes_states2(line, i, &quotes, &dquotes);
+		if (line[i] != '\0' && line[i] != ' ')
+		{
+			count++;
+			while (line[i] && (line[i] != ' ' || quotes || dquotes))
+			{
+				quotes_states2(line, i, &quotes, &dquotes);
+				i++;
+			}
+		}
+		if (!line[i])
+			break ;
+	}
 	return (count);
 }
 
@@ -81,19 +92,16 @@ char	*erase_env_var(char *token)
 int	parse_env_var(t_data *data, char **tokens)
 {
 	int	i;
-	int	squotes;
-	int	dquotes;
+	int	quotes;
 
 	i = 0;
-	squotes = 0;
-	dquotes = 1;
+	quotes = 0;
 	while (tokens[i])
 	{
-		if (ft_strchr('$', tokens[i])
-			&& check_squotes(tokens[i], squotes, dquotes))
+		if (ft_strchr('$', tokens[i]))
 			tokens[i] = replace_squotes(data, tokens[i]);
-		if (check_squotes(tokens[i], squotes, dquotes))
-			tokens[i] = erase_quotes(tokens[i]);
+		else if (check_squotes(tokens[i]))
+			tokens[i] = erase_quotes(tokens[i], quotes);
 		i++;
 	}
 	return (1);
@@ -106,8 +114,8 @@ char	**shell_split_tokens(t_data *data, char *line)
 
 	if (line[0] == '\0')
 		return (NULL);
-	if (check_squotes(line, 0, 1) == 0)
-			return (0);
+	if (!check_op_quotes(line))
+		return (print_error("error: unclosed quotes"));
 	nbr_tokens = count_tokens(line);
 	if (nbr_tokens == 0)
 		return (NULL);

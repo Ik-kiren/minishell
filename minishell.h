@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:58 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/04 11:40:28 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/05 17:50:48 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,18 +95,26 @@ char	*replace_env_var(t_data *data, char *token);
 int		shell_exit(t_data *data, char **tokens);
 char	*ft_strjoin_f(char *s1, char const *s2);
 char	*replace_squotes(t_data *data, char *token);
-int		check_squotes(char *token, int squotes, int dquotes);
+int		check_squotes(char *token);
 int		heredoc_redirect(t_cmd *last, t_data *data, char **tokens, int i);
 t_fds	*new_fds(char *name);
 void	fill_heredoc(t_data *data, char *delimiter, int fd);
-int		parse_redirect(t_cmd *last, t_data *data, char **tokens, int i);
+int		parse_redirect(t_cmd *last, t_data *data, char **tokens, int *i);
 int		shell_execute(char **tokens, t_data *data);
 void	launch_cmd(t_cmd *cmd, t_data *data, char **tokens);
 void	malloc_tokens(char *line, char **tokens);
 char	**get_tokens(char *line, char **tokens);
-char	*erase_quotes(char *token);
+char	*erase_quotes(char *token, int quotes);
 char	*search_env_var(t_data	*data, char	*token);
 char	*set_ret(char c, char *ret);
 void	set_pwd(t_data *data);
+int		quotes_states(char *token, int i, int *quotes);
+int		check_op_quotes(char *token);
+char	**print_error(char *str);
+int		ft_atoi(const char *str);
+int		check_number(char *str);
+int		quotes_states2(char *token, int i, int *quotes, int *dquotes);
+int		check_utils(char c);
+int		set_env_variable(t_data *data, char *token);
 
 #endif

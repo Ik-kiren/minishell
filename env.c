@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 11:28:19 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/04 15:08:53 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/05 17:52:54 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@ void	set_pwd(t_data *data)
 	char	cwd[4096];
 
 	idx = get_env_idx(data, "PWD");
+	if (idx == -1)
+	{
+			set_env_variable(data, getcwd(cwd, 4096));
+			return ;
+	}
 	free(data->env[idx]);
 	getcwd(cwd, 4096);
 	data->env[idx] = ft_strjoin("PWD=", cwd);
@@ -69,9 +74,15 @@ int	shell_env(t_data *data)
 
 int	shell_pwd(t_data *data)
 {
-	int	idx;
+	int		idx;
+	char	cwd[4096];
 
 	idx = get_env_idx(data, "PWD");
+	if (idx == -1)
+	{
+		printf("%s\n", getcwd(cwd, 4096));
+		return (1);
+	}
 	printf("%s\n", data->env[idx] + 4);
 	return (1);
 }

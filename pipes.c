@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:30:18 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/04 12:09:07 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/05 16:37:33 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	set_pipes(t_cmd *cmd, t_cmd *c)
 		dup2(c->pipe[1], STDOUT_FILENO);
 	else if (c->fds != NULL && c->fds->type == 2)
 		dup2(c->fds->fd, STDOUT_FILENO);
+	if (c->fds && c->next && !c->next->fds)
+		dup2(c->pipe[1], STDOUT_FILENO);
 	close_pipes(cmd, c);
 	if (cmd->fds)
 	{
@@ -70,7 +72,9 @@ int	pipe_count(t_data *data, char **tokens)
 		else if (!ft_strcmp(tokens[i], "<<"))
 			count += heredoc_redirect(last, data, tokens, i);
 		else
-			count += parse_redirect(last, data, tokens, i);
+		{
+			count += parse_redirect(last, data, tokens, &i);
+		}
 	}
 	return (count);
 }

@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:51:03 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/30 13:32:07 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/05 17:18:57 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	init_data(t_data *data, char **envp)
 	data->env[i] = NULL;
 	data->cmd = NULL;
 	data->ret = malloc(sizeof(char) * 2);
-	data->ret[0] = '1';
+	data->ret[0] = '0';
 	data->ret[1] = '\0';
 	data->err = 0;
 }

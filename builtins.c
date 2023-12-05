@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:51:06 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/04 11:40:32 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/05 13:30:19 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,28 @@ int	shell_echo(t_data *data, char **tokens)
 
 int	shell_exit(t_data *data, char **tokens)
 {
+	int	exit_c;
+
+	exit_c = 0;
 	if (tokens)
 	{
+		if (ft_ptrlen(tokens) > 2)
+		{
+			printf("%s: too many arguments\n",tokens[0]);
+			return (1);	
+		}
+		if (tokens[1] && !check_number(tokens[1]))
+		{
+			printf("%s: %s: numeric argument required\n",tokens[0], tokens[1]);
+			return (1);
+		}
+		if (tokens[1])
+			exit_c = ft_atoi(tokens[1]);
 		free_str(tokens);
 	}
 	free_ptr(data->ret);
 	free_str(data->env);
-	exit(EXIT_SUCCESS);
+	exit(exit_c);
 	return (1);
 }
 
