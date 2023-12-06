@@ -6,11 +6,17 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:23:36 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/06 13:50:21 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/06 18:14:46 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	double_free(void *ptr1, void *ptr2)
+{
+	free_ptr(ptr1);
+	free_ptr(ptr2);
+}
 
 void	free_str(char **str)
 {

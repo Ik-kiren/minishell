@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 14:12:37 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/06 15:07:11 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/06 18:07:18 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	quotes_states2(char *token, int i, int *quotes, int *dquotes)
 
 int	check_utils(char c)
 {
-	if (c == '$' || ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')))
+	if (c == '$' || check_spchar(c))
 	{
 		return (1);
 	}

@@ -6,16 +6,18 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 13:42:46 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/06 15:17:00 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/06 18:23:33 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	double_free(void *ptr1, void *ptr2)
+void	replace_utils3(int *count, char *token, int *i)
 {
-	free_ptr(ptr1);
-	free_ptr(ptr2);
+	*count += 1;
+	while (token[*count] && !check_utils(token[*count]))
+		*count += 1;
+	*i += 1;
 }
 
 char	*replace_utils2(int *l)
@@ -59,8 +61,7 @@ char	*replace_utils(t_data *data, char *token, int i, int count)
 			break ;
 		free_ptr(str);
 		ret = ft_strjoin_f(ret, (str = search_env_var(data, token + i)));
-		while (token[i] && check_utils(token[i++]))
-			count++;
+		replace_utils3(&count, token, &i);
 	}
 	double_free(tmp, str);
 	return (ret);
