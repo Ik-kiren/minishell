@@ -6,36 +6,17 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:47 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/05 16:00:43 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/06 15:09:15 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	count_quotes(char *line, int i, int count)
+void	init_c_t(int *count, int *quotes, int *dquotes)
 {
-	while (line[i])
-	{
-		if (line[i] == '\"' || line[i] == '\'')
-		{
-			count++;
-			i++;
-			while (line[i] && line[i] != '\"' && line[i] != '\'')
-			{
-				if (line[i] == '\0')
-					return (0);
-				i++;
-			}
-			if (line[i] == '\0')
-				break ;
-		}
-		if (line[i] == ' ' && line[i + 1] != ' '
-			&& line[i + 1] != '\0' && line[i + 1] != '\"'
-			&& line[i + 1] != '\'')
-			count++;
-		i++;
-	}
-	return (count);
+	*count = 0;
+	*dquotes = 0;
+	*quotes = 0;
 }
 
 int	count_tokens(char *line)
@@ -45,13 +26,11 @@ int	count_tokens(char *line)
 	int	quotes;
 	int	dquotes;
 
-	i = -1;
-	count = 0;
-	dquotes = 0;
-	quotes = 0;
-	while (line[++i])
+	init_c_t(&count, &quotes, &dquotes);
+	i = 0;
+	quotes_states2(line, i, &quotes, &dquotes);
+	while (line[i])
 	{
-		quotes_states2(line, i, &quotes, &dquotes);
 		if (line[i] != '\0' && line[i] != ' ')
 		{
 			count++;
@@ -63,6 +42,7 @@ int	count_tokens(char *line)
 		}
 		if (!line[i])
 			break ;
+		i++;
 	}
 	return (count);
 }

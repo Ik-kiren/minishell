@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:58 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/05 17:50:48 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/06 15:07:00 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct s_data
 char	**shell_split_tokens(t_data *data, char *line);
 int		launch_builtins(t_cmd *cmd, t_data *data, char **tokens);
 char	*ft_strjoin(char const *s1, char const *s2);
-void	get_allenv(char **envp);
+void	get_allenv(char **envp, char *str);
 size_t	ft_ptrlen(char **str);
 char	*ft_strdup(char *str);
 int		ft_strncmp(char *s1, char *s2, int size);
@@ -116,5 +116,8 @@ int		check_number(char *str);
 int		quotes_states2(char *token, int i, int *quotes, int *dquotes);
 int		check_utils(char c);
 int		set_env_variable(t_data *data, char *token);
+int		check_spchar(char c);
+int		check_export(char *str);
+int		count_quotes(char *line, int i, int count);
 
 #endif

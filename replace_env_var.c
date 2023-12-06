@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 13:42:46 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/05 15:29:29 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/06 15:17:00 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,13 @@ char	*replace_utils2(int *l)
 	return (ret);
 }
 
-void	malloc_replace(char **tmp, char *token, int *i)
+char	*malloc_replace(char *token, char *tmp, int *i, int count)
 {
+	free_ptr(tmp);
 	while (token[*i] && token[*i] != '$')
 		*i += 1;
-	*tmp = malloc(sizeof(char) * (*i + 1));
+	tmp = malloc(sizeof(char) * (*i - count + 1));
+	return (tmp);
 }
 
 char	*replace_utils(t_data *data, char *token, int i, int count)
@@ -43,9 +45,11 @@ char	*replace_utils(t_data *data, char *token, int i, int count)
 	int		l;
 
 	ret = replace_utils2(&l);
+	str = NULL;
+	tmp = NULL;
 	while (token[i])
 	{
-		malloc_replace(&tmp, token, &i);
+		tmp = malloc_replace(token, tmp, &i, count);
 		while (count < i)
 			tmp[l++] = token[count++];
 		tmp[l] = '\0';
@@ -53,12 +57,10 @@ char	*replace_utils(t_data *data, char *token, int i, int count)
 		ret = ft_strjoin_f(ret, tmp);
 		if (!token[i])
 			break ;
-		str = search_env_var(data, token + i);
-		ret = ft_strjoin_f(ret, str);
+		free_ptr(str);
+		ret = ft_strjoin_f(ret, (str = search_env_var(data, token + i)));
 		while (token[i] && check_utils(token[i++]))
-		{
 			count++;
-		}
 	}
 	double_free(tmp, str);
 	return (ret);

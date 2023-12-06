@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:37:47 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/29 12:22:14 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/06 13:12:39 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,14 @@ char	*get_prompt(t_data *data, char *tmp_end)
 
 	idx = get_env_idx(data, "USER");
 	end_cwd = ft_strjoin(tmp_end, "$ ");
-	tmp = get_key_value(data->env[idx]);
+	tmp = ft_strdup(data->env[idx]);
+	tmp = get_key_value(tmp);
 	user = ft_strjoin(tmp, ":");
 	prompt = ft_strjoin(user, end_cwd);
-	free(end_cwd);
-	free(user);
-	free(tmp);
-	free(tmp_end);
+	free_ptr(end_cwd);
+	free_ptr(user);
+	free_ptr(tmp);
+	free_ptr(tmp_end);
 	return (prompt);
 }
 

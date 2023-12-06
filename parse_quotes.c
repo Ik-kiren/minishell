@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:42:34 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/05 15:15:17 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/06 13:09:15 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,13 @@ int	malloc_quotes(char *token)
 	return (count);
 }
 
+void	erase_quotes_utils(int *i, int *j, int *count, char *token)
+{
+	*i = 0;
+	*j = 0;
+	*count = malloc_quotes(token);
+}
+
 char	*erase_quotes(char *token, int quotes)
 {
 	char	*tmp;
@@ -46,9 +53,7 @@ char	*erase_quotes(char *token, int quotes)
 	int		j;
 	int		count;
 
-	i = 0;
-	j = 0;
-	count = malloc_quotes(token);
+	erase_quotes_utils(&i, &j, &count, token);
 	tmp = malloc(sizeof(char) * (count + 1));
 	while (token[i])
 	{

@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:34:40 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/04 11:55:43 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/06 14:50:45 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ char	*find_path(t_cmd *cmd, char **paths)
 			return (path);
 		}
 		free_ptr(tmp);
+		free_ptr(path);
 		i++;
 	}
 	return (cmd->cmd);

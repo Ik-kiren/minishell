@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:32:14 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/05 17:10:45 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/06 14:54:06 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,11 @@
 int	shell_launch(t_data *data, t_cmd *cmd)
 {
 	cmd->path = get_path(data, cmd);
-	printf("args = %s\n", cmd->cmd);
 	if (execve(cmd->path, cmd->args, data->env) == -1)
 	{
 		data->ret = set_ret('1', data->ret);
 		perror(cmd->cmd);
-		exit(EXIT_FAILURE);
+		shell_exit(data, NULL);
 	}
 	else
 		data->ret = set_ret('0', data->ret);

@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:22:16 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/05 17:16:49 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/06 12:02:40 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,7 @@ int	execute_child(t_cmd *cmd, t_data *data, char **tokens, int builtins)
 	}
 	status = get_children(data);
 	if (status == 0)
-	{
-		printf("TEST\n");
 		data->ret = set_ret('0', data->ret);
-	}
 	else
 		data->ret = set_ret('1', data->ret);
 	return (1);

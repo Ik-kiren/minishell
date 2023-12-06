@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 12:08:28 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/05 12:32:50 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/06 15:19:19 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,16 @@ int	quotes_states(char *token, int i, int *quotes)
 
 char	*update_quotes(char *token, t_data *data, int quotes)
 {
-	int	i;
+	int		i;
 
 	i = 0;
 	while (token[i])
 	{
 		quotes_states(token, i, &quotes);
 		if (token[i] == '$' && quotes != 1)
+		{
 			return (replace_env_var(data, token));
+		}
 		i++;
 	}
 	return (erase_quotes(token, 0));
@@ -71,9 +73,10 @@ char	*update_quotes(char *token, t_data *data, int quotes)
 
 char	*replace_squotes(t_data *data, char *token)
 {
-	int	quotes;
+	int		quotes;
+	char	*tmp;
 
 	quotes = 0;
-	token = update_quotes(token, data, quotes);
-	return (token);
+	tmp = update_quotes(token, data, quotes);
+	return (tmp);
 }

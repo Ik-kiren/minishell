@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 11:28:19 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/05 17:52:54 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/06 11:17:42 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	set_pwd(t_data *data)
 	idx = get_env_idx(data, "PWD");
 	if (idx == -1)
 	{
-			set_env_variable(data, getcwd(cwd, 4096));
-			return ;
+		set_env_variable(data, getcwd(cwd, 4096));
+		return ;
 	}
 	free(data->env[idx]);
 	getcwd(cwd, 4096);
@@ -39,7 +39,8 @@ int	get_env_idx(t_data *data, char *token)
 		len = 0;
 		while (data->env[i][len] != '=' && data->env[i][len] != '\0')
 			len++;
-		if (len <= ft_strlen(token) && (token[len] == '\0' || token[len] == '+'))
+		if (len <= ft_strlen(token) && (token[len] == '\0'
+				|| check_spchar(token[len])))
 			len--;
 		if (ft_strncmp(data->env[i], token, len))
 			return (i);
@@ -68,7 +69,7 @@ int	shell_env(t_data *data)
 	{
 		return (1);
 	}
-	get_allenv(data->env);
+	get_allenv(data->env, NULL);
 	return (1);
 }
 

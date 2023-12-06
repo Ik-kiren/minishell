@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 13:41:10 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/05 15:57:26 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/06 11:58:56 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ void	get_tokens_utils(char *line, char **tokens, int i, int j)
 
 	quotes = 0;
 	dquotes = 0;
-	while (line[++i])
+	quotes_states2(line, i, &quotes, &dquotes);
+	while (line[i])
 	{
 		l = 0;
-		quotes_states2(line, i, &quotes, &dquotes);
 		if (line[i] != '\0' && line[i] != ' ')
 		{
 			while (line[i] && (line[i] != ' ' || quotes || dquotes))
@@ -35,6 +35,7 @@ void	get_tokens_utils(char *line, char **tokens, int i, int j)
 		}
 		if (!line[i])
 			break ;
+		i++;
 	}
 	tokens[j] = NULL;
 }
@@ -46,7 +47,7 @@ char	**get_tokens(char *line, char **tokens)
 	int	l;
 	int	status;
 
-	i = -1;
+	i = 0;
 	j = 0;
 	l = 0;
 	status = 0;
