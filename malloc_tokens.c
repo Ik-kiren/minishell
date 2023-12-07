@@ -38,6 +38,7 @@ void	malloc_tokens_utils(char *line, char **tokens, int i, int j)
 				i++;
 				count++;
 			}
+			printf("count = %d\n", count);
 			tokens[j++] = malloc(sizeof(char) * (count + 1));
 		}
 		if (!line[i])

@@ -36,7 +36,7 @@ int	shell_cd(t_data *data)
 		if (chdir(data->cmd->args[1]) != 0)
 		{
 			data->ret = set_ret('1', data->ret);
-			perror("bash");
+			perror(data->cmd->args[1]);
 		}
 		else
 			set_pwd(data);

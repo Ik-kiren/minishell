@@ -78,5 +78,6 @@ char	*replace_squotes(t_data *data, char *token)
 
 	quotes = 0;
 	tmp = update_quotes(token, data, quotes);
+	free_ptr(token);
 	return (tmp);
 }

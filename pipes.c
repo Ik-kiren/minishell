@@ -37,7 +37,8 @@ int	set_pipes(t_cmd *cmd, t_cmd *c)
 		dup2(c->pipe[1], STDOUT_FILENO);
 	else if (c->fds != NULL && c->fds->type == 2)
 		dup2(c->fds->fd, STDOUT_FILENO);
-	if (c->fds && c->next && !c->next->fds)
+	if (c->fds && c->next && !c->next->fds
+		&& (c->fds->type == 1 || c->fds->type == 3))
 		dup2(c->pipe[1], STDOUT_FILENO);
 	close_pipes(cmd, c);
 	if (cmd->fds)

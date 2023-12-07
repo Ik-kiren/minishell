@@ -64,7 +64,7 @@ void	fill_in_cmd(t_cmd *tmp, char **tokens, int i, int l)
 		{
 			tmp->args[l++] = ft_strdup(tokens[i++]);
 		}
-		if (tokens[i] && tokens[i][0] == '<')
+		if (tokens[i] && (tokens[i][0] == '<' || tokens[i][0] == '>'))
 			i += 2;
 		tmp->pipe = malloc(sizeof(int) * 2);
 		pipe(tmp->pipe);

@@ -31,6 +31,7 @@ void	get_tokens_utils(char *line, char **tokens, int i, int j)
 				quotes_states2(line, i, &quotes, &dquotes);
 				tokens[j][l++] = line[i++];
 			}
+			printf("count l = %d\n", l);
 			tokens[j++][l] = '\0';
 		}
 		if (!line[i])
@@ -44,13 +45,9 @@ char	**get_tokens(char *line, char **tokens)
 {
 	int	i;
 	int	j;
-	int	l;
-	int	status;
 
 	i = 0;
 	j = 0;
-	l = 0;
-	status = 0;
 	if (line[0] == ' ')
 	{
 		i++;

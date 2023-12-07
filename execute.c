@@ -65,14 +65,12 @@ int	execute_child(t_cmd *cmd, t_data *data, char **tokens, int builtins)
 int	shell_execute(char **tokens, t_data *data)
 {
 	t_cmd	*cmd;
-	int		status;
 	int		builtins;
 
 	if (!tokens)
 		return (0);
 	cmd = data->cmd;
 	builtins = 0;
-	status = 0;
 	if (tokens[0] == NULL)
 		return (1);
 	if (cmd && !cmd->next && !cmd->fds)
