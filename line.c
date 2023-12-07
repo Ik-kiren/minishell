@@ -21,9 +21,14 @@ char	*get_prompt(t_data *data, char *tmp_end)
 	int		idx;
 
 	idx = get_env_idx(data, "USER");
+	if (idx == -1)
+		tmp = ft_strdup("bash");
+	else
+	{
+		tmp = ft_strdup(data->env[idx]);
+		tmp = get_key_value(tmp);
+	}
 	end_cwd = ft_strjoin(tmp_end, "$ ");
-	tmp = ft_strdup(data->env[idx]);
-	tmp = get_key_value(tmp);
 	user = ft_strjoin(tmp, ":");
 	prompt = ft_strjoin(user, end_cwd);
 	free_ptr(end_cwd);

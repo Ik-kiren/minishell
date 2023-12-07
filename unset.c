@@ -40,13 +40,13 @@ char	**env_unset_realloc(t_data *data, int idx)
 	while (data->env[j])
 	{
 		tmp[i] = ft_strdup(data->env[j]);
-		free(data->env[j++]);
+		j++;
 		i++;
 		if (j == idx)
 			j++;
 	}
 	tmp[i] = NULL;
-	free(data->env);
+	free_str(data->env);
 	return (tmp);
 }
 
