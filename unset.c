@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:53 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/04 11:48:17 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/07 17:13:19 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,13 @@ char	**env_unset_realloc(t_data *data, int idx)
 	j = 0;
 	while (data->env[j])
 	{
+		if (j == idx)
+			j++;
+		if (!data->env[j])
+			break ;
 		tmp[i] = ft_strdup(data->env[j]);
 		j++;
 		i++;
-		if (j == idx)
-			j++;
 	}
 	tmp[i] = NULL;
 	free_str(data->env);
@@ -63,9 +65,7 @@ int	unset_env_variable(t_data *data, char *token)
 		return (0);
 	}
 	else
-	{
 		data->env = env_unset_realloc(data, idx);
-	}
 	free(token_tmp);
 	return (1);
 }
