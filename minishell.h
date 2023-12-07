@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:58 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/06 18:18:32 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/07 13:15:03 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,5 +120,6 @@ int		check_spchar(char c);
 int		check_export(char *str);
 int		count_quotes(char *line, int i, int count);
 void	double_free(void *ptr1, void *ptr2);
+void	get_sort_exp(char **envp);
 
 #endif
