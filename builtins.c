@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:51:06 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/06 12:56:52 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/08 10:38:07 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,11 @@ int	shell_echo(t_data *data, char **tokens)
 	{
 		if (!ft_strcmp(tokens[i], "-n"))
 		{
-			printf("%s", tokens[++i]);
+			if (tokens[i + 1])
+				printf("%s", tokens[++i]);
 			arg++;
 		}
-		else
+		else if (ft_strcmp(tokens[i], "-n"))
 			printf("%s", tokens[i]);
 		i++;
 		if (tokens[i])
