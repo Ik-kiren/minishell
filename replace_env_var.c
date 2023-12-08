@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 13:42:46 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/06 18:23:33 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/08 10:58:27 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,14 @@ char	*replace_utils(t_data *data, char *token, int i, int count)
 		tmp[l] = '\0';
 		l = 0;
 		ret = ft_strjoin_f(ret, tmp);
+		printf("ret = %s\n", ret);
 		if (!token[i])
 			break ;
 		free_ptr(str);
 		ret = ft_strjoin_f(ret, (str = search_env_var(data, token + i)));
 		replace_utils3(&count, token, &i);
 	}
+	printf("ret2 = %s\n", ret);
 	double_free(tmp, str);
 	return (ret);
 }

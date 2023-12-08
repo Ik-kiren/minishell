@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 11:28:19 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/06 11:17:42 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/08 11:15:20 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ char	*get_env_var(t_data *data, char *token)
 	char	*tmp;
 	int		idx;
 
-	if (token[0] == '?' && !token[1])
-		return (ft_strdup(data->ret));
 	idx = get_env_idx(data, token);
 	if (idx == -1)
 		return (NULL);

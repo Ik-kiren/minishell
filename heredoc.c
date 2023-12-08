@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:26:41 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/11/29 14:55:25 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/08 13:02:50 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,11 @@ void	fill_heredoc(t_data *data, char *delimiter, int fd)
 {
 	char	*line;
 
-	while (1)
+	data->doc = 1;
+	while (data->doc)
 	{
 		line = readline(">");
-		if (!ft_strcmp(line, delimiter))
+		if (!line || !ft_strcmp(line, delimiter))
 			break ;
 		if (ft_strchr('$', line))
 			line = replace_env_var(data, line);

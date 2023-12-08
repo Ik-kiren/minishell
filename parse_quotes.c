@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:42:34 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/06 16:21:55 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/08 11:21:01 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,11 @@ char	*search_env_var(t_data	*data, char	*token)
 		i++;
 	}
 	tmp[i] = '\0';
+	if (tmp[1] == '?' && !tmp[2])
+	{
+		free(tmp);
+		return (ft_itoa(data->ret));
+	}
 	str = get_env_var(data, tmp + 1);
 	if (!str)
 	{

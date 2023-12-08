@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:58 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/07 13:15:03 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/08 12:57:03 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,12 @@ typedef struct s_cmd
 
 typedef struct s_data
 {
-	char	**env;
-	t_cmd	*cmd;
-	pid_t	pid;
-	char	*ret;
-	int		err;
+	char				**env;
+	t_cmd				*cmd;
+	pid_t				pid;
+	int					ret;
+	int					err;
+	int					doc;
 }	t_data;
 
 char	**shell_split_tokens(t_data *data, char *line);
@@ -121,5 +122,7 @@ int		check_export(char *str);
 int		count_quotes(char *line, int i, int count);
 void	double_free(void *ptr1, void *ptr2);
 void	get_sort_exp(char **envp);
+char	*ft_itoa(int n);
+void	set_signals_noninteractive(void);
 
 #endif

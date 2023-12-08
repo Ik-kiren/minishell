@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:47 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/06 15:09:15 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/08 14:14:33 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,10 @@ int	count_tokens(char *line)
 			count++;
 			while (line[i] && (line[i] != ' ' || quotes || dquotes))
 			{
+				if (line[i] == '|' && line[i + 1] != ' ' && line[i + 1] != '\0')
+					count++;
+				if (line[i + 1] == '|' && line[i] != ' ')
+					count++;
 				quotes_states2(line, i, &quotes, &dquotes);
 				i++;
 			}

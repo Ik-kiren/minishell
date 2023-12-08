@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:51:03 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/06 14:42:20 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/08 12:14:54 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ char	*get_key_value(char *key)
 
 	i = 0;
 	j = 0;
-	if ((key[0] == '0' || key[0] == '1') && !key[1])
-		return (key);
 	while (key[i] != '=')
 		i++;
 	i++;
@@ -109,9 +107,7 @@ void	init_data(t_data *data, char **envp)
 	data->pid = -1;
 	data->env[i] = NULL;
 	data->cmd = NULL;
-	data->ret = malloc(sizeof(char) * 2);
-	data->ret[0] = '0';
-	data->ret[1] = '\0';
+	data->ret = 0;
 	data->err = 0;
 }
 
