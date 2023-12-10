@@ -57,14 +57,12 @@ char	*replace_utils(t_data *data, char *token, int i, int count)
 		tmp[l] = '\0';
 		l = 0;
 		ret = ft_strjoin_f(ret, tmp);
-		printf("ret = %s\n", ret);
 		if (!token[i])
 			break ;
 		free_ptr(str);
 		ret = ft_strjoin_f(ret, (str = search_env_var(data, token + i)));
 		replace_utils3(&count, token, &i);
 	}
-	printf("ret2 = %s\n", ret);
 	double_free(tmp, str);
 	return (ret);
 }

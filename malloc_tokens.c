@@ -12,49 +12,68 @@
 
 #include "minishell.h"
 
-void	malloc_tokens_utils2(int *quotes, int *dquotes, int *count)
+void	malloc_tokens_utils4(char *line, int *i)
 {
-	*quotes = 0;
-	*dquotes = 0;
+	*i += 1;
+	if (*i > 0 && c_pr(line[*i - 1]))
+		*i -= 1;
+	while (line[*i] == ' ')
+		*i += 1;
+}
+
+void	malloc_tokens_utils3(char *line, char **tokens, int *i, int *j)
+{
+	int	count;
+
+	count = 2;
+	if (line[*i + 1] && c_pr(line[*i]))
+	{
+		if (!ft_strncmp(line + *i, "<<", 2) || !ft_strncmp(line + *i, ">>", 2))
+		{
+			*i += 1;
+			count++;
+		}
+		tokens[*j] = malloc(sizeof(char) * count);
+		if (line[*i + 1] && c_pr(line[*i]) && line[*i + 1] == ' ')
+			*i += 1;
+		*i += 1;
+		*j += 1;
+		while (line[*i] == ' ')
+			*i += 1;
+	}
+}
+
+void	malloc_tokens_utils2(int *q, int *dq, int *count)
+{
+	*q = 0;
+	*dq = 0;
 	*count = 0;
 }
 
 void	malloc_tokens_utils(char *line, char **tokens, int i, int j)
 {
 	int	count;
-	int	quotes;
-	int	dquotes;
+	int	q;
+	int	dq;
 
-	malloc_tokens_utils2(&quotes, &dquotes, &count);
-	quotes_states2(line, i, &quotes, &dquotes);
+	malloc_tokens_utils2(&q, &dq, &count);
 	while (line[i])
 	{
 		count = 0;
 		if (line[i] != '\0' && line[i] != ' ')
 		{
-			printf("c = %c\n", line[i]);
-			if (line[i + 1] && line[i] == '|' && (line[i + 1] != ' ' || line[i - 1] != ' '))
+			malloc_tokens_utils3(line, tokens, &i, &j);
+			while (line[i] && (line[i] != ' ' || q || dq) && !c_pr(line[i]))
 			{
-				tokens[j++] = malloc(sizeof(char) * 2);
-				if (line[i + 1] && line[i] == '|' && line[i + 1] == ' ')
-					i++;
-				i++;
-			}
-			printf("c2 = %c\n", line[i]);
-			while (line[i] && (line[i] != ' ' || quotes || dquotes) && line[i] != '|')
-			{
-				quotes_states2(line, i, &quotes, &dquotes);
+				quotes_states2(line, i, &q, &dq);
 				i++;
 				count++;
 			}
 			tokens[j++] = malloc(sizeof(char) * (count + 1));
 		}
-		printf("c1 = %c\n", line[i]);
 		if (!line[i])
 			break ;
-		i++;
-		if (i > 0 && line[i - 1] == '|')
-				i--;
+		malloc_tokens_utils4(line, &i);
 	}
 	tokens[j] = NULL;
 }

@@ -21,7 +21,10 @@ void	fill_heredoc(t_data *data, char *delimiter, int fd)
 	{
 		line = readline(">");
 		if (!line || !ft_strcmp(line, delimiter))
+		{
+			free_ptr(line);
 			break ;
+		}
 		if (ft_strchr('$', line))
 			line = replace_env_var(data, line);
 		ft_putendl_fd(line, fd);

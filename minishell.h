@@ -124,5 +124,8 @@ void	double_free(void *ptr1, void *ptr2);
 void	get_sort_exp(char **envp);
 char	*ft_itoa(int n);
 void	set_signals_noninteractive(void);
+int		c_pr(char c);
+int		parse_env_var(t_data *data, char **tokens);
+char	*erase_env_var(char *token);
 
 #endif

@@ -12,41 +12,60 @@
 
 #include "minishell.h"
 
+void	get_tokens_utils3(char *line, int *i)
+{
+	*i += 1;
+	if (*i > 0 && c_pr(line[*i - 1]))
+		*i -= 1;
+	while (line[*i] == ' ')
+		*i += 1;
+}
+
+int	get_tokens_utils2(char *line, char *tokens, int *i, int *l)
+{
+	if (c_pr(line[*i]) && line[*i + 1] != '\0')
+	{
+		if (!ft_strncmp(line + *i, "<<", 2) || !ft_strncmp(line + *i, ">>", 2))
+		{
+			tokens[*l] = line[*i];
+			*l += 1;
+			*i += 1;
+		}
+		tokens[*l] = line[*i];
+		tokens[*l + 1] = '\0';
+		if (line[*i + 1] && c_pr(line[*i]) && line[*i + 1] == ' ')
+			*i += 1;
+		*l = 0;
+		*i += 1;
+		return (1);
+	}
+	return (0);
+}
+
 void	get_tokens_utils(char *line, char **tokens, int i, int j)
 {
 	int	l;
-	int	quotes;
-	int	dquotes;
+	int	q;
+	int	dq;
 
-	quotes = 0;
-	dquotes = 0;
-	quotes_states2(line, i, &quotes, &dquotes);
+	q = 0;
+	dq = 0;
 	while (line[i])
 	{
 		l = 0;
 		if (line[i] != '\0' && line[i] != ' ')
 		{
-			if (line[i] == '|' && (line[i + 1] != ' ' || line[i - 1] != ' ') && line[i + 1] != '\0')
+			j += get_tokens_utils2(line, tokens[j], &i, &l);
+			while (line[i] && (line[i] != ' ' || q || dq) && !c_pr(line[i]))
 			{
-				tokens[j][l++] = line[i];
-				tokens[j++][l] = '\0';
-				if (line[i + 1] && line[i] == '|' && line[i + 1] == ' ')
-					i++;
-				l = 0;
-				i++;
-			}
-			while (line[i] && (line[i] != ' ' || quotes || dquotes) && line[i] != '|')
-			{
-				quotes_states2(line, i, &quotes, &dquotes);
+				quotes_states2(line, i, &q, &dq);
 				tokens[j][l++] = line[i++];
 			}
 			tokens[j++][l] = '\0';
 		}
 		if (!line[i])
 			break ;
-		i++;
-		if (i > 0 && line[i - 1] == '|')
-				i--;
+		get_tokens_utils3(line, &i);
 	}
 	tokens[j] = NULL;
 }

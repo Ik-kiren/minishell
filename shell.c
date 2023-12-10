@@ -39,6 +39,14 @@ void	launch_cmd(t_cmd *cmd, t_data *data, char **tokens)
 	exit(EXIT_SUCCESS);
 }
 
+void	shell_loop2(char **tokens, t_data *data)
+{
+	fill_cmd(tokens, &data->cmd);
+	shell_execute(tokens, data);
+	if (data->cmd->fds && data->cmd->fds->type == 3)
+		unlink(data->cmd->fds->name);
+}
+
 void	shell_loop(t_data *data)
 {
 	char	*line;
@@ -55,15 +63,12 @@ void	shell_loop(t_data *data)
 			tokens = shell_split_tokens(data, line);
 			pipe_count(data, tokens);
 			if (data->err == 0 && tokens)
-			{
-				fill_cmd(tokens, &data->cmd);
-				shell_execute(tokens, data);
-				if (data->cmd->fds && data->cmd->fds->type == 3)
-					unlink(data->cmd->fds->name);
-			}
+				shell_loop2(tokens, data);
 			free_str(tokens);
 			clean_cmd(&data->cmd);
 			data->err = 0;
 		}
+		else
+			free_ptr(line);
 	}
 }

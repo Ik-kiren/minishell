@@ -19,6 +19,14 @@ void	init_c_t(int *count, int *quotes, int *dquotes)
 	*quotes = 0;
 }
 
+void	count_t2(char *line, int i, int *count)
+{
+	if (c_pr(line[i]) && line[i + 1] != ' ' && line[i + 1] != '\0')
+		*count += 1;
+	if (c_pr(line[i + 1]) && line[i] != ' ')
+		*count += 1;
+}
+
 int	count_tokens(char *line)
 {
 	int	i;
@@ -28,7 +36,6 @@ int	count_tokens(char *line)
 
 	init_c_t(&count, &quotes, &dquotes);
 	i = 0;
-	quotes_states2(line, i, &quotes, &dquotes);
 	while (line[i])
 	{
 		if (line[i] != '\0' && line[i] != ' ')
@@ -36,10 +43,7 @@ int	count_tokens(char *line)
 			count++;
 			while (line[i] && (line[i] != ' ' || quotes || dquotes))
 			{
-				if (line[i] == '|' && line[i + 1] != ' ' && line[i + 1] != '\0')
-					count++;
-				if (line[i + 1] == '|' && line[i] != ' ')
-					count++;
+				count_t2(line, i, &count);
 				quotes_states2(line, i, &quotes, &dquotes);
 				i++;
 			}
@@ -49,46 +53,6 @@ int	count_tokens(char *line)
 		i++;
 	}
 	return (count);
-}
-
-char	*erase_env_var(char *token)
-{
-	int		i;
-	char	*tmp;
-
-	i = 0;
-	if (token[0] == '$')
-		return (" ");
-	while (token[i] != '$')
-		i++;
-	tmp = malloc(sizeof(char) * i);
-	i = 0;
-	while (token[i] != '$')
-	{
-		tmp[i] = token[i];
-		i++;
-	}
-	tmp[i] = '\0';
-	free(token);
-	return (tmp);
-}
-
-int	parse_env_var(t_data *data, char **tokens)
-{
-	int	i;
-	int	quotes;
-
-	i = 0;
-	quotes = 0;
-	while (tokens[i])
-	{
-		if (ft_strchr('$', tokens[i]))
-			tokens[i] = replace_squotes(data, tokens[i]);
-		else if (check_squotes(tokens[i]))
-			tokens[i] = erase_quotes(tokens[i], quotes);
-		i++;
-	}
-	return (1);
 }
 
 char	**shell_split_tokens(t_data *data, char *line)

@@ -75,40 +75,6 @@ char	*erase_quotes(char *token, int quotes)
 	return (tmp);
 }
 
-char	*search_env_var(t_data	*data, char	*token)
-{
-	char	*tmp;
-	char	*str;
-	size_t	i;
-
-	i = 0;
-	while (token[i] && token[i] != '\"' && token[i] != ' ' && token[i] != '\'')
-		i++;
-	tmp = malloc(sizeof(char) * (i + 1));
-	i = 0;
-	while (token[i] && token[i] != '\"' && token[i] != ' ' && token[i] != '\'')
-	{
-		tmp[i] = token[i];
-		i++;
-	}
-	tmp[i] = '\0';
-	if (tmp[1] == '?' && !tmp[2])
-	{
-		free(tmp);
-		return (ft_itoa(data->ret));
-	}
-	str = get_env_var(data, tmp + 1);
-	if (!str)
-	{
-		str = malloc(sizeof(char) * 1);
-		str[0] = '\0';
-	}
-	else
-		str = get_key_value(str);
-	free_ptr(tmp);
-	return (str);
-}
-
 int	check_squotes(char *token)
 {
 	int	i;
