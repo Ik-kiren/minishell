@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:32:14 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/08 10:48:52 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/11 10:53:23 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ int	shell_launch(t_data *data, t_cmd *cmd)
 		perror(cmd->cmd);
 		shell_exit(data, NULL);
 	}
-	else
-		data->ret = 0;
 	exit(EXIT_SUCCESS);
 	return (1);
 }

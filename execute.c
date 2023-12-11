@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:22:16 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/08 11:17:40 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/11 11:03:05 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,11 @@ int	execute_child(t_cmd *cmd, t_data *data, char **tokens, int builtins)
 		}
 		cmd = cmd->next;
 	}
-	status = get_children(data);
-	data->ret = status % 256;
+	if (builtins == 0)
+	{
+		status = get_children(data);
+		data->ret = status % 256;
+	}
 	return (1);
 }
 
