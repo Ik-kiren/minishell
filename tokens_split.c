@@ -52,6 +52,7 @@ int	count_tokens(char *line)
 			break ;
 		i++;
 	}
+	printf("count = %d\n", count);
 	return (count);
 }
 

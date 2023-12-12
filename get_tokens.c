@@ -69,7 +69,7 @@ void	get_tokens_utils(char *line, char **tokens, int i, int j)
 			j += get_tokens_utils2(line, tokens[j], &i, &l);
 			if (!line[i] || (c_pr(line[i]) && !line[i + 1]))
 				break ;
-			while (line[i] && (line[i] != ' ' || q || dq) && !c_pr(line[i]))
+			while (line[i] && (line[i] != ' ' || q || dq || c_pr(line[i])))
 			{
 				quotes_states2(line, i, &q, &dq);
 				tokens[j][l++] = line[i++];
