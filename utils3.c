@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 14:12:37 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/08 11:00:11 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/14 10:42:22 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	check_export(char *str)
 	{
 		if (str[i] == '=')
 			equal = 1;
-		else if (check_spchar(str[i]))
+		else if ((check_spchar(str[i]) || (str[0] >= '0' && str[0] <= '9')) && equal == 0)
 		{
 			printf("export: %s: not a valid identifier\n", str);
 			return (0);

@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 13:40:22 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/11 12:26:59 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/14 10:33:52 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ void	malloc_tokens_utils(char *line, char **tokens, int i, int j)
 				break ;
 			while (line[i] && (line[i] != ' ' || q || dq || c_pr(line[i])))
 			{
-				printf("count j = %c\n", line[i]);
 				quotes_states2(line, i, &q, &dq);
 				i++;
 				count++;

@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:40:54 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/05 13:20:00 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/14 10:26:45 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ char	*set_ret(char c, char *ret)
 	return (tmp);
 }
 
-char	**print_error(char *str)
+int	print_error(char *str)
 {
 	printf("%s\n", str);
-	return (NULL);
+	return (0);
 }
 
 int	check_number(char *str)

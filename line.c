@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:37:47 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/06 13:12:39 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/14 10:30:52 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ char	*shell_line(t_data *data)
 	end_cwd = get_lcwd(cwd);
 	prompt = get_prompt(data, end_cwd);
 	line = NULL;
+	signals_handler();
 	line = readline(prompt);
+	set_signals_noninteractive();
 	free(prompt);
 	if (!line)
 		return (NULL);

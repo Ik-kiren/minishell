@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:58 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/08 12:57:03 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/14 10:30:08 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*ft_strdup(char *str);
 int		ft_strncmp(char *s1, char *s2, int size);
 size_t	ft_strlen(const char *str);
 void	free_str(char **str);
-void	free_ptr(void *ptr);
+void	*free_ptr(void *ptr);
 int		shell_export(char **tokens, t_data *data);
 int		shell_unset(char **tokens, t_data *data);
 int		get_env_idx(t_data *data, char *token);
@@ -111,7 +111,7 @@ char	*set_ret(char c, char *ret);
 void	set_pwd(t_data *data);
 int		quotes_states(char *token, int i, int *quotes);
 int		check_op_quotes(char *token);
-char	**print_error(char *str);
+int		print_error(char *str);
 int		ft_atoi(const char *str);
 int		check_number(char *str);
 int		quotes_states2(char *token, int i, int *quotes, int *dquotes);
@@ -127,5 +127,7 @@ void	set_signals_noninteractive(void);
 int		c_pr(char c);
 int		parse_env_var(t_data *data, char **tokens);
 char	*erase_env_var(char *token);
+int		check_line(char *line);
+void	set_signals_noninteractive(void);
 
 #endif

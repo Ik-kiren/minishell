@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:47 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/08 14:14:33 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/14 10:33:48 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int	count_tokens(char *line)
 			break ;
 		i++;
 	}
-	printf("count = %d\n", count);
 	return (count);
 }
 
@@ -63,8 +62,8 @@ char	**shell_split_tokens(t_data *data, char *line)
 
 	if (line[0] == '\0')
 		return (NULL);
-	if (!check_op_quotes(line))
-		return (print_error("error: unclosed quotes"));
+	if (!check_line(line))
+		return (free_ptr(line));
 	nbr_tokens = count_tokens(line);
 	if (nbr_tokens == 0)
 		return (NULL);
