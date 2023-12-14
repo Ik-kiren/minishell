@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 09:54:26 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/14 10:37:36 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/14 11:46:04 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	check_p_line(char *line, int *i, int q)
 {
-	int k;
+	int	k;
 
 	k = 0;
 	while (line[*i] == '|')
@@ -28,9 +28,9 @@ int	check_p_line(char *line, int *i, int q)
 	return (1);
 }
 
-int check_r_line(char *line, int *i, int q)
+int	check_r_line(char *line, int *i, int q)
 {
-	int k;
+	int	k;
 
 	k = 0;
 	while (line[*i] == '<' || line[*i] == '>')
@@ -46,9 +46,9 @@ int check_r_line(char *line, int *i, int q)
 
 int	check_line(char *line)
 {
-    int	i;
+	int	i;
 	int	q;
-	
+
 	i = 0;
 	q = 0;
 	if (!check_op_quotes(line))
@@ -62,6 +62,8 @@ int	check_line(char *line)
 		if (line[i] == '<' || line[i] == '>')
 			if (!check_r_line(line, &i, q))
 				return (print_error("error: format"));
+		if (!line[i])
+			break ;
 		i++;
 	}
 	return (1);

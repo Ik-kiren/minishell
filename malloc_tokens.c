@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 13:40:22 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/14 10:33:52 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/14 11:24:56 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	malloc_tokens_utils3(char *line, char **tokens, int *i, int *j)
 			count++;
 		}
 		tokens[*j] = malloc(sizeof(char) * count);
-		if (line[*i + 1] && c_pr(line[*i]) && line[*i + 1] == ' ')
+		if (line[*i + 1] && c_pr(line[*i]))
 			*i += 1;
 		*j += 1;
 		while (line[*i] == ' ')

@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 13:41:10 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/11 12:26:17 by cdupuis          ###   ########.fr       */
+/*   Updated: 2023/12/14 11:24:45 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	get_tokens_utils2(char *line, char *tokens, int *i, int *l)
 		}
 		tokens[*l] = line[*i];
 		tokens[*l + 1] = '\0';
-		if (line[*i + 1] && c_pr(line[*i]) && line[*i + 1] == ' ')
+		if (line[*i + 1] && c_pr(line[*i]))
 			*i += 1;
 		*l = 0;
 		while (line[*i] == ' ')
