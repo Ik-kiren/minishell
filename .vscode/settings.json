@@ -4,5 +4,12 @@
         "minishell.h": "c",
         "__locale": "c",
         "locale": "c"
-    }
+    },
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/home/ikkiren/42/minishell",
+            "binaryPath": "/home/ikkiren/42/minishell/minishell",
+            "binaryArgs": []
+        }
+    ]
 }

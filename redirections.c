@@ -74,3 +74,4 @@ int	parse_redirect(t_cmd *last, t_data *data, char **tokens, int *i)
 	}
 	return (parse_redirect2(last, data, tokens, i));
 }
+

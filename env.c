@@ -12,6 +12,52 @@
 
 #include "minishell.h"
 
+static char	*len_malloc(char const *s, size_t len)
+{
+	char	*tab;
+	size_t	length;
+
+	length = len + 1;
+	if (len > ft_strlen(s))
+	length = ft_strlen(s) + 1;
+	tab = (char *)malloc(sizeof(char) * length);
+	if (!tab)
+	{
+		free(tab);
+		return (NULL);
+	}
+	return (tab);
+}
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	size_t	i;
+	size_t	j;
+	char	*tab;
+
+	i = start;
+	j = 0;
+	tab = len_malloc(s, len);
+	if (tab == NULL)
+		return (NULL);
+	if (start > ft_strlen(s))
+	{
+		tab[j] = '\0';
+		return (tab);
+	}
+	while (s[i])
+	{
+		if (i >= start && j < len)
+		{
+			tab[j] = s[i];
+			j++;
+		}
+		i++;
+	}
+	tab[j] = '\0';
+	return (tab);
+}
+
 void	set_pwd(t_data *data)
 {
 	int		idx;
@@ -49,11 +95,28 @@ int	get_env_idx(t_data *data, char *token)
 	return (-1);
 }
 
-char	*get_env_var(t_data *data, char *token)
+char	*get_env_var(t_data *data, char *token, int *dolars)
 {
 	char	*tmp;
 	int		idx;
-
+	char 	*mem;
+	if (token[0] == '?')
+	{
+		*dolars = 1;
+		if(ft_strlen(token) > 1)
+		{
+			tmp = ft_strjoin(ft_itoa(data->ret), token + 1);
+			mem = tmp;
+			while (tmp && !check_spchar(*tmp))
+				tmp++;
+		}
+		else
+			tmp = NULL;
+		if (tmp)
+			return (ft_substr(mem, 0, tmp - mem));
+		else
+			return (ft_itoa(data->ret));
+	}
 	idx = get_env_idx(data, token);
 	if (idx == -1)
 		return (NULL);

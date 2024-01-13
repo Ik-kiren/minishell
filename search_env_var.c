@@ -35,22 +35,20 @@ char	*search_env_var(t_data	*data, char	*token)
 {
 	char	*tmp;
 	char	*str;
+	int		dolars;
 	size_t	i;
 
 	i = 0;
+	dolars = 0;
 	tmp = s_e_v_utils(token, &i);
-	if (tmp[1] == '?' && !tmp[2])
-	{
-		free(tmp);
-		return (ft_itoa(data->ret));
-	}
-	str = get_env_var(data, tmp + 1);
+
+	str = get_env_var(data, tmp + 1, &dolars);
 	if (!str)
 	{
 		str = malloc(sizeof(char) * 1);
 		str[0] = '\0';
 	}
-	else
+	else if (!(dolars))
 		str = get_key_value(str);
 	free_ptr(tmp);
 	return (str);
