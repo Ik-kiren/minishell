@@ -1,0 +1,262 @@
+{
+  "main": {
+    "id": "68864c1e036e05c5",
+    "type": "split",
+    "children": [
+      {
+        "id": "5bfd7c363a767d06",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "9507fbeaad1bb44a",
+            "type": "leaf",
+            "pinned": true,
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "N43/Todo.md",
+                "mode": "source",
+                "source": false
+              },
+              "pinned": true
+            }
+          },
+          {
+            "id": "46539e72151f8319",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "N43/Todo.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "7573add50bbd1ff8",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Pierre TestUnit.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "2685a0f35b15b872",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "N43/cd.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "b835bd1d0106b500",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "chriss/test a gerer avant mardi.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ],
+        "currentTab": 4
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "dc24a5f0637d1a90",
+    "type": "split",
+    "children": [
+      {
+        "id": "7fcf97e1f09f9506",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "54ca67dc0a768709",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "3e556b7f95edce3f",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "tag:#task",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "8d11bce9c35dc592",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "0b4faf5641a901eb",
+    "type": "split",
+    "children": [
+      {
+        "id": "b02484f045c4720b",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "0938c487de7b5629",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "chriss/test a gerer avant mardi.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "c26d9a8613f57829",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "chriss/test a gerer avant mardi.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "6f81cd47df26e8db",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "75a4e8b322f56b9c",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "chriss/test a gerer avant mardi.md"
+              }
+            }
+          },
+          {
+            "id": "7b6908c5221d8c25",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "b835bd1d0106b500",
+  "lastOpenFiles": [
+    "Pierre TestUnit.md",
+    "chriss",
+    "chriss/test a gerer avant mardi.md",
+    "N43/Todo.md",
+    "N43/exit.md",
+    "img/Pasted image 20240110150130.png",
+    "img",
+    "N43/cd.md",
+    "N43/img/Pasted image 20240109225028.png",
+    "N43/img/Pasted image 20240109224946.png",
+    "N43/img/Pasted image 20240108080749.png",
+    "Todo.md",
+    "faveline/19 dec.md",
+    "Intra Projects minishell Edit_files/42_logo-7dfc9110a5319a308863b96bda33cea995046d1731cebb735e41b16255106c12.svg",
+    "N43/img/Pasted image 20231218061056.png",
+    "N43/img/Pasted image 20231218052238.png",
+    "N43/test garbage collector.md",
+    "Intra Projects minishell Edit.html",
+    "Intra Projects minishell Edit_files/js",
+    "Intra Projects minishell Edit_files/application-6db00eec51b728e0e3faf48d6f322489bca804f7ddd2dde3eb76436b2c5ce2eb.js",
+    "Intra Projects minishell Edit_files/application-451438098ffff799397f6445db7cfe213170b0550d9a22727beb713b69f5df1d.css",
+    "Intra Projects minishell Edit_files",
+    "N43/img/Pasted image 20231217092100.png",
+    "N43/img/Pasted image 20231217091923.png",
+    "N43/img/Pasted image 20231217065819.png",
+    "faveline/15 dec.md",
+    "TODO.md",
+    "N43/TODO.md",
+    "faveline/img",
+    "faveline",
+    "HTB/Machines/Linux/Clicker/Exploitation/Foothold.md",
+    "HTB/Machines/Linux/Clicker/Exploitation/Privesc.md",
+    "HTB/Machines/Linux/Zipping/Exploitation/Privesc.md",
+    "HTB/Machines/Linux/Zipping/Exploitation/Foothold.md",
+    "HTB/Machines/Linux/Zipping/Enum/nmap.md",
+    "HTB/Machines/Windows/Visual/Exploitation/Foothold.md",
+    "HTB/Machines/Windows/Visual/Exploitation/Privesc.md",
+    "HTB/Machines/Linux/Devvortex/Exploitation/Privesc.md",
+    "HTB/Machines/Linux/Devvortex/Exploitation/Foothold.md",
+    "HTB/Machines/Linux/Pilgrimage/Exploitation/Foothold.md",
+    "HTB/Machines/Linux/Devvortex/Files/ash",
+    "HTB/Machines/Linux/Devvortex/Enum/80.md",
+    "HTB/Machines/Linux/Devvortex/Enum/nmap.md",
+    "CheatSheet/MesCheatSheet/Pentest/Manual Recon/Manual Recon.md",
+    "HTB/Machines/Linux/Devvortex/Tasks/Devvortex.md",
+    "Offensive-Security/Sans titre.canvas",
+    "Sans titre.canvas"
+  ]
+}
