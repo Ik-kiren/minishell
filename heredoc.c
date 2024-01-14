@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:26:41 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/14 18:35:02 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/14 19:24:43 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,6 @@ int	heredoc_redirect(t_cmd *last, t_data *data, char **tokens, int i)
 	tmp_fd = open(last->fds->name, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	fill_heredoc(data, tokens[i + 1], tmp_fd);
 	close(tmp_fd);
-	last->fdh = open(last->fds->name, O_RDONLY);
+	last->fds->fd = open(last->fds->name, O_RDONLY);
 	return (1);
 }
