@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:22:16 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/11 11:03:05 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/14 16:10:34 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,21 @@ int	get_children(t_data *data)
 	return (status);
 }
 
+int check_cmd(t_data *data, t_cmd *cmd)
+{	
+	if ((cmd->cmd[0] == '.' && cmd->cmd[1] == '/') \
+		|| (cmd->cmd[0] == '.' && cmd->cmd[1] == '.' && cmd->cmd[2] == '/') \
+		|| cmd->cmd[0] == '/')
+	{
+		cmd->path = cmd->cmd;
+		if(access(cmd->cmd, F_OK || X_OK) == -1)
+			exit(errno/*status code*/);
+	}
+	else
+		cmd->path = get_path(data, cmd); //return errno if exit else add path to cmd
+	return (0);
+}
+
 int	execute_child(t_cmd *cmd, t_data *data, char **tokens, int builtins)
 {
 	int	status;
@@ -50,6 +65,13 @@ int	execute_child(t_cmd *cmd, t_data *data, char **tokens, int builtins)
 			return (0);
 		else if (data->pid == 0)
 		{
+			if (cmd->err != -45)
+			{
+				perror("minishell");
+				exit(cmd->err);
+			}
+			check_cmd(data, cmd);
+			//cmd->path = get_path(data, cmd);//get_path(); //check cmd + arg if ok launch_cmd else exit(status_code)
 			launch_cmd(cmd, data, tokens);
 		}
 		cmd = cmd->next;

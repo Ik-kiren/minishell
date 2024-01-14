@@ -3,12 +3,19 @@
         "readline.h": "c",
         "minishell.h": "c",
         "__locale": "c",
-        "locale": "c"
+        "locale": "c",
+        "errno.h": "c",
+        "features.h": "c"
     },
     "makefile.launchConfigurations": [
         {
             "cwd": "/home/ikkiren/42/minishell",
             "binaryPath": "/home/ikkiren/42/minishell/minishell",
+            "binaryArgs": []
+        },
+        {
+            "cwd": "/home/cdupuis/42/minishell",
+            "binaryPath": "/home/cdupuis/42/minishell/minishell",
             "binaryArgs": []
         }
     ]

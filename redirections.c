@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:45:49 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/07 16:57:04 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/14 18:03:22 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int	parse_redirect3(t_cmd *last, t_data *data, char **tokens, int *i)
 		if (access(last->fds->name, F_OK) == 0)
 			unlink(last->fds->name);
 		last->fds->fd = open(last->fds->name, O_RDWR | O_CREAT, S_IRWXU);
+		if (last->fds->fd == -1)
+			last->err = errno;
 		*i += 1;
 		return (1);
 	}
@@ -51,6 +53,8 @@ int	parse_redirect2(t_cmd *last, t_data *data, char **tokens, int *i)
 		last->fds = new_fds(tokens[*i + 1]);
 		last->fds->type = 1;
 		last->fds->fd = open(last->fds->name, O_RDONLY);
+		if (last->fds->fd == -1)
+			last->err = errno;
 		*i += 1;
 		return (1);
 	}

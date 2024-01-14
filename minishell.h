@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:58 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/14 10:30:08 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/14 18:33:22 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ typedef struct s_cmd
 	char			**args;
 	char			*path;
 	t_fds			*fds;
+	t_fds			*fdh;
+	int				err;
 	struct s_cmd	*prev;
 	struct s_cmd	*next;
 }	t_cmd;
@@ -129,5 +131,9 @@ int		parse_env_var(t_data *data, char **tokens);
 char	*erase_env_var(char *token);
 int		check_line(char *line);
 void	set_signals_noninteractive(void);
+int		ft_atol(char **str, int *fail);
+int		ft_isdigit(int c);
+int		ft_isnumber(char *str);
+int		ft_strncmp2(const char *s1, const char *s2, size_t n);
 
 #endif

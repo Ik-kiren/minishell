@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:30:31 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/11 10:07:56 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/14 17:40:22 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	init_cmd(t_cmd **cmd)
 	(*cmd)->prev = NULL;
 	(*cmd)->next = NULL;
 	(*cmd)->path = NULL;
+	(*cmd)->err = -45;
 }
 
 t_fds	*new_fds(char *name)

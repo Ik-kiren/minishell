@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:32:14 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/11 10:53:23 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/14 15:35:53 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	shell_launch(t_data *data, t_cmd *cmd)
 {
-	cmd->path = get_path(data, cmd);
+	
 	if (execve(cmd->path, cmd->args, data->env) == -1)
 	{
 		data->ret = 1;
