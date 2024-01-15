@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:30:18 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/15 12:42:28 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/15 14:06:01 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	close_pipes(t_cmd *cmd, t_cmd *skip_cmd)
 		}
 		if (cmd->fds)
 			close(cmd->fds->fd);
+		if (cmd->fdh)
+			close(cmd->fdh->fd);
 		cmd = cmd->next;
 	}
 }
