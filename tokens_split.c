@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_split.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daribeir <daribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:47 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/15 04:40:05 by daribeir         ###   ########.fr       */
+/*   Updated: 2024/01/15 12:02:05 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,23 @@ static void	add_space_after_i(char **line, int i)
 
 void	count_t2(char **line, int *i, int *count)
 {
-	if (c_pr((*line)[*i]) && (*line)[*i + 1] != ' ' && (*line)[*i + 1] != '\0')
+	if (c_pr((*line)[*i])  && (*line)[*i + 1] != ' ' && (*line)[*i + 1] != '\0')
 	{
-		*count += 1;
-		add_space_after_i(line, *i - 1);
-		*i += 1;
-		add_space_after_i(line, *i);
-		*i += 1;
+		if (c_pr((*line)[*i + 1]))
+		{
+			*count += 1;
+			*i += 2;
+			add_space_after_i(line, *i - 1);
+			*i += 1;
+		}
+		else
+		{
+			*count += 1;
+			add_space_after_i(line, *i - 1);
+			*i += 1;
+			add_space_after_i(line, *i);
+			*i += 1;
+		}
 	}
 	if (c_pr((*line)[*i + 1]) && (*line)[*i] != ' ')
 	{

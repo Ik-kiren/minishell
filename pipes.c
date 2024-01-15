@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:30:18 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/14 18:50:24 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/15 12:03:05 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	close_pipes(t_cmd *cmd, t_cmd *skip_cmd)
 
 int	set_pipes(t_cmd *cmd, t_cmd *c)
 {
+	if ()
 	if (c->fds != NULL && (c->fds->type == 1 || c->fds->type == 3))
 		dup2(c->fds->fd, STDIN_FILENO);
 	else if (c->prev)
