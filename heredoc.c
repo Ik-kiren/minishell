@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:26:41 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/15 12:39:43 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/15 17:43:35 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ void	fill_heredoc(t_data *data, char *delimiter, int fd)
 
 int	heredoc_redirect(t_cmd *last, t_data *data, char **tokens, int i)
 {
-	int	tmp_fd;
+	int		tmp_fd;
+	char	*name;
 
 	if (!tokens[i + 1])
 	{
@@ -44,11 +45,13 @@ int	heredoc_redirect(t_cmd *last, t_data *data, char **tokens, int i)
 		return (1);
 	}
 	last = get_last_cmd(data->cmd);
-	last->fdh = new_fds(tokens[i + 1]);
+	name = ft_strjoin_f2(ft_strjoin("/dev/shm/", tokens[i + 1]), ft_itoa(i));
+	last->fdh = new_fds(name);
 	last->fdh->type = 3;
 	tmp_fd = open(last->fdh->name, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	fill_heredoc(data, tokens[i + 1], tmp_fd);
 	close(tmp_fd);
 	last->fdh->fd = open(last->fdh->name, O_RDONLY);
+	free(name);
 	return (1);
 }

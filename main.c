@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:51:03 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/08 12:14:54 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/15 18:34:20 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,3 +122,5 @@ int	main(int argc, char **argv, char **envp)
 	init_data(&data, envp);
 	shell_loop(&data);
 }
+//cat << EOF > file | cat << EOF > file2
+//cat << EOF > file | grep a

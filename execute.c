@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:22:16 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/14 16:10:34 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/15 17:46:33 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ int check_cmd(t_data *data, t_cmd *cmd)
 	{
 		cmd->path = cmd->cmd;
 		if(access(cmd->cmd, F_OK || X_OK) == -1)
-			exit(errno/*status code*/);
+			exit(errno);
 	}
 	else
-		cmd->path = get_path(data, cmd); //return errno if exit else add path to cmd
+		cmd->path = get_path(data, cmd);
 	return (0);
 }
 
@@ -58,7 +58,7 @@ int	execute_child(t_cmd *cmd, t_data *data, char **tokens, int builtins)
 	int	status;
 
 	status = 0;
-	while (cmd && builtins == 0)
+	while (cmd && builtins == 0 && cmd->cmd[0] != '<')
 	{
 		data->pid = fork();
 		if (data->pid == -1)
@@ -71,7 +71,6 @@ int	execute_child(t_cmd *cmd, t_data *data, char **tokens, int builtins)
 				exit(cmd->err);
 			}
 			check_cmd(data, cmd);
-			//cmd->path = get_path(data, cmd);//get_path(); //check cmd + arg if ok launch_cmd else exit(status_code)
 			launch_cmd(cmd, data, tokens);
 		}
 		cmd = cmd->next;

@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:30:31 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/15 12:44:03 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/15 17:52:25 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,14 @@ void	fill_in_cmd(t_cmd *tmp, char **tokens, int i, int l)
 	while (tmp)
 	{
 		j = i;
-		tmp->cmd = ft_strdup(tokens[i]);
+		if (tokens[i][0] == '<' && tokens[i + 2] && (!c_pr(tokens[i + 2][0]) || !tokens[i + 3]))
+		{
+			tmp->cmd = ft_strdup(tokens[i + 2]);
+			i += 2;
+			j += 2;
+		}
+		else
+			tmp->cmd = ft_strdup(tokens[i]);
 		while (tokens[j] && tokens[j][0] != '|'
 			&& tokens[j][0] != '>' && tokens[j][0] != '<')
 			j++;
@@ -66,7 +73,7 @@ void	fill_in_cmd(t_cmd *tmp, char **tokens, int i, int l)
 		{
 			tmp->args[l++] = ft_strdup(tokens[i++]);
 		}
-		if (tokens[i] && (tokens[i][0] == '<' || tokens[i][0] == '>'))
+		while (tokens[i] && (tokens[i][0] == '<' || tokens[i][0] == '>'))
 			i += 2;
 		tmp->pipe = malloc(sizeof(int) * 2);
 		pipe(tmp->pipe);

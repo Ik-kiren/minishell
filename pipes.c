@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:30:18 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/15 14:06:01 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/15 18:33:00 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	set_pipes(t_cmd *cmd, t_cmd *c)
 		if (c->fds)
 			dup2(c->fds->fd, STDOUT_FILENO);
 	}
+	/*else if (c->prev && c->prev->fds && c->prev->fdh)
+		dup2(c->prev->fds->fd, STDIN_FILENO);*/
 	else if (c->fds != NULL && (c->fds->type == 1 || c->fds->type == 3))
 		dup2(c->fds->fd, STDIN_FILENO);
 	else if (c->prev)

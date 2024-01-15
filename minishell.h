@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:58 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/14 18:33:22 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/15 17:37:27 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,5 +135,6 @@ int		ft_atol(char **str, int *fail);
 int		ft_isdigit(int c);
 int		ft_isnumber(char *str);
 int		ft_strncmp2(const char *s1, const char *s2, size_t n);
+char	*ft_strjoin_f2(char *s1, char *s2);
 
 #endif

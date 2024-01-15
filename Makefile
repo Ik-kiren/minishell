@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -I/Users/cdupuis/.brew/opt/readline/include -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -I/Users/cdupuis/.brew/opt/readline/include -g3 #-fsanitize=address
 NAME = minishell
 SRCS = main.c ft_atol.c ft_isdigit.c ft_isnumber.c ft_strncmp.c builtins.c tokens_split.c utils.c export.c unset.c libft.c env.c signals.c init_cmd.c ft_split.c pipes.c shell.c path.c line.c parse_quotes.c free_utils.c heredoc.c redirections.c execute.c cmd_utils.c utils2.c quotes.c get_tokens.c malloc_tokens.c replace_env_var.c utils3.c export_sort.c itoa.c utils4.c env_utils.c search_env_var.c check_line.c
 OBJS = $(SRCS:c=o)

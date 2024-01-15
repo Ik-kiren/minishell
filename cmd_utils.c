@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:30:46 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/07 16:36:01 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/15 17:10:06 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,12 @@ void	clean_cmd(t_cmd **cmd)
 		{
 			free_ptr((*cmd)->fds->name);
 			free_ptr((*cmd)->fds);
+		}
+		if ((*cmd)->fdh)
+		{
+			unlink((*cmd)->fdh->name);
+			free_ptr((*cmd)->fdh->name);
+			free_ptr((*cmd)->fdh);
 		}
 		free_cmd(*cmd);
 		*cmd = tmp;

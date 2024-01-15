@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daribeir <daribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:32:14 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/15 02:18:02 by daribeir         ###   ########.fr       */
+/*   Updated: 2024/01/15 17:09:42 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ void	shell_loop2(char **tokens, t_data *data)
 {
 	fill_cmd(tokens, &data->cmd);
 	shell_execute(tokens, data);
-	if (data->cmd->fds && data->cmd->fds->type == 3)
-		unlink(data->cmd->fds->name);
+	/*if (data->cmd->fdh && data->cmd->fdh->type == 3)
+		unlink(data->cmd->fdh->name);*/
 }
 
 void	shell_loop(t_data *data)
