@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:30:31 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/14 17:40:22 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/15 12:44:03 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	init_cmd(t_cmd **cmd)
 {
 	(*cmd)->cmd = NULL;
 	(*cmd)->fds = NULL;
+	(*cmd)->fdh = NULL;
 	(*cmd)->args = NULL;
 	(*cmd)->pipe = NULL;
 	(*cmd)->prev = NULL;
