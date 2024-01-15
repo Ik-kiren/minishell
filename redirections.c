@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:45:49 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/14 18:03:22 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/15 14:03:40 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ int	parse_redirect3(t_cmd *last, t_data *data, char **tokens, int *i)
 		free_last_fd(last);
 		last->fds = new_fds(tokens[*i + 1]);
 		last->fds->type = 2;
-		if (access(last->fds->name, F_OK) == 0)
-			unlink(last->fds->name);
-		last->fds->fd = open(last->fds->name, O_RDWR | O_CREAT, S_IRWXU);
+		if (access(last->fdh->name, F_OK) == 0)
+			unlink(last->fdh->name);
+		last->fds->fd = open(ft_strjoin("/dev/shm/",last->fds->name), O_RDWR | O_CREAT, S_IRWXU);
 		if (last->fds->fd == -1)
 			last->err = errno;
 		*i += 1;
