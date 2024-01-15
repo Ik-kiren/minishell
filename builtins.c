@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: daribeir <daribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:51:06 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/14 17:20:45 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/15 05:16:49 by daribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,32 +71,33 @@ int	shell_echo(t_data *data, char **tokens)
 	return (1);
 }
 
-int	shell_exit(t_data *data, char **tokens)
+int	shell_exit(t_data *data, char **tok)
 {
 	int	exit_c;
 	int	fail;
 
 	fail = 0;
 	exit_c = 0;
-	if (tokens)
+	if (tok)
 	{
-		exit_c = ft_atol((&tokens[1]), &fail);
-		if (tokens[1] && fail)
+		if (tok[1])
 		{
-			exit_c = 2;
-			printf("%s: %s: numeric argument required\n", tokens[0], tokens[1]);
+			exit_c = ft_atol((&tok[1]), &fail);
+			printf("exit\n");
+			if (tok[1] && fail)
+			{
+				exit_c = 2;
+				printf("%s: %s: numeric argument required\n", tok[0], tok[1]);
+			}
+			else if (ft_ptrlen(tok) > 2)
+			{
+				printf("%s: too many arguments\n", tok[0]);
+				return (1);
+			}
+			free_str(tok);
 		}
-		else if (ft_ptrlen(tokens) > 2)
-		{
-			exit_c = 1;
-			printf("%s: too many arguments\n", tokens[0]);
-			return (1);
-		}
-		free_str(tokens);
 	}
-	free_str(data->env);
-	exit(exit_c);
-	return (1);
+	return (free_str(data->env), exit(exit_c), 0);
 }
 
 int	launch_builtins(t_cmd *cmd, t_data *data, char **tokens)

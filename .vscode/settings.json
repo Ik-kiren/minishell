@@ -8,15 +8,20 @@
         "features.h": "c"
     },
     "makefile.launchConfigurations": [
-        {
-            "cwd": "/home/ikkiren/42/minishell",
-            "binaryPath": "/home/ikkiren/42/minishell/minishell",
-            "binaryArgs": []
-        },
-        {
-            "cwd": "/home/cdupuis/42/minishell",
-            "binaryPath": "/home/cdupuis/42/minishell/minishell",
-            "binaryArgs": []
-        }
-    ]
+		{
+			"cwd": "/home/ikkiren/42/minishell",
+			"binaryPath": "/home/ikkiren/42/minishell/minishell",
+			"binaryArgs": []
+		},
+		{
+			"cwd": "/home/cdupuis/42/minishell",
+			"binaryPath": "/home/cdupuis/42/minishell/minishell",
+			"binaryArgs": []
+		},
+		{
+			"cwd": "/goinfre/daribeir/minishell",
+			"binaryPath": "/goinfre/daribeir/minishell/minishell",
+			"binaryArgs": []
+		}
+	]
 }
