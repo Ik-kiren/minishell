@@ -1,12 +1,14 @@
 {
     "files.associations": {
-        "readline.h": "c",
-        "minishell.h": "c",
-        "__locale": "c",
-        "locale": "c",
-        "errno.h": "c",
-        "features.h": "c"
-    },
+		"readline.h": "c",
+		"minishell.h": "c",
+		"__locale": "c",
+		"locale": "c",
+		"errno.h": "c",
+		"features.h": "c",
+		"chrono": "c",
+		"functional": "c"
+	},
     "makefile.launchConfigurations": [
 		{
 			"cwd": "/home/ikkiren/42/minishell",
@@ -21,6 +23,11 @@
 		{
 			"cwd": "/goinfre/daribeir/minishell",
 			"binaryPath": "/goinfre/daribeir/minishell/minishell",
+			"binaryArgs": []
+		},
+		{
+			"cwd": "/home/n43/Documents/minishell-chriss",
+			"binaryPath": "/home/n43/Documents/minishell-chriss/minishell",
 			"binaryArgs": []
 		}
 	]

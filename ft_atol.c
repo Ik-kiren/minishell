@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daribeir <daribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: n43 <n43@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 04:57:47 by daribeir          #+#    #+#             */
-/*   Updated: 2024/01/15 05:08:23 by daribeir         ###   ########.fr       */
+/*   Updated: 2024/01/15 08:32:18 by n43              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,31 +31,44 @@ static int	go_to_number(char **str, int i, size_t *signe)
 	return (i);
 }
 
+long long	get_atol_return(char *str, int i)
+{
+	long long	result;
+
+	result = 0;
+	while (ft_isdigit(str[i]))
+	{
+		result = result * 10 + str[i] - '0';
+		i++;
+	}
+	return (result);
+}
+
 int	ft_atol(char **str, int *fail)
 {
 	size_t		i;
-	long long	result;
 	size_t		signe;
 
 	i = 0;
-	result = 0;
 	signe = 1;
-	i = go_to_number(str, i, &signe);
-	if (!(ft_isnumber((*str) + i)))
+	if (!(ft_isnumber((*str) + go_to_number(str, i, &signe))))
 		return (*fail = 1, 2);
 	if ((*str)[0] != '-')
 	{
-		if (ft_strncmp2("9223372036854775807", *str, \
-			ft_strlen(max("9223372036854775807", *str))) < 0)
+		if (ft_strlen(*str) < 19)
+			return (*fail = 0, get_atol_return(*str, i) * signe);
+		else if (ft_strlen(*str) > 19)
+			return (*fail = 1, 2);
+		else if (ft_strncmp2("9223372036854775807", *str, \
+		ft_strlen(max("9223372036854775807", *str))) < 0)
 			return (*fail = 1, 2);
 	}
+	else if (ft_strlen(*str) < 20)
+		return (*fail = 0, get_atol_return(*str, i) * signe);
+	else if (ft_strlen(*str) > 20)
+		return (*fail = 1, 2);
 	else if (ft_strncmp2("-9223372036854775808", *str, \
 		ft_strlen(max("-9223372036854775808", *str))) < 0)
 		return (*fail = 1, 2);
-	while (ft_isdigit((*str)[i]))
-	{
-		result = result * 10 + (*str)[i] - '0';
-		i++;
-	}
-	return (result * signe);
+	return (get_atol_return(*str, go_to_number(str, i, &signe)) * signe);
 }
