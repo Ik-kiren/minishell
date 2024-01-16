@@ -1,0 +1,5 @@
+mkdir out
+bash < unit_tests_bash > ./out/out_bash 2>./out/out_bash2
+rm -rf a b c d e world
+./minishell < unit_tests_minishell > ./out/out_minishell 2>./out/out_minishell2
+rm -rf a b c d e world

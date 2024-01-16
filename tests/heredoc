@@ -1,0 +1,36 @@
+echo "test heredoc\n"
+echo "<<<test"
+echo "<<test'test                 'coucou "
+echo "<<test"coucou                         "test 
+echo "<< STOP cat < Makefile "
+echo "<< STOP cat << TEST "
+echo "<< lim << lim << lim << lim | cat > out"
+<< "$HOME test"coucou 
+ << "" "" cat 
+ << LIM < tset < salut cat | cat < file > output | asdjaisj <>world | > a > b > c > d > e
+<< LIM < test < coucou < salut
+<< LIM ''
+<< LIM
+<< LIM ''
+<< LIM
+echo %?
+<< '' cat
+echo %?
+<< a )
+<< a (
+<< a ) && << b
+<< a ) << b
+<< "$H"'T'*W
+<< "              $H               "'                    T                               '*W
+<< "              $H               "              '                    T                               '*W
+<< "$H       test        "              '                    T                               '*W
+<< "test  $H "              '                    T                               '*W
+<< "test  $H test"              '                    T                               '*W
+<< "$H"T *W
+<< "$H"'T'*W
+<< "              $H               "'                    T                               '*W
+<< "              $H               "              '                    T                               '*W
+<< "$H       test        "              '                    T                               '*W
+<< "test  $H "              '                    T                               '*W
+<< "test  $H test"              '                    T                               '*W
+<< "$H"T *W

@@ -1,0 +1,123 @@
+export TEST="coucou"
+echo $TEST 
+te$?st
+'te$?st'
+"te$?st"
+'$HOME'
+"$HOME"
+"'$HOME'"
+'"$HOME"'
+cat < test.txt < README.md < test.txt  -e 
+cat -e test.txt > salut test > coucou > bjr (with test file doesn't exist) 
+cat -e test.txt > salut > coucou > bjr 
+cd -
+cd ~
+<> world
+<> world cat -e
+1<> world cat
+echo "test" <> world
+echo "test" 1<> world
+'' "$HOME"
+'' '$HOME'
+'' $HOME
+< *.h cat
+< make* cat | cat -e Makefile 
+cat parser.h > *.c
+>> bonjour
+ $HOME"TEST" 
+export PATH="" && ls
+echo "test" 8191> coucou
+echo "test" 8192> coucou
+echo "test" -1> coucou
+cat -e Makefile && << test cat 
+cat | cat | cat | ls
+cat | asdoijasiod
+export TEST="coucou===Commenttuvas?" && bash
+"" cat :white_check_mark:
+./ls
+test
+cat -e Makefile| > a > b > c > d > e 
+cat < Makefile > out
+> out
+cat "$TEST"*'.md'
+make* 
+makec*
+cat < make*
+(cat M*k*)
+cat -e < make* | iadoiausidasdoudo
+cat -e < "$PWD"/make*
+(echo 1 && echo 2) | cat 
+cat Makefile | aisdaisdiasdij | cat -e README.md 
+asuidhausid | echo $? | aoisdjiasd | echo $? | echo $? | asdopjasd
+cat | cat | ls > sss || $? 
+export PATH=
+export TEST="coucou=salut" 
+bash
+echo $TEST 
+exit -2500000
+echo %?
+bash
+exit -23974
+echo %?
+bash
+exit 42564 
+echo %?
+bash
+exit test
+echo %?
+bash
+exit 0 test
+echo %?
+cd
+pwd
+bash
+unset HOME && cd
+exit 0
+bash
+unset HOME && export HOME && cd
+exit 0
+bash
+unset HOME && export HOME= && cd
+exit 0
+bash
+export HOME=/home/pioupia && cd
+exit 0
+bash
+export HOME=../tests && cd
+exit 0
+echo 1 || echo 2 | echo 3 | echo 4 || echo 10 || echo 100
+asdhaosid || echo 2 | echo 3 | echo 4 || echo 10 || echo 100
+echo 1 || echo 2 && echo 3
+echo 3 && aposjdaopsd || echo 2
+echo 3 && echo 1 || echo 2
+cat | cat | ls || echo 1
+cat | cat | ls && echo 1
+echo 1 || echo 2 && echo 3
+echo 1 || (echo 2 && echo 3)
+asdojasoidhaiosdh && (echo 1 || echo 2)
+asdojasoidhaiosdh && echo 1 || echo 2
+echo expr $? + $?
+echo $?+$?
+echo $? +$?
+echo $?+ $?
+echo $? $?
+echo '' test '' salut '' '' '' '' '' coucou
+unset TEST
+ca"$TEST"t
+export H="echo "
+$H salut
+unset H
+$TEST cat -e Makefile
+export A=e B=ch C=o
+$A$B$C salut
+./test.sh | ls
+echo "Try to control + d, control + c and control + \ on the here_doc see how the real bash react.\n"
+echo "Test Ikar :\n"
+echo -n
+echo -nnnnnnnnnnnnnnnnnn -n -nnn -n plop
+echo -nnnnnnnnnnnnnnnnnn -na -nnn -n plop
+echo "Signal interuption -> check valeur de retour\n"
+cd $HOME/goinfre
+cd ..
+pwd
+echo "on doit etre dans $home"
