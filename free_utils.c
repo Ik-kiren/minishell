@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:23:36 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/14 10:28:09 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/16 15:20:04 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	free_str(char **str)
 			str[i] = NULL;
 			i++;
 		}
-		free(str);
+		free_ptr(str);
 		str = NULL;
 	}
 }

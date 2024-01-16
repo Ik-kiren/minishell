@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: n43 <n43@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 04:57:47 by daribeir          #+#    #+#             */
-/*   Updated: 2024/01/15 08:44:40 by n43              ###   ########.fr       */
+/*   Updated: 2024/01/16 17:54:38 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*max(char *s1, char *s2)
+char	*max(char *s1, char *s2)
 {
 	if (ft_strlen(s1) > ft_strlen(s2))
 		return (s1);

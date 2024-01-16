@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 14:12:37 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/14 16:34:55 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/16 15:36:51 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,4 +19,10 @@ int	c_pr(char c)
 	return (0);
 }
 
-
+int	check_sp(char c)
+{
+	if (c == ' ' || c == '\t' || c == '\v')
+		return (1);
+	else
+		return (0);
+}

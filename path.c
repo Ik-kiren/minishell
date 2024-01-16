@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:34:40 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/16 11:22:54 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/16 15:05:24 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*get_path(t_data *data, t_cmd *cmd)
 		return NULL;
 	idx = get_env_idx(data, "PATH");
 	if (idx == -1)
-		return ("");
+		return (ft_strdup(""));
 	paths = ft_split(data->env[idx], ':');
 	if (!paths)
 		return (NULL);
@@ -59,3 +59,4 @@ char	*get_path(t_data *data, t_cmd *cmd)
 	free_str(paths);
 	return (path);
 }
+ 

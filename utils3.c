@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 14:12:37 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/14 11:31:16 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/16 15:47:46 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	count_quotes(char *line, int i, int count)
 			if (line[i] == '\0')
 				break ;
 		}
-		if (line[i] == ' ' && line[i + 1] != ' '
+		if (check_sp(line[i]) && !(check_sp(line[i + 1]))
 			&& line[i + 1] != '\0' && line[i + 1] != '\"'
 			&& line[i + 1] != '\'')
 			count++;

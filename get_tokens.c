@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 13:41:10 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/14 19:50:51 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/16 15:57:20 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	get_tokens_utils3(char *line, int *i)
 	*i += 1;
 	if (*i > 0 && c_pr(line[*i - 1]))
 		*i -= 1;
-	while (line[*i] == ' ')
+	while (check_sp(line[*i ]))
 		*i += 1;
 	return (1);
 }
@@ -28,10 +28,10 @@ int	get_tokens_utils2(char *line, char *tokens, int *i, int *l)
 {
 	if (c_pr(line[*i]) && line[*i + 1] != '\0')
 	{
-		if (line[*i + 1] == ' ' && !line[*i + 2])
+		if (check_sp(line[*i + 1]) && !line[*i + 2])
 		{
 			*i += 1;
-			while (line[*i] == ' ')
+			while (check_sp(line[*i ]))
 				*i += 1;
 			return (0);
 		}
@@ -46,7 +46,7 @@ int	get_tokens_utils2(char *line, char *tokens, int *i, int *l)
 		if (line[*i + 1] && c_pr(line[*i]))
 			*i += 1;
 		*l = 0;
-		while (line[*i] == ' ')
+		while (check_sp(line[*i ]))
 			*i += 1;
 		return (1);
 	}
@@ -64,12 +64,12 @@ void	get_tokens_utils(char *line, char **tokens, int i, int j)
 	while (line[i])
 	{
 		l = 0;
-		if (line[i] != '\0' && line[i] != ' ')
+		if (line[i] != '\0' && !(check_sp(line[i])))
 		{
 			j += get_tokens_utils2(line, tokens[j], &i, &l);
 			if (!line[i] || (c_pr(line[i]) && !line[i + 1]))
 				break ;
-			while (line[i] && (line[i] != ' ' || q || dq || c_pr(line[i])))
+			while (line[i] && (!(check_sp(line[i])) || q || dq || c_pr(line[i])))
 			{
 				quotes_states2(line, i, &q, &dq);
 				tokens[j][l++] = line[i++];
@@ -89,12 +89,13 @@ char	**get_tokens(char *line, char **tokens)
 
 	i = 0;
 	j = 0;
-	if (line[0] == ' ')
+	if (check_sp(line[0]))
 	{
 		i++;
-		while (line[i] == ' ')
+		while (check_sp(line[i]))
 			i++;
 	}
 	get_tokens_utils(line, tokens, i, j);
 	return (tokens);
 }
+			

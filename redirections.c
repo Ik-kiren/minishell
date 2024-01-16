@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:45:49 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/15 14:19:34 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/16 20:32:30 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ int	parse_redirect2(t_cmd *last, t_data *data, char **tokens, int *i)
 			return (1);
 		last = get_last_cmd(data->cmd);
 		free_last_fd(last);
-		last->fds = new_fds(tokens[*i + 1]);
-		last->fds->type = 1;
-		last->fds->fd = open(last->fds->name, O_RDONLY);
-		if (last->fds->fd == -1)
+		last->fdh = new_fds(tokens[*i + 1]);
+		last->fdh->type = 3;
+		last->fdh->fd = open(last->fdh->name, O_RDONLY);
+		if (last->fdh->fd == -1)
 			last->err = errno;
 		*i += 1;
 		return (1);

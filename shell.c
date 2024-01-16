@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:32:14 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/15 17:09:42 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/16 18:10:42 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,8 @@
 int	shell_launch(t_data *data, t_cmd *cmd)
 {
 	if (execve(cmd->path, cmd->args, data->env) == -1)
-	{
-		data->ret = 1;
 		perror(cmd->cmd);
-		shell_exit(data, NULL);
-	}
-	exit(EXIT_SUCCESS);
-	return (1);
+	exit(EXIT_FAILURE);
 }
 
 void	launch_cmd(t_cmd *cmd, t_data *data, char **tokens)
@@ -40,8 +35,6 @@ void	shell_loop2(char **tokens, t_data *data)
 {
 	fill_cmd(tokens, &data->cmd);
 	shell_execute(tokens, data);
-	/*if (data->cmd->fdh && data->cmd->fdh->type == 3)
-		unlink(data->cmd->fdh->name);*/
 }
 
 void	shell_loop(t_data *data)
@@ -66,6 +59,9 @@ void	shell_loop(t_data *data)
 			data->err = 0;
 		}
 		else
+		{
 			free_ptr(line);
+		}
 	}
 }
+			

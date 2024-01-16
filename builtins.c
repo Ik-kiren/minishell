@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:51:06 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/16 12:34:20 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/16 18:43:35 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,33 @@ int	shell_cd(t_data *data)
 	return (1);
 }
 
+void	check_echo(char **tokens, int *k)
+{
+	int	i;
+	int	j;
+
+	j = 1;
+	while (tokens[j])
+	{
+		i = 0;
+		while (tokens[j][i])
+		{
+			if (tokens[j][0] != '-')
+			{
+				*k = j - 1;
+				return;
+			}
+			if (tokens[j][i] != 'n' && i != 0)
+			{
+				*k = j - 1;
+				return ;
+			}
+			i++;
+		}
+		j++;
+	}
+}
+
 int	shell_echo(t_data *data, char **tokens)
 {
 	int	i;
@@ -53,13 +80,19 @@ int	shell_echo(t_data *data, char **tokens)
 	arg = 0;
 	while (tokens[i])
 	{
-		if (!ft_strcmp(tokens[i], "-n"))
+		if (tokens[1][0] == '-' && tokens[1][1] == 'n')
 		{
-			if (tokens[i + 1])
+			check_echo(tokens, &i);
+			while (tokens[i + 1])
+			{
 				printf("%s", tokens[++i]);
+				if (tokens[i + 1])
+					printf(" ");
+			}
 			arg++;
+			break;
 		}
-		else if (ft_strcmp(tokens[i], "-n"))
+		else
 			printf("%s", tokens[i]);
 		i++;
 		if (tokens[i])
@@ -78,12 +111,12 @@ int	shell_exit(t_data *data, char **tok)
 
 	fail = 0;
 	exit_c = 0;
+	printf("exit\n");
 	if (tok)
 	{
 		if (tok[1])
 		{
 			exit_c = ft_atol((&tok[1]), &fail);
-			printf("exit\n");
 			if (tok[1] && fail)
 			{
 				exit_c = 2;
@@ -92,12 +125,13 @@ int	shell_exit(t_data *data, char **tok)
 			else if (ft_ptrlen(tok) > 2)
 			{
 				printf("%s: too many arguments\n", tok[0]);
-				return (1);
+				return (data->ret = 1, 1);
 			}
-			free_str(tok);
 		}
+		free_str(tok);
 	}
 	close_pipes(data->cmd, NULL);
+	clean_cmd(&data->cmd);
 	return (free_str(data->env), exit(exit_c), 0);
 }
 
@@ -106,19 +140,20 @@ int	launch_builtins(t_cmd *cmd, t_data *data, char **tokens)
 	int	ret;
 
 	ret = 0;
-	if (!ft_strcmp(cmd->cmd, "cd"))
+	if (!ft_strncmp2(cmd->cmd, "cd", ft_strlen(max(cmd->cmd, "cd"))))
 		ret = shell_cd(data);
-	else if (!ft_strcmp(cmd->cmd, "echo"))
+	else if (!ft_strncmp2(cmd->cmd, "echo", ft_strlen(max(cmd->cmd, "echo"))))
 		ret = shell_echo(data, cmd->args);
-	else if (!ft_strcmp(cmd->cmd, "pwd"))
+	else if (!ft_strncmp2(cmd->cmd, "pwd", ft_strlen(max(cmd->cmd, "pwd"))))
 		ret = shell_pwd(data);
-	else if (!ft_strcmp(cmd->cmd, "export"))
+	else if (!ft_strncmp2(cmd->cmd, "export", ft_strlen(max(cmd->cmd, "export"))))
 		ret = shell_export(tokens, data);
-	else if (!ft_strcmp(cmd->cmd, "unset"))
+	else if (!ft_strncmp2(cmd->cmd, "unset", ft_strlen(max(cmd->cmd, "unset"))))
 		ret = shell_unset(tokens, data);
-	else if (!ft_strcmp(cmd->cmd, "env"))
+	else if (!ft_strncmp2(cmd->cmd, "env", ft_strlen(max(cmd->cmd, "env"))))
 		ret = shell_env(data);
-	else if (!ft_strcmp(cmd->cmd, "exit"))
+	else if (!ft_strncmp2(cmd->cmd, "exit", ft_strlen(max(cmd->cmd, "exit"))))
 		ret = shell_exit(data, tokens);
 	return (ret);
+	close_pipes(data->cmd, NULL);
 }

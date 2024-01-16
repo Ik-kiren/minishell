@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:30:46 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/15 17:10:06 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/16 15:06:26 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	free_cmd(t_cmd *cmd)
 void	clean_cmd(t_cmd **cmd)
 {
 	t_cmd	*tmp;
+
+
 
 	tmp = NULL;
 	if (!cmd)

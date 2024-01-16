@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:42:34 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/11 10:52:49 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/16 15:53:04 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ char	*s_e_v_utils(char *token, size_t *i)
 {
 	char	*tmp;
 
-	while (token[*i] && token[*i] != '\"' && token[*i] != ' '
+	while (token[*i] && token[*i] != '\"' && !(check_sp(token[*i]))
 		&& token[*i] != '\'')
 		*i += 1;
 	tmp = malloc(sizeof(char) * (*i + 1));
 	*i = 0;
-	while (token[*i] && token[*i] != '\"' && token[*i] != ' '
+	while (token[*i] && token[*i] != '\"' && !(check_sp(token[*i]))
 		&& token[*i] != '\'')
 	{
 		tmp[*i] = token[*i];

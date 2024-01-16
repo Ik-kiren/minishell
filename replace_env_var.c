@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 13:42:46 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/16 12:45:41 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/16 13:01:40 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,6 @@ char	*replace_env_var(t_data *data, char *token)
 	ret = replace_utils(data, token, i, count);
 	if (check_squotes(token))
 		ret = erase_quotes(ret, quotes);
+	
 	return (ret);
 }

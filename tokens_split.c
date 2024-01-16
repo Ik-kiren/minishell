@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:47 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/15 12:02:05 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/16 15:56:37 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ static void	add_space_after_i(char **line, int i)
 
 void	count_t2(char **line, int *i, int *count)
 {
-	if (c_pr((*line)[*i])  && (*line)[*i + 1] != ' ' && (*line)[*i + 1] != '\0')
+	if (c_pr((*line)[*i]) && !check_sp((*line)[*i + 1]) && \
+		(*line)[*i + 1] != '\0')
 	{
 		if (c_pr((*line)[*i + 1]))
 		{
@@ -59,7 +60,7 @@ void	count_t2(char **line, int *i, int *count)
 			*i += 1;
 		}
 	}
-	if (c_pr((*line)[*i + 1]) && (*line)[*i] != ' ')
+	if (c_pr((*line)[*i + 1]) && !check_sp((*line)[*i]))
 	{
 		*count += 1;
 		add_space_after_i(line, *i);
@@ -78,10 +79,10 @@ int	count_tokens(char **line)
 	i = 0;
 	while ((*line)[i])
 	{
-		if ((*line)[i] != '\0' && (*line)[i] != ' ')
+		if ((*line)[i] != '\0' && !check_sp((*line)[i]))
 		{
 			count++;
-			while ((*line)[i] && ((*line)[i] != ' ' || quotes || dquotes))
+			while ((*line)[i] && (!check_sp((*line)[i]) || quotes || dquotes))
 			{
 				count_t2(line, &i, &count);
 				quotes_states2(*line, i, &quotes, &dquotes);

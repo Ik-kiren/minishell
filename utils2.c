@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:40:54 by cdupuis           #+#    #+#             */
-/*   Updated: 2023/12/14 10:26:45 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/16 15:55:50 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	ft_atoi(const char *str)
 	res = 0;
 	i = 0;
 	n = 1;
-	while (str[i] == ' ' || str[i] == '\n' || str[i] == '\f'
+	while (check_sp(str[i]) || str[i] == '\n' || str[i] == '\f'
 		|| str[i] == '\t' || str[i] == '\v' || str[i] == '\r')
 	{
 		i++;
