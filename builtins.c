@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: n43 <n43@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:51:06 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/15 08:12:04 by n43              ###   ########.fr       */
+/*   Updated: 2024/01/16 12:34:20 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ int	shell_exit(t_data *data, char **tok)
 			free_str(tok);
 		}
 	}
+	close_pipes(data->cmd, NULL);
 	return (free_str(data->env), exit(exit_c), 0);
 }
 
