@@ -136,7 +136,7 @@ test.txt file in test folder  => il manque le -e
 - [ ] #task `cat -e test.txt > salut test > coucou > bjr` (with test file doesn't exist)  
 ```
 bash:
-[n43@rog tests]$ cat -e test.txt > salut test > coucou > bjr
+[n43@rog tests]$ d
 cat: test: Aucun fichier ou dossier de ce type
 
 nous:

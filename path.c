@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:34:40 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/14 15:35:53 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/16 11:22:54 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ char	*get_path(t_data *data, t_cmd *cmd)
 	char	*path;
 	int		idx;
 
+	if (cmd->cmd[0] == '.')
+		return NULL;
 	idx = get_env_idx(data, "PATH");
 	if (idx == -1)
 		return ("");
