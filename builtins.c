@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:51:06 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/16 18:43:35 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/17 14:02:45 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,66 +41,6 @@ int	shell_cd(t_data *data)
 		else
 			set_pwd(data);
 	}
-	return (1);
-}
-
-void	check_echo(char **tokens, int *k)
-{
-	int	i;
-	int	j;
-
-	j = 1;
-	while (tokens[j])
-	{
-		i = 0;
-		while (tokens[j][i])
-		{
-			if (tokens[j][0] != '-')
-			{
-				*k = j - 1;
-				return;
-			}
-			if (tokens[j][i] != 'n' && i != 0)
-			{
-				*k = j - 1;
-				return ;
-			}
-			i++;
-		}
-		j++;
-	}
-}
-
-int	shell_echo(t_data *data, char **tokens)
-{
-	int	i;
-	int	arg;
-
-	i = 1;
-	arg = 0;
-	while (tokens[i])
-	{
-		if (tokens[1][0] == '-' && tokens[1][1] == 'n')
-		{
-			check_echo(tokens, &i);
-			while (tokens[i + 1])
-			{
-				printf("%s", tokens[++i]);
-				if (tokens[i + 1])
-					printf(" ");
-			}
-			arg++;
-			break;
-		}
-		else
-			printf("%s", tokens[i]);
-		i++;
-		if (tokens[i])
-			printf(" ");
-	}
-	if (arg == 0)
-		printf("\n");
-	data->ret = 0;
 	return (1);
 }
 
@@ -146,7 +86,8 @@ int	launch_builtins(t_cmd *cmd, t_data *data, char **tokens)
 		ret = shell_echo(data, cmd->args);
 	else if (!ft_strncmp2(cmd->cmd, "pwd", ft_strlen(max(cmd->cmd, "pwd"))))
 		ret = shell_pwd(data);
-	else if (!ft_strncmp2(cmd->cmd, "export", ft_strlen(max(cmd->cmd, "export"))))
+	else if (!ft_strncmp2(cmd->cmd, "export" \
+	, ft_strlen(max(cmd->cmd, "export"))))
 		ret = shell_export(tokens, data);
 	else if (!ft_strncmp2(cmd->cmd, "unset", ft_strlen(max(cmd->cmd, "unset"))))
 		ret = shell_unset(tokens, data);

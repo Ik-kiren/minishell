@@ -35,3 +35,5 @@ ls -l  a
 > redirection infile pas d'erreur access, execution malgré fichier qui n'existe pas
 > verifier les status code des verification access
 > access avec chemin absolue et ./
+
+leak command existe pas

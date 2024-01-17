@@ -27,7 +27,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "test minishell chriss.md",
+                "file": "chriss/test a gerer avant mardi.md",
                 "mode": "source",
                 "source": false
               }
@@ -100,7 +100,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "test minishell chriss.md",
+                "file": "chriss/test a gerer avant mardi.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -117,7 +117,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "test minishell chriss.md",
+                "file": "chriss/test a gerer avant mardi.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -140,7 +140,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "test minishell chriss.md"
+                "file": "chriss/test a gerer avant mardi.md"
               }
             }
           },
@@ -150,9 +150,7 @@
             "state": {
               "type": "all-properties",
               "state": {
-                "sortOrder": "frequency",
-                "showSearch": false,
-                "searchQuery": ""
+                "sortOrder": "frequency"
               }
             }
           }
@@ -175,10 +173,10 @@
   },
   "active": "46539e72151f8319",
   "lastOpenFiles": [
+    "test minishell chriss.md",
     "N43/Todo.md",
     "Pierre TestUnit.md",
     "N43/cd.md",
-    "test minishell chriss.md",
     "chriss/test a gerer avant mardi.md",
     "chriss",
     "N43/exit.md",

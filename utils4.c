@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 14:12:37 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/16 15:36:51 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/17 17:29:36 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,32 @@ int	check_sp(char c)
 		return (1);
 	else
 		return (0);
+}
+void unlink_doc(t_cmd *last)
+{
+	if (last->fdh && last->fdh->type == 3)
+	{
+		close(last->fdh->fd);
+		unlink(last->fdh->name);
+	}
+}
+char	**ft_realloc(char **tab1, char *s1)
+{
+	char	**ret;
+	int		i;
+	int		j;
+
+	j = 0;
+	i = ft_ptrlen(tab1) + 2;
+	ret = malloc(sizeof(char *) * i);
+	while (j < i - 2)
+	{
+		ret[j] = strdup(tab1[j]);
+		j++;
+	}
+	ret[j] = s1;
+	j++;
+	ret[j] = '\0';
+	free_str(tab1);
+	return(ret);
 }

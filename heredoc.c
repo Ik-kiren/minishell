@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:26:41 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/15 17:43:35 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/17 10:39:56 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	heredoc_redirect(t_cmd *last, t_data *data, char **tokens, int i)
 		return (1);
 	}
 	last = get_last_cmd(data->cmd);
+	unlink_doc(last);
 	name = ft_strjoin_f2(ft_strjoin("/dev/shm/", tokens[i + 1]), ft_itoa(i));
 	last->fdh = new_fds(name);
 	last->fdh->type = 3;

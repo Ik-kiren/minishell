@@ -3,3 +3,4 @@ file*
 ./*.o
 .vscode
 test/
+/tests

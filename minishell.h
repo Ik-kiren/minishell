@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:58 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/16 18:04:25 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/17 16:48:58 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,8 @@ char	*ft_strjoin_f2(char *s1, char *s2);
 int		check_sp(char c);
 int		_echo(t_cmd *cmd);
 char	*max(char *s1, char *s2);
-
+void	unlink_doc(t_cmd *last);
+int		shell_echo(t_data *data, char **tokens);
+char	**ft_realloc(char **tab1, char *s1);
 
 #endif

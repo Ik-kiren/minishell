@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:34:40 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/16 15:05:24 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/17 13:33:18 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*find_path(t_cmd *cmd, char **paths)
 		free_ptr(path);
 		i++;
 	}
-	return (cmd->cmd);
+	return (ft_strdup(""));
 }
 
 char	*get_path(t_data *data, t_cmd *cmd)
@@ -50,7 +50,7 @@ char	*get_path(t_data *data, t_cmd *cmd)
 	idx = get_env_idx(data, "PATH");
 	if (idx == -1)
 		return (ft_strdup(""));
-	paths = ft_split(data->env[idx], ':');
+	paths = ft_split(data->env[idx] + 5, ':');
 	if (!paths)
 		return (NULL);
 	path = find_path(cmd, paths);
@@ -59,4 +59,3 @@ char	*get_path(t_data *data, t_cmd *cmd)
 	free_str(paths);
 	return (path);
 }
- 

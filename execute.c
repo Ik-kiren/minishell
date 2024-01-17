@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:22:16 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/16 14:39:45 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/17 14:29:03 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +38,25 @@ int	get_children(t_data *data)
 	return (status);
 }
 
-int check_cmd(t_data *data, t_cmd *cmd)
+int	check_cmd(t_data *data, t_cmd *cmd)
 {
-	//char	cwd[4096];
-
 	if ((cmd->cmd[0] == '.' && cmd->cmd[1] == '/') \
 		|| (cmd->cmd[0] == '.' && cmd->cmd[1] == '.' && cmd->cmd[2] == '/') \
 		|| cmd->cmd[0] == '/')
 	{
 		cmd->path = ft_strdup(cmd->cmd);
-		if(access(cmd->cmd, F_OK) == -1)
+
+		if ((access(cmd->cmd, R_OK || W_OK) == -1))
+			exit(1);
+		else if (access(cmd->cmd, F_OK) == -1)
 			exit(127);
-		if(access(cmd->cmd, X_OK) == -1)
+		else if (access(cmd->cmd, X_OK) == -1)
 			exit(126);
 	}
 	else
+	{
 		cmd->path = get_path(data, cmd);
+	}
 	return (0);
 }
 
@@ -62,10 +65,6 @@ int	execute_child(t_cmd *cmd, t_data *data, char **tokens, int builtins)
 	int	status;
 
 	status = 0;
-	/*if (cmd->cmd[0] == '.')
-	{
-		cmd->args[0] = ft_strdup(ft_strjoin(getcwd(cwd, 4096), cmd->cmd + 1));
-	}*/
 	while (cmd && builtins == 0 && cmd->cmd[0] != '<')
 	{
 		data->pid = fork();

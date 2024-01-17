@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:32:14 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/16 18:10:42 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/17 17:32:00 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 int	shell_launch(t_data *data, t_cmd *cmd)
 {
 	if (execve(cmd->path, cmd->args, data->env) == -1)
+	{
 		perror(cmd->cmd);
+		clean_cmd(&cmd);
+	}
 	exit(EXIT_FAILURE);
 }
 
@@ -47,7 +50,11 @@ void	shell_loop(t_data *data)
 	{
 		line = shell_line(data);
 		if (!line)
+		{
+			if (data->cmd)
+				clean_cmd(&data->cmd);
 			shell_exit(data, NULL);
+		}
 		if (line[0] != '\0')
 		{
 			tokens = shell_split_tokens(data, line);

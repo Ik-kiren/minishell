@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:30:46 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/16 15:06:26 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/17 14:20:33 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,10 @@ void	clean_cmd(t_cmd **cmd)
 {
 	t_cmd	*tmp;
 
-
-
 	tmp = NULL;
 	if (!cmd)
 		return ;
+	close_pipes(*cmd, NULL);
 	while (*cmd)
 	{
 		tmp = (*cmd)->next;
@@ -49,7 +48,8 @@ void	clean_cmd(t_cmd **cmd)
 		}
 		if ((*cmd)->fdh)
 		{
-			unlink((*cmd)->fdh->name);
+			if ((*cmd)->fdh->type == 3)
+				unlink((*cmd)->fdh->name);
 			free_ptr((*cmd)->fdh->name);
 			free_ptr((*cmd)->fdh);
 		}
