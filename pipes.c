@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: daribeir <daribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:30:18 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/16 12:20:06 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/17 21:40:02 by daribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@ void	close_pipes(t_cmd *cmd, t_cmd *skip_cmd)
 	}
 }
 
+static void	close_them(t_cmd *cmd)
+{
+	close(cmd->fds->stdout_fd);
+	close(cmd->fds->stdin_fd);
+}
+
 int	set_pipes(t_cmd *cmd, t_cmd *c)
 {
 	if (c->fdh)
@@ -37,8 +43,6 @@ int	set_pipes(t_cmd *cmd, t_cmd *c)
 		if (c->fds)
 			dup2(c->fds->fd, STDOUT_FILENO);
 	}
-	/*else if (c->prev && c->prev->fds && c->prev->fdh)
-		dup2(c->prev->fds->fd, STDIN_FILENO);*/
 	else if (c->fds != NULL && (c->fds->type == 1 || c->fds->type == 3))
 		dup2(c->fds->fd, STDIN_FILENO);
 	else if (c->prev)
@@ -55,8 +59,7 @@ int	set_pipes(t_cmd *cmd, t_cmd *c)
 	{
 		cmd->fds->stdout_fd = dup(STDOUT_FILENO);
 		cmd->fds->stdin_fd = dup(STDIN_FILENO);
-		close(cmd->fds->stdout_fd);
-		close(cmd->fds->stdin_fd);
+		close_them(cmd);
 	}
 	return (1);
 }

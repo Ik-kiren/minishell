@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: daribeir <daribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 14:02:31 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/17 14:03:55 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/17 21:52:32 by daribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,31 +42,28 @@ void	check_echo(char **tokens, int *k, int *arg)
 
 int	shell_echo(t_data *data, char **tokens)
 {
-	int	i;
-	int	arg;
-
-	i = 1;
-	arg = 0;
-	while (tokens[i])
+	data->i = 1;
+	data->arg = 0;
+	while (tokens[data->i])
 	{
 		if (tokens[1][0] == '-' && tokens[1][1] == 'n')
 		{
-			check_echo(tokens, &i, &arg);
-			while (tokens[i + 1])
+			check_echo(tokens, &(data->i), &(data->arg));
+			while (tokens[data->i + 1])
 			{
-				printf("%s", tokens[++i]);
-				if (tokens[i + 1])
+				printf("%s", tokens[++(data->i)]);
+				if (tokens[data->i + 1])
 					printf(" ");
 			}
 			break ;
 		}
 		else
-			printf("%s", tokens[i]);
-		i++;
-		if (tokens[i])
+			printf("%s", tokens[data->i]);
+		(data->i) += 1;
+		if (tokens[data->i])
 			printf(" ");
 	}
-	if (arg == 0)
+	if (data->arg == 0)
 		printf("\n");
 	data->ret = 0;
 	return (1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: daribeir <daribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:34:40 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/17 13:33:18 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/17 21:58:30 by daribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*get_path(t_data *data, t_cmd *cmd)
 	int		idx;
 
 	if (cmd->cmd[0] == '.')
-		return NULL;
+		return (NULL);
 	idx = get_env_idx(data, "PATH");
 	if (idx == -1)
 		return (ft_strdup(""));

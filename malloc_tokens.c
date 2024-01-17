@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   malloc_tokens.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: daribeir <daribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 13:40:22 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/16 15:50:23 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/17 21:43:48 by daribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,30 +59,30 @@ void	malloc_tokens_utils2(int *q, int *dq, int *count)
 	*count = 0;
 }
 
-void	malloc_tokens_utils(char *line, char **tokens, int i, int j)
+void	malloc_tokens_utils(char *l, char **tokens, int i, int j)
 {
 	int	count;
 	int	q;
 	int	dq;
 
 	malloc_tokens_utils2(&q, &dq, &count);
-	while (line[i])
+	while (l[i])
 	{
 		count = 0;
-		if (line[i] != '\0' && !(check_sp(line[i])))
+		if (l[i] != '\0' && !(check_sp(l[i])))
 		{
-			malloc_tokens_utils3(line, tokens, &i, &j);
-			if (!line[i] || (c_pr(line[i]) && !line[i + 1]))
+			malloc_tokens_utils3(l, tokens, &i, &j);
+			if (!l[i] || (c_pr(l[i]) && !l[i + 1]))
 				break ;
-			while (line[i] && (!(check_sp(line[i])) || q || dq || c_pr(line[i])))
+			while (l[i] && (!(check_sp(l[i])) || q || dq || c_pr(l[i])))
 			{
-				quotes_states2(line, i, &q, &dq);
+				quotes_states2(l, i, &q, &dq);
 				i++;
 				count++;
 			}
 			tokens[j++] = malloc(sizeof(char) * (count + 1));
 		}
-		if (!malloc_tokens_utils4(line, &i))
+		if (!malloc_tokens_utils4(l, &i))
 			break ;
 	}
 	tokens[j] = NULL;

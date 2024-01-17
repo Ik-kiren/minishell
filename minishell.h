@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: daribeir <daribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:58 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/17 16:48:58 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/17 21:55:07 by daribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,9 @@ typedef struct s_data
 	int					ret;
 	int					err;
 	int					doc;
+	int					i;
+	int					arg;
+	int					status;
 }	t_data;
 
 char	**shell_split_tokens(t_data *data, char *line);

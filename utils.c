@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: daribeir <daribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:54 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/15 17:44:19 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/17 21:41:24 by daribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,18 +125,4 @@ char	*ft_strjoin_f(char *s1, char const *s2)
 	s[len + i] = '\0';
 	free(s1);
 	return (s);
-}
-
-void	get_allenv(char **envp, char *str)
-{
-	int	i;
-
-	i = 0;
-	while (envp[i])
-	{
-		if (str)
-			printf("%s", str);
-		printf("%s\n", envp[i]);
-		i++;
-	}
 }

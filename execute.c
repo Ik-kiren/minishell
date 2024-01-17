@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: daribeir <daribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:22:16 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/17 14:29:03 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/17 21:55:57 by daribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	check_cmd(t_data *data, t_cmd *cmd)
 		|| cmd->cmd[0] == '/')
 	{
 		cmd->path = ft_strdup(cmd->cmd);
-
 		if ((access(cmd->cmd, R_OK || W_OK) == -1))
 			exit(1);
 		else if (access(cmd->cmd, F_OK) == -1)
@@ -62,9 +61,7 @@ int	check_cmd(t_data *data, t_cmd *cmd)
 
 int	execute_child(t_cmd *cmd, t_data *data, char **tokens, int builtins)
 {
-	int	status;
-
-	status = 0;
+	data->status = 0;
 	while (cmd && builtins == 0 && cmd->cmd[0] != '<')
 	{
 		data->pid = fork();
@@ -84,8 +81,8 @@ int	execute_child(t_cmd *cmd, t_data *data, char **tokens, int builtins)
 	}
 	if (builtins == 0)
 	{
-		status = get_children(data);
-		data->ret = status % 256;
+		data->status = get_children(data);
+		data->ret = data->status % 256;
 	}
 	return (1);
 }

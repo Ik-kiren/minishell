@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: daribeir <daribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:51:06 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/17 14:02:45 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/17 21:48:37 by daribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,14 @@ int	shell_cd(t_data *data)
 	return (1);
 }
 
+static void	exit_clean(t_data *data, int exit_c)
+{
+	close_pipes(data->cmd, NULL);
+	clean_cmd(&data->cmd);
+	free_str(data->env);
+	exit(exit_c);
+}
+
 int	shell_exit(t_data *data, char **tok)
 {
 	int	exit_c;
@@ -70,9 +78,7 @@ int	shell_exit(t_data *data, char **tok)
 		}
 		free_str(tok);
 	}
-	close_pipes(data->cmd, NULL);
-	clean_cmd(&data->cmd);
-	return (free_str(data->env), exit(exit_c), 0);
+	return (exit_clean(data, exit_c), 0);
 }
 
 int	launch_builtins(t_cmd *cmd, t_data *data, char **tokens)
