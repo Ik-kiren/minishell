@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:30:31 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/17 19:39:25 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/17 20:28:13 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,58 +78,59 @@ void	check_args(t_cmd *tmp, char **tokens, int *i)
 	pipe(tmp->pipe);
 }
 
-void	fill_in_cmd(t_cmd *tmp, char **tokens, int i, int l)
+void	fill_ic_utils(t_cmd *tmp, char **tokens, int *i)
 {
-	int	j;
+	tmp->cmd = ft_strdup(tokens[*i]);
+	tmp->args = malloc(sizeof(char *) * 1);
+	tmp->args[0] = NULL;
+	while (tokens[*i] && tokens[*i][0] != '|')
+	{
+		if (tokens[*i][0] == '|')
+			*i += 1;
+		while (tokens[*i] && tokens[*i][0] != '|'
+		&& tokens[*i][0] != '>' && tokens[*i][0] != '<')
+		{
+			tmp->args = ft_realloc(tmp->args, ft_strdup(tokens[*i]));
+			*i += 1;
+		}
+		while (tokens[*i] && (tokens[*i][0] == '<' || tokens[*i][0] == '>'))
+			*i += 2;
+	}
+	tmp->pipe = malloc(sizeof(int) * 2);
+	pipe(tmp->pipe);
+}
 
+void	fill_in_cmd(t_cmd *tmp, char **tokens, int i)
+{
 	while (tmp)
 	{
-		j = i;
-		while ((tokens[i][0] == '<' ||  tokens[i][0] == '>') && tokens[i + 2] && \
-			(c_pr(tokens[i + 2][0]) || !tokens[i + 3]))
+		while ((tokens[i][0] == '<' || tokens[i][0] == '>') && tokens[i + 2] && \
+		(c_pr(tokens[i + 2][0]) || !tokens[i + 3]))
 			i += 2;
-		if ((tokens[i][0] == '<' ||  tokens[i][0] == '>') && tokens[i + 2] && \
-			(!c_pr(tokens[i + 2][0]) || !tokens[i + 3]))
+		if ((tokens[i][0] == '<' || tokens[i][0] == '>') && tokens[i + 2] && \
+		(!c_pr(tokens[i + 2][0]) || !tokens[i + 3]))
 		{
 			i += 2;
 			check_args(tmp, tokens, &i);
 		}
-		else if (!(tokens[i][0] == '<' ||  tokens[i][0] == '>'))
+		else if (!(tokens[i][0] == '<' || tokens[i][0] == '>'))
 		{
-			if (tokens[i][0] == '|')
-				i++;
-			tmp->cmd = ft_strdup(tokens[i]);
-			while (tokens[j] && tokens[j][0] != '|'
-				&& tokens[j][0] != '>' && tokens[j][0] != '<')
-				j++;
-			tmp->args = malloc(sizeof(char *) * (j + 1));
-			while (tokens[i] && tokens[i][0] != '|'
-				&& tokens[i][0] != '>' && tokens[i][0] != '<')
-			{
-				tmp->args[l++] = ft_strdup(tokens[i++]);
-			}
-			while (tokens[i] && (tokens[i][0] == '<' || tokens[i][0] == '>'))
-				i += 2;
-			tmp->pipe = malloc(sizeof(int) * 2);
-			pipe(tmp->pipe);
-			tmp->args[l] = NULL;
-			l = 0;
+			fill_ic_utils(tmp, tokens, &i);
 			i++;
 		}
 		tmp = tmp->next;
 	}
 }
 
+
 void	fill_cmd(char **tokens, t_cmd **cmd)
 {
 	int		i;
 	t_cmd	*tmp;
-	int		l;
 
 	tmp = *cmd;
 	i = 0;
-	l = 0;
 	if (!tokens)
 		return ;
-	fill_in_cmd(tmp, tokens, i, l);
+	fill_in_cmd(tmp, tokens, i);
 }
