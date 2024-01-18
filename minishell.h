@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: n43 <n43@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:58 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/18 14:16:35 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/18 16:57:46 by n43              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,5 +151,6 @@ void	get_t_u(int *q, int *dq);
 void	cd_path(t_data *data);
 int		unset_env_variable(t_data *data, char *token);
 char	*ft_strjoin_f1(char const *s1, char *s2);
+void	shlevel(t_data *data);
 
 #endif

@@ -81,3 +81,15 @@
    ...
    fun:(below main)
 }
+{
+   <shellvl>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:ft_strdup
+   fun:env_realloc
+   fun:set_env_variable
+   fun:set_shlvl
+   fun:shlevel
+   fun:main
+}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: n43 <n43@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:32:14 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/18 14:24:56 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/18 16:49:36 by n43              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,12 @@ void	launch_cmd(t_cmd *cmd, t_data *data, char **tokens)
 	set_pipes(data->cmd, cmd);
 	close_pipes(data->cmd, NULL);
 	ret = launch_builtins(cmd, data, tokens);
+	free_str(tokens);
 	if (ret == 0)
 		shell_launch(data, cmd);
 	else
 	{
+		free_str(data->env);
 		clean_cmd(&cmd);
 	}
 	exit(EXIT_SUCCESS);

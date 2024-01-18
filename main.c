@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: n43 <n43@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:51:03 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/18 13:13:26 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/18 16:56:50 by n43              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,41 +112,6 @@ void	init_data(t_data *data, char **envp)
 	data->i = 0;
 	data->arg = 0;
 	data->status = 0;
-}
-
-void set_shlvl(t_data *data, int lvl)
-{
-	char	*str;
-
-	unset_env_variable(data, "SHLVL");
-	if (lvl > 999)
-	{
-		lvl = 1;
-		printf("minishell: warning: reset SHLVL to 1\n");
-	}
-	if (lvl < 0)
-		lvl = 0;
-	str = ft_itoa(lvl);
-	str = ft_strjoin_f1("SHLVL=", str);
-	set_env_variable(data, str);
-	free_ptr(str);
-}
-
-void	shlevel(t_data *data)
-{
-	int		i;
-	int		lvl;
-
-	i = get_env_idx(data, "SHLVL");
-	if (i == -1)
-		set_env_variable(data, "SHLVL=1");
-	else
-	{
-		i = get_env_idx(data, "SHLVL");
-		lvl = ft_atoi(data->env[i] + 6);
-		lvl++;
-		set_shlvl(data, lvl);
-	}
 }
 
 int	main(int argc, char **argv, char **envp)

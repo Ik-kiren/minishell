@@ -1,0 +1,21 @@
+str[0] : echo => 0x4be1f80
+str[0] : echo => 0x4be2210
+str[0] : /opt/jython/bin/ => 0x4be23b0
+str[1] : /usr/local/bin => 0x4be23b8
+str[2] : /usr/bin => 0x4be23c0
+str[3] : /usr/local/sbin => 0x4be23c8
+str[4] : /opt/cuda/bin => 0x4be23d0
+str[5] : /opt/cuda/nsight_compute => 0x4be23d8
+str[6] : /opt/cuda/nsight_systems/bin => 0x4be23e0
+str[7] : /var/lib/flatpak/exports/bin => 0x4be23e8
+str[8] : /usr/lib/jvm/default/bin => 0x4be23f0
+str[9] : /usr/bin/site_perl => 0x4be23f8
+str[10] : /usr/bin/vendor_perl => 0x4be2400
+str[11] : /usr/bin/core_perl => 0x4be2408
+str[12] : /home/n43/bin => 0x4be2410
+str[13] : /home/n43/.local/bin => 0x4be2418
+plop
+str[0] : echo => 0x4be22b0
+str[1] : plop => 0x4be22b8
+str[0] : echo => 0x4be22b0
+str[1] : plop => 0x4be22b8

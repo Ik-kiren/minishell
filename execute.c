@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: n43 <n43@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:22:16 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/18 13:40:50 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/18 16:55:06 by n43              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,18 @@ int	check_cmd(t_data *data, t_cmd *cmd)
 	return (0);
 }
 
+void	free_exe(t_data *data, t_cmd *cmd, char **tokens)
+{
+	int	err;
+
+	err = cmd->err;
+	free_str(data->env);
+	clean_cmd(&cmd);
+	free_str(tokens);
+	perror("minishell");
+	exit(err);
+}
+
 int	execute_child(t_cmd *cmd, t_data *data, char **tokens, int builtins)
 {
 	data->status = 0;
@@ -72,10 +84,7 @@ int	execute_child(t_cmd *cmd, t_data *data, char **tokens, int builtins)
 		else if (data->pid == 0)
 		{
 			if (cmd->err != -45)
-			{
-				perror("minishell");
-				exit(cmd->err);
-			}
+				free_exe(data, cmd, tokens);
 			check_cmd(data, cmd);
 			launch_cmd(cmd, data, tokens);
 		}

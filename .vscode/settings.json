@@ -29,6 +29,16 @@
 			"cwd": "/home/n43/Documents/minishell-chriss",
 			"binaryPath": "/home/n43/Documents/minishell-chriss/minishell",
 			"binaryArgs": []
+		},
+		{
+			"cwd": "/home/n43/minishell",
+			"binaryPath": "valgrind -s --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=valgrind.supp --gen-suppressions=all --track-fds=yes /home/n43/minishell/minishell",
+			"binaryArgs": []
+		},
+		{
+			"cwd": "/home/n43/minishell",
+			"binaryPath": "/home/n43/minishell/minishell",
+			"binaryArgs": []
 		}
 	]
 }
