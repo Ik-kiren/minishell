@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:30:18 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/18 13:56:04 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/18 21:10:08 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	close_pipes(t_cmd *cmd, t_cmd *skip_cmd)
 			close(cmd->pipe[0]);
 			close(cmd->pipe[1]);
 		}
-		if (cmd->fds)
+		if (cmd->fds && cmd->fds->fd > 0)
 			close(cmd->fds->fd);
-		if (cmd->fdh)
+		if (cmd->fdh && cmd->fdh->fd > 0)
 			close(cmd->fdh->fd);
 		cmd = cmd->next;
 	}
@@ -78,7 +78,7 @@ int	pipe_count(t_data *data, char **tokens)
 	add_cmd_lst(&data->cmd, lst_new_cmd());
 	while (tokens[++i])
 	{
-		if (tokens[i][0] == '|' )
+		if (tokens[i][0] == '|')
 		{
 			add_cmd_lst(&data->cmd, lst_new_cmd());
 			count++;

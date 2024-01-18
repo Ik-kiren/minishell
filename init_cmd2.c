@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_cmd2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daribeir <daribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:30:31 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/17 21:57:44 by daribeir         ###   ########.fr       */
+/*   Updated: 2024/01/18 18:11:27 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,16 @@
 void	fill_in_cmd(t_cmd *tmp, char **tokens, int i)
 {
 	while (tmp)
-	{
-		while ((tokens[i][0] == '<' || tokens[i][0] == '>') && tokens[i + 2] && \
-		(c_pr(tokens[i + 2][0]) || !tokens[i + 3]))
+	{	
+		if (!tokens[i])
+			break ;
+		while ((tokens[i][0] == '<' || tokens[i][0] == '>') \
+			&& tokens[i + 1] && tokens[i + 2] && \
+			(c_pr(tokens[i + 2][0]) || !tokens[i + 3]))
 			i += 2;
-		if ((tokens[i][0] == '<' || tokens[i][0] == '>') && tokens[i + 2] && \
-		(!c_pr(tokens[i + 2][0]) || !tokens[i + 3]))
+		if ((tokens[i][0] == '<' || tokens[i][0] == '>') && \
+			tokens[i + 1] && tokens[i + 2] && \
+			(!c_pr(tokens[i + 2][0]) || !tokens[i + 3]))
 		{
 			i += 2;
 			check_args(tmp, tokens, &i);

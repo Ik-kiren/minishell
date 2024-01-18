@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: n43 <n43@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:51:03 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/18 16:56:50 by n43              ###   ########.fr       */
+/*   Updated: 2024/01/18 17:22:34 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ int	main(int argc, char **argv, char **envp)
 	if (argc != 1)
 		return (0);
 	(void)argv;
-	signals_handler(&data);
+	signals_handler();
 	init_data(&data, envp);
 	shlevel(&data);
 	shell_loop(&data);

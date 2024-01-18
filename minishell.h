@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: n43 <n43@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:58 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/18 16:57:46 by n43              ###   ########.fr       */
+/*   Updated: 2024/01/18 18:10:39 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int		ft_strcmp(char *s1, char *s2);
 int		shell_env(t_data *data);
 int		shell_pwd(t_data *data);
 void	sig_exit(int signal, siginfo_t *r_info, void *s);
-void	signals_handler(t_data *data);
+void	signals_handler(void);
 char	*get_env_var(t_data *data, char *token, int *dolars);
 char	*get_key_value(char *key);
 void	add_cmd_lst(t_cmd **lst, t_cmd *new_cmd);

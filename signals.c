@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 11:49:14 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/18 14:17:18 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/18 17:29:39 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	set_signals_noninteractive(void)
 	sigaction(SIGQUIT, &act, NULL);
 }
 
-void	signals_handler(t_data *data)
+void	signals_handler(void)
 {
 	struct sigaction	response;
 
@@ -62,6 +62,5 @@ void	signals_handler(t_data *data)
 	sigemptyset(&response.sa_mask);
 	response.sa_flags = SA_SIGINFO;
 	sigaction(SIGINT, &response, NULL);
-	data->ret = errno;
 	ignored_signal();
 }

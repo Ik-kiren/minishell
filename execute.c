@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: n43 <n43@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:22:16 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/18 16:55:06 by n43              ###   ########.fr       */
+/*   Updated: 2024/01/18 21:20:38 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,20 @@ int	check_cmd(t_data *data, t_cmd *cmd)
 	{
 		cmd->path = ft_strdup(cmd->cmd);
 		if ((access(cmd->cmd, R_OK || W_OK) == -1))
+		{
+			perror("minishell");
 			exit(1);
+		}
 		else if (access(cmd->cmd, F_OK) == -1)
+		{
+			perror("minishell");
 			exit(127);
+		}
 		else if (access(cmd->cmd, X_OK) == -1)
+		{
+			perror("minishell");
 			exit(126);
+		}
 	}
 	else
 	{
