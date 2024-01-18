@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daribeir <daribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:32:14 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/17 21:59:50 by daribeir         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:33:22 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,13 @@ void	shell_loop2(char **tokens, t_data *data)
 	shell_execute(tokens, data);
 }
 
+void	shell_loop3(t_data *data)
+{
+	if (data->cmd)
+		clean_cmd(&data->cmd);
+	shell_exit(data, NULL);
+}
+
 void	shell_loop(t_data *data)
 {
 	char	*line;
@@ -50,11 +57,7 @@ void	shell_loop(t_data *data)
 	{
 		line = shell_line(data);
 		if (!line)
-		{
-			if (data->cmd)
-				clean_cmd(&data->cmd);
-			shell_exit(data, NULL);
-		}
+			shell_loop3(data);
 		if (line[0] != '\0')
 		{
 			tokens = shell_split_tokens(data, line);
@@ -66,9 +69,6 @@ void	shell_loop(t_data *data)
 			data->err = 0;
 		}
 		else
-		{
 			free_ptr(line);
-		}
 	}
 }
-			

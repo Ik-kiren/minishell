@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daribeir <daribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:58 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/17 22:17:54 by daribeir         ###   ########.fr       */
+/*   Updated: 2024/01/18 10:42:18 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,5 +147,6 @@ int		shell_echo(t_data *data, char **tokens);
 char	**ft_realloc(char **tab1, char *s1);
 void	check_args(t_cmd *tmp, char **tokens, int *i);
 void	fill_ic_utils(t_cmd *tmp, char **tokens, int *i);
+void	get_t_u(int *q, int *dq);
 
 #endif

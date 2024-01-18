@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daribeir <daribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:51:06 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/17 21:48:37 by daribeir         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:10:53 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ int	token_size(char *token)
 
 int	shell_cd(t_data *data)
 {
+	char	*str;
+
+	str = get_env_var(data, "HOME", NULL);
 	if (data->cmd->args[1] != NULL && data->cmd->args[2] != NULL)
 		return (1);
 	if (data->cmd->args[1] == NULL)
@@ -33,6 +36,9 @@ int	shell_cd(t_data *data)
 	}
 	else
 	{
+		if (data->cmd->args[1][0] == '~')
+			data->cmd->args[1] = ft_strjoin_f(get_key_value(str), \
+				data->cmd->args[1] + 1);
 		if (chdir(data->cmd->args[1]) != 0)
 		{
 			data->ret = 1;

@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 13:41:10 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/16 15:57:20 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/18 10:42:35 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	get_tokens_utils3(char *line, int *i)
 	*i += 1;
 	if (*i > 0 && c_pr(line[*i - 1]))
 		*i -= 1;
-	while (check_sp(line[*i ]))
+	while (check_sp(line[*i]))
 		*i += 1;
 	return (1);
 }
@@ -31,7 +31,7 @@ int	get_tokens_utils2(char *line, char *tokens, int *i, int *l)
 		if (check_sp(line[*i + 1]) && !line[*i + 2])
 		{
 			*i += 1;
-			while (check_sp(line[*i ]))
+			while (check_sp(line[*i]))
 				*i += 1;
 			return (0);
 		}
@@ -46,7 +46,7 @@ int	get_tokens_utils2(char *line, char *tokens, int *i, int *l)
 		if (line[*i + 1] && c_pr(line[*i]))
 			*i += 1;
 		*l = 0;
-		while (check_sp(line[*i ]))
+		while (check_sp(line[*i]))
 			*i += 1;
 		return (1);
 	}
@@ -59,8 +59,7 @@ void	get_tokens_utils(char *line, char **tokens, int i, int j)
 	int	q;
 	int	dq;
 
-	q = 0;
-	dq = 0;
+	get_t_u(&q, &dq);
 	while (line[i])
 	{
 		l = 0;
@@ -69,7 +68,8 @@ void	get_tokens_utils(char *line, char **tokens, int i, int j)
 			j += get_tokens_utils2(line, tokens[j], &i, &l);
 			if (!line[i] || (c_pr(line[i]) && !line[i + 1]))
 				break ;
-			while (line[i] && (!(check_sp(line[i])) || q || dq || c_pr(line[i])))
+			while (line[i] && (!(check_sp(line[i])) || \
+				q || dq || c_pr(line[i])))
 			{
 				quotes_states2(line, i, &q, &dq);
 				tokens[j][l++] = line[i++];
@@ -98,4 +98,3 @@ char	**get_tokens(char *line, char **tokens)
 	get_tokens_utils(line, tokens, i, j);
 	return (tokens);
 }
-			
