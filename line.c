@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daribeir <daribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:37:47 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/15 04:57:44 by daribeir         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:44:53 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*shell_line(t_data *data)
 	end_cwd = get_lcwd(cwd);
 	prompt = get_prompt(data, end_cwd);
 	line = NULL;
-	signals_handler();
+	signals_handler(data);
 	line = readline(prompt);
 	set_signals_noninteractive();
 	free(prompt);

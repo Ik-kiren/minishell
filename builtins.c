@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:51:06 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/18 11:10:53 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/18 13:28:06 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@ int	token_size(char *token)
 
 int	shell_cd(t_data *data)
 {
-	char	*str;
-
-	str = get_env_var(data, "HOME", NULL);
 	if (data->cmd->args[1] != NULL && data->cmd->args[2] != NULL)
 		return (1);
 	if (data->cmd->args[1] == NULL)
@@ -37,8 +34,9 @@ int	shell_cd(t_data *data)
 	else
 	{
 		if (data->cmd->args[1][0] == '~')
-			data->cmd->args[1] = ft_strjoin_f(get_key_value(str), \
-				data->cmd->args[1] + 1);
+		{
+			cd_path(data);
+		}
 		if (chdir(data->cmd->args[1]) != 0)
 		{
 			data->ret = 1;
@@ -92,6 +90,8 @@ int	launch_builtins(t_cmd *cmd, t_data *data, char **tokens)
 	int	ret;
 
 	ret = 0;
+	if (!cmd->cmd)
+		return (0);
 	if (!ft_strncmp2(cmd->cmd, "cd", ft_strlen(max(cmd->cmd, "cd"))))
 		ret = shell_cd(data);
 	else if (!ft_strncmp2(cmd->cmd, "echo", ft_strlen(max(cmd->cmd, "echo"))))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daribeir <daribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:22:16 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/17 21:55:57 by daribeir         ###   ########.fr       */
+/*   Updated: 2024/01/18 13:40:50 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,9 @@ int	check_cmd(t_data *data, t_cmd *cmd)
 int	execute_child(t_cmd *cmd, t_data *data, char **tokens, int builtins)
 {
 	data->status = 0;
-	while (cmd && builtins == 0 && cmd->cmd[0] != '<')
+	if (!cmd->cmd)
+		printf("minishell: i need a good command line moron\n");
+	while (cmd && cmd->cmd && builtins == 0 && cmd->cmd[0] != '<')
 	{
 		data->pid = fork();
 		if (data->pid == -1)
