@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:32:14 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/18 11:33:22 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/18 14:24:56 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ void	launch_cmd(t_cmd *cmd, t_data *data, char **tokens)
 	ret = launch_builtins(cmd, data, tokens);
 	if (ret == 0)
 		shell_launch(data, cmd);
+	else
+	{
+		clean_cmd(&cmd);
+	}
 	exit(EXIT_SUCCESS);
 }
 

@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 11:49:14 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/18 11:44:35 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/18 14:17:18 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ void	signals_handler(t_data *data)
 
 	response.sa_sigaction = sig_exit;
 	sigemptyset(&response.sa_mask);
-	response.sa_flags = 0;
-	if (sigaction(SIGINT, &response, NULL) == 0)
-		data->ret = 130;
+	response.sa_flags = SA_SIGINFO;
+	sigaction(SIGINT, &response, NULL);
+	data->ret = errno;
 	ignored_signal();
 }
