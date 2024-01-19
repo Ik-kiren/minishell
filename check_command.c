@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 10:54:13 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/19 12:29:32 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/19 12:42:28 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ void	check_direcory(t_cmd *cmd)
 {
 	struct stat	dir;
 
-	if (stat(cmd->cmd, &dir) == 0)
+	stat(cmd->path, &dir);
+	if (S_ISDIR(dir.st_mode) != 0)
 	{
 		printf("minishell: %s: is a dir\n", cmd->cmd);
 		exit(126);
