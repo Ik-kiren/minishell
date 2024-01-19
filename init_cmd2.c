@@ -15,12 +15,12 @@
 void	fill_in_cmd(t_cmd *tmp, char **tokens, int i)
 {
 	while (tmp)
-	{	
+	{
 		if (!tokens[i])
 			break ;
 		while ((tokens[i][0] == '<' || tokens[i][0] == '>') \
 			&& tokens[i + 1] && tokens[i + 2] && \
-			(c_pr(tokens[i + 2][0]) || !tokens[i + 3]))
+			((c_pr(tokens[i + 2][0]) && tokens[i + 2][0] != '|') || !tokens[i + 3]))
 			i += 2;
 		if ((tokens[i][0] == '<' || tokens[i][0] == '>') && \
 			tokens[i + 1] && tokens[i + 2] && \

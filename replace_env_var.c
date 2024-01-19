@@ -33,7 +33,7 @@ char	*replace_utils2(int *l)
 char	*malloc_replace(char *token, char *tmp, int *i, int count)
 {
 	free_ptr(tmp);
-	while (token[*i] && token[*i] != '$')
+	while (token[*i] && ((token[*i] != '$') || (token[*i + 1] && token[*i] == '$' && token[*i + 1] == '$')))
 		*i += 1;
 	tmp = malloc(sizeof(char) * (*i - count + 1));
 	return (tmp);
