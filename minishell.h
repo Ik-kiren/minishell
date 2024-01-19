@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:58 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/19 11:26:56 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/19 12:29:49 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <fcntl.h>
 # include <sys/stat.h>
 # include <errno.h>
-#include <sys/stat.h>
+# include <sys/stat.h>
 
 typedef struct s_fds
 {

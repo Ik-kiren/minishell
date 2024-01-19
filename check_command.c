@@ -6,15 +6,15 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 10:54:13 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/19 12:25:41 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/19 12:29:32 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void check_direcory(t_cmd *cmd)
+void	check_direcory(t_cmd *cmd)
 {
-	struct stat dir;
+	struct stat	dir;
 
 	if (stat(cmd->cmd, &dir) == 0)
 	{
