@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 13:30:31 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/18 18:11:27 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/19 11:18:37 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	fill_in_cmd(t_cmd *tmp, char **tokens, int i)
 			break ;
 		while ((tokens[i][0] == '<' || tokens[i][0] == '>') \
 			&& tokens[i + 1] && tokens[i + 2] && \
-			((c_pr(tokens[i + 2][0]) && tokens[i + 2][0] != '|') || !tokens[i + 3]))
+			((c_pr(tokens[i + 2][0]) && tokens[i + 2][0] != '|') \
+				|| !tokens[i + 3]))
 			i += 2;
 		if ((tokens[i][0] == '<' || tokens[i][0] == '>') && \
 			tokens[i + 1] && tokens[i + 2] && \

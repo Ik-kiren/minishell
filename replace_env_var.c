@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replace_env_var.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daribeir <daribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 13:42:46 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/17 21:44:10 by daribeir         ###   ########.fr       */
+/*   Updated: 2024/01/19 11:18:16 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ char	*replace_utils2(int *l)
 char	*malloc_replace(char *token, char *tmp, int *i, int count)
 {
 	free_ptr(tmp);
-	while (token[*i] && ((token[*i] != '$') || (token[*i + 1] && token[*i] == '$' && token[*i + 1] == '$')))
+	while (token[*i] && ((token[*i] != '$') || (token[*i + 1] \
+		&& token[*i] == '$' && token[*i + 1] == '$')))
 		*i += 1;
 	tmp = malloc(sizeof(char) * (*i - count + 1));
 	return (tmp);

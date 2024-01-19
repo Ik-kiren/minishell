@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daribeir <daribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 11:28:19 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/17 21:36:42 by daribeir         ###   ########.fr       */
+/*   Updated: 2024/01/19 11:58:52 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	check_quotes(char c)
+{
+	if (c == '\'' || c == '\"')
+		return (1);
+	return (0);
+}
 
 char	*erase_env_var(char *token)
 {
@@ -46,7 +53,9 @@ int	parse_env_var(t_data *data, char **tokens)
 		if (ft_strchr('$', tokens[i]))
 			tokens[i] = replace_squotes(data, tokens[i]);
 		else if (check_squotes(tokens[i]))
+		{
 			tokens[i] = erase_quotes(tokens[i], quotes);
+		}
 		i++;
 	}
 	return (1);

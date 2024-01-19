@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:22:16 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/18 21:20:38 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/19 12:13:59 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,36 +38,6 @@ int	get_children(t_data *data)
 	return (status);
 }
 
-int	check_cmd(t_data *data, t_cmd *cmd)
-{
-	if ((cmd->cmd[0] == '.' && cmd->cmd[1] == '/') \
-		|| (cmd->cmd[0] == '.' && cmd->cmd[1] == '.' && cmd->cmd[2] == '/') \
-		|| cmd->cmd[0] == '/')
-	{
-		cmd->path = ft_strdup(cmd->cmd);
-		if ((access(cmd->cmd, R_OK || W_OK) == -1))
-		{
-			perror("minishell");
-			exit(1);
-		}
-		else if (access(cmd->cmd, F_OK) == -1)
-		{
-			perror("minishell");
-			exit(127);
-		}
-		else if (access(cmd->cmd, X_OK) == -1)
-		{
-			perror("minishell");
-			exit(126);
-		}
-	}
-	else
-	{
-		cmd->path = get_path(data, cmd);
-	}
-	return (0);
-}
-
 void	free_exe(t_data *data, t_cmd *cmd, char **tokens)
 {
 	int	err;
@@ -83,7 +53,7 @@ void	free_exe(t_data *data, t_cmd *cmd, char **tokens)
 int	execute_child(t_cmd *cmd, t_data *data, char **tokens, int builtins)
 {
 	data->status = 0;
-	if (!cmd->cmd)
+	if (!cmd->cmd && !cmd->fds && !cmd->fdh)
 		printf("minishell: i need a good command line moron\n");
 	while (cmd && cmd->cmd && builtins == 0 && cmd->cmd[0] != '<')
 	{

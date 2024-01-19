@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:50:58 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/18 18:10:39 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/19 11:26:56 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <fcntl.h>
 # include <sys/stat.h>
 # include <errno.h>
+#include <sys/stat.h>
 
 typedef struct s_fds
 {
@@ -152,5 +153,6 @@ void	cd_path(t_data *data);
 int		unset_env_variable(t_data *data, char *token);
 char	*ft_strjoin_f1(char const *s1, char *s2);
 void	shlevel(t_data *data);
+int		check_cmd(t_data *data, t_cmd *cmd);
 
 #endif
