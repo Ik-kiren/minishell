@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:22:16 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/19 12:13:59 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/19 15:10:42 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	execute_child(t_cmd *cmd, t_data *data, char **tokens, int builtins)
 {
 	data->status = 0;
 	if (!cmd->cmd && !cmd->fds && !cmd->fdh)
-		printf("minishell: i need a good command line moron\n");
+		printf("minishell: i need a good command line\n");
 	while (cmd && cmd->cmd && builtins == 0 && cmd->cmd[0] != '<')
 	{
 		data->pid = fork();
@@ -88,6 +88,8 @@ int	shell_execute(char **tokens, t_data *data)
 	builtins = 0;
 	if (tokens[0] == NULL)
 		return (1);
+	if (!cmd->cmd && cmd->err != -45)
+		perror("minishell:");
 	if (cmd && !cmd->next && !cmd->fds)
 		builtins = launch_builtins(cmd, data, tokens);
 	if (execute_child(cmd, data, tokens, builtins) == 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daribeir <daribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 11:28:19 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/17 21:36:33 by daribeir         ###   ########.fr       */
+/*   Updated: 2024/01/19 14:03:16 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static char	*len_malloc(char const *s, size_t len)
 	{
 		free(tab);
 		return (NULL);
-	}
+	}				
 	return (tab);
 }
 

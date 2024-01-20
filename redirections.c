@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:45:49 by cdupuis           #+#    #+#             */
-/*   Updated: 2024/01/17 12:39:57 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/19 15:08:53 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	parse_redirect3(t_cmd *last, t_data *data, char **tokens, int *i)
 		last->fds = new_fds(tokens[*i + 1]);
 		last->fds->type = 2;
 		last->fds->fd = open(last->fds->name, \
-			O_RDWR | O_CREAT | O_TRUNC, S_IRWXU);
+			O_WRONLY | O_CREAT | O_TRUNC, 0777);
 		if (last->fds->fd == -1)
 			last->err = errno;
 		*i += 1;
@@ -71,7 +71,9 @@ int	parse_redirect(t_cmd *last, t_data *data, char **tokens, int *i)
 		last->fds = new_fds(tokens[*i + 1]);
 		last->fds->type = 2;
 		last->fds->fd = open(last->fds->name,
-				O_RDWR | O_APPEND | O_CREAT, S_IRWXU);
+				O_RDWR | O_APPEND | O_CREAT, 0777);
+		if (last->fds->fd == -1)
+			last->err = errno;
 		*i += 1;
 		return (1);
 	}
