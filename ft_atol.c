@@ -6,7 +6,7 @@
 /*   By: cdupuis <cdupuis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 04:57:47 by daribeir          #+#    #+#             */
-/*   Updated: 2024/01/16 17:54:38 by cdupuis          ###   ########.fr       */
+/*   Updated: 2024/01/22 15:48:16 by cdupuis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*max(char *s1, char *s2)
 		return (s2);
 }
 
-static int	go_to_number(char **str, int i, size_t *signe)
+static int	go_to_number(char **str, int i, int *signe)
 {
 	while (((*str)[i] >= 9 && (*str)[i] <= 13) || (*str)[i] == ' ')
 		i++;
@@ -46,7 +46,7 @@ static long long	get_atol_return(char *str, int i)
 
 int	ft_atol(char **str, int *fail)
 {
-	size_t		signe;
+	int		signe;
 
 	signe = 1;
 	if (!(ft_isnumber((*str) + go_to_number(str, 0, &signe))))

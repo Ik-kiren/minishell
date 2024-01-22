@@ -4,37 +4,18 @@
     "type": "split",
     "children": [
       {
-        "id": "5bfd7c363a767d06",
+        "id": "29e50ff76729f012",
         "type": "tabs",
         "children": [
           {
-            "id": "9507fbeaad1bb44a",
-            "type": "leaf",
-            "pinned": true,
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "N43/Todo.md",
-                "mode": "source",
-                "source": false
-              },
-              "pinned": true
-            }
-          },
-          {
-            "id": "46539e72151f8319",
+            "id": "ecfe7cdd62ba3a55",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "chriss/test a gerer avant mardi.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -63,7 +44,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "tag:#task",
+                "query": "tag:\"cube3d/\" ",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -80,7 +61,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -100,7 +82,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "chriss/test a gerer avant mardi.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -117,7 +98,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "chriss/test a gerer avant mardi.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -139,9 +119,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "chriss/test a gerer avant mardi.md"
-              }
+              "state": {}
             }
           },
           {
@@ -150,7 +128,9 @@
             "state": {
               "type": "all-properties",
               "state": {
-                "sortOrder": "frequency"
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
               }
             }
           }
@@ -171,13 +151,15 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "46539e72151f8319",
+  "active": "3e556b7f95edce3f",
   "lastOpenFiles": [
-    "test minishell chriss.md",
+    "cube3d",
+    "Untitled.canvas",
     "N43/Todo.md",
+    "chriss/test a gerer avant mardi.md",
+    "test minishell chriss.md",
     "Pierre TestUnit.md",
     "N43/cd.md",
-    "chriss/test a gerer avant mardi.md",
     "chriss",
     "N43/exit.md",
     "img/Pasted image 20240110150130.png",
@@ -214,11 +196,9 @@
     "HTB/Machines/Linux/Devvortex/Exploitation/Privesc.md",
     "HTB/Machines/Linux/Devvortex/Exploitation/Foothold.md",
     "HTB/Machines/Linux/Pilgrimage/Exploitation/Foothold.md",
-    "HTB/Machines/Linux/Devvortex/Files/ash",
     "HTB/Machines/Linux/Devvortex/Enum/80.md",
     "HTB/Machines/Linux/Devvortex/Enum/nmap.md",
     "CheatSheet/MesCheatSheet/Pentest/Manual Recon/Manual Recon.md",
-    "HTB/Machines/Linux/Devvortex/Tasks/Devvortex.md",
     "Offensive-Security/Sans titre.canvas",
     "Sans titre.canvas"
   ]
